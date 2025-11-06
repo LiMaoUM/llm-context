@@ -374,21 +374,7 @@ This framework directly supports:
 - **Section 5**: Results with accuracy/calibration/interaction analysis
 - **Section 6**: Discussion with sensitivity and error analysis
 
-## Citation
 
-If you use this framework, please cite:
-
-```bibtex
-@article{your-paper-2025,
-  title={Understanding Context Effects on LLM Confidence in Social Meaning Interpretation},
-  author={Your Name},
-  year={2025}
-}
-```
-
-## License
-
-[Your License Here]
 
 ## Contributing
 
