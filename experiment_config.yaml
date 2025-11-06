@@ -1,0 +1,288 @@
+# Experiment Configuration for LLM Context & Confidence Analysis
+
+# ==============================================================================
+# 1. MODELS TO EVALUATE
+# ==============================================================================
+models:
+  - name: "gpt-4-turbo"
+    provider: "openai"
+    config:
+      model_id: "gpt-4-turbo-preview"
+      temperature: 0.7
+      max_tokens: 256
+    
+  - name: "gpt-3.5-turbo"
+    provider: "openai"
+    config:
+      model_id: "gpt-3.5-turbo"
+      temperature: 0.7
+      max_tokens: 256
+
+  - name: "claude-3-opus"
+    provider: "anthropic"
+    config:
+      model_id: "claude-3-opus-20240229"
+      temperature: 0.7
+      max_tokens: 256
+
+  - name: "claude-3-sonnet"
+    provider: "anthropic"
+    config:
+      model_id: "claude-3-sonnet-20240229"
+      temperature: 0.7
+      max_tokens: 256
+
+  - name: "llama-2-70b"
+    provider: "huggingface"  # via Replicate or local deployment
+    config:
+      model_id: "meta-llama/Llama-2-70b-chat-hf"
+      temperature: 0.7
+      max_tokens: 256
+
+  - name: "gemma-2-27b"
+    provider: "huggingface"
+    config:
+      model_id: "google/gemma-2-27b-it"
+      temperature: 0.7
+      max_tokens: 256
+
+# ==============================================================================
+# 2. CONTEXT ABLATION SCHEME
+# ==============================================================================
+context_variants:
+  - variant_name: "T"
+    description: "Text only - focal post alone"
+    include:
+      - post_text: true
+      - conversation: false
+      - background: false
+      - metadata: false
+  
+  - variant_name: "T+C"
+    description: "Text + Conversation - add direct parent/child replies"
+    include:
+      - post_text: true
+      - conversation: true
+      - background: false
+      - metadata: false
+  
+  - variant_name: "T+B"
+    description: "Text + Background - add event summaries or entity descriptions"
+    include:
+      - post_text: true
+      - conversation: false
+      - background: true
+      - metadata: false
+  
+  - variant_name: "T+M"
+    description: "Text + Metadata - add user bio, media URLs, hashtags"
+    include:
+      - post_text: true
+      - conversation: false
+      - background: false
+      - metadata: true
+  
+  - variant_name: "T+C+B"
+    description: "Text + Conversation + Background"
+    include:
+      - post_text: true
+      - conversation: true
+      - background: true
+      - metadata: false
+  
+  - variant_name: "T+C+M"
+    description: "Text + Conversation + Metadata"
+    include:
+      - post_text: true
+      - conversation: true
+      - background: false
+      - metadata: true
+  
+  - variant_name: "T+B+M"
+    description: "Text + Background + Metadata"
+    include:
+      - post_text: true
+      - conversation: false
+      - background: true
+      - metadata: true
+  
+  - variant_name: "FULL"
+    description: "Full context - all layers (T+C+B+M)"
+    include:
+      - post_text: true
+      - conversation: true
+      - background: true
+      - metadata: true
+
+# ==============================================================================
+# 3. PROMPT CONFIGURATION
+# ==============================================================================
+prompt_template: |
+  You are analyzing a social media post to understand the author's stance or position.
+  
+  {background_section}{conversation_section}{metadata_section}
+  
+  [TARGET POST]
+  {post_text}
+  
+  Question: What is the author's stance toward {target_entity}?
+  
+  Please respond with:
+  1. Your answer (one of: {stance_options})
+  2. Your confidence level (0-100%)
+  3. Brief reasoning
+
+prompt_sections:
+  background: |
+    [BACKGROUND CONTEXT]
+    Event: {event_name}
+    Date: {event_date}
+    Summary: {event_summary}
+    Key entities: {key_entities}
+    
+  conversation: |
+    [CONVERSATION HISTORY]
+    {parent_posts}
+    {sibling_posts}
+    {child_posts}
+    
+  metadata: |
+    [USER METADATA]
+    Bio: {user_bio}
+    Follower count: {follower_count}
+    Account age: {account_age}
+    Hashtags: {hashtags}
+    Media URLs: {media_urls}
+    Historical posts: {recent_historical_posts}
+
+# ==============================================================================
+# 4. TASKS & TARGETS
+# ==============================================================================
+tasks:
+  - task_id: "stance_detection"
+    task_name: "Stance Detection"
+    description: "Identify stance toward political candidates or issues"
+    target_entities:
+      - "Biden administration"
+      - "Trump policies"
+      - "Abortion rights"
+      - "Gun control"
+    stance_options: ["strongly support", "support", "neutral", "oppose", "strongly oppose"]
+    
+  - task_id: "sentiment_analysis"
+    task_name: "Sentiment Analysis"
+    description: "Classify overall sentiment of post"
+    stance_options: ["very positive", "positive", "neutral", "negative", "very negative"]
+
+# ==============================================================================
+# 5. EVALUATION METRICS
+# ==============================================================================
+evaluation_metrics:
+  accuracy:
+    type: "classification"
+    description: "Fraction of correct stance predictions"
+  
+  f1_score:
+    type: "classification"
+    description: "F1 score weighted across stance categories"
+  
+  ece:  # Expected Calibration Error
+    type: "calibration"
+    description: "Average difference between confidence and accuracy"
+    bins: 10
+  
+  brier_score:
+    type: "calibration"
+    description: "Mean squared error between predicted confidence and correctness"
+  
+  overconfidence_rate:
+    type: "confidence"
+    description: "Fraction of incorrect predictions with >70% confidence"
+    threshold: 70
+  
+  context_sensitivity:
+    type: "ablation"
+    description: "Performance delta when adding/removing a context type"
+    baseline: "T"
+  
+  marginal_improvement:
+    type: "ablation"
+    description: "Improvement from adding each context dimension"
+
+# ==============================================================================
+# 6. ANALYSIS PLAN
+# ==============================================================================
+analysis:
+  sections:
+    - name: "accuracy_by_context"
+      description: "Plot accuracy gains for each context addition"
+      visualizations:
+        - type: "bar_plot"
+          x: "context_variant"
+          y: "accuracy"
+          group_by: "model"
+        - type: "heatmap"
+          x: "context_variant"
+          y: "model"
+          value: "accuracy"
+    
+    - name: "calibration_analysis"
+      description: "Calibration curves showing confidence vs actual accuracy"
+      visualizations:
+        - type: "calibration_curve"
+          x: "predicted_confidence"
+          y: "actual_accuracy"
+          group_by: "model"
+        - type: "line_plot"
+          x: "context_variant"
+          y: ["ece", "brier_score"]
+          group_by: "model"
+    
+    - name: "overconfidence_analysis"
+      description: "Cases where models are confidently wrong"
+      visualizations:
+        - type: "bar_plot"
+          x: "context_variant"
+          y: "overconfidence_rate"
+          group_by: "model"
+    
+    - name: "context_interaction_effects"
+      description: "Synergistic gains and diminishing returns"
+      visualizations:
+        - type: "bar_plot"
+          x: "context_combination"
+          y: "marginal_improvement"
+        - type: "line_plot"
+          title: "Diminishing Returns by Context Depth"
+          x: "context_depth"
+          y: "accuracy"
+    
+    - name: "error_analysis"
+      description: "Qualitative case studies of model failures"
+      analysis_type: "manual_review"
+      sample_size: 20
+
+# ==============================================================================
+# 7. EXPERIMENT EXECUTION
+# ==============================================================================
+execution:
+  batch_size: 32
+  max_retries: 3
+  retry_delay: 2
+  cache_responses: true
+  save_interval: 100  # Save results every N samples
+  output_dir: "./results"
+  
+  sampling:
+    strategy: "stratified"  # balanced across stance categories
+    test_size: 0.2
+    seed: 42
+
+# ==============================================================================
+# 8. METADATA FOR REPRODUCIBILITY
+# ==============================================================================
+reproducibility:
+  version: "1.0"
+  created_date: "2025-11-05"
+  author: "Mao Li"
+  notes: "Initial experiment design targeting 10k annotated posts"
