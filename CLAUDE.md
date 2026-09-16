@@ -109,12 +109,13 @@ The working tree contains many uncommitted scratch artifacts — multiple overla
 ## Running vLLM in this repo (recorded 2026-09-16)
 
 The project venv pins `vllm>=0.1.2` and uv resolved it to the 2023 release 0.1.2, whose `LLM()`
-has no `max_model_len`. The paper run (results/20260115_215043) and the seed-stability check ran
-under vLLM 0.11.0 (visible in experiment.log: "Initializing a V1 LLM engine (v0.11.0)"). Launch
-any inference script with the overlay:
+has no `max_model_len`. The paper run (results/20260115_215043, January 2026) ran under vLLM
+0.13.0 (experiment_new.log: "Initializing a V1 LLM engine (v0.13.0)"); the December 2025 pilot
+used 0.11.0, whose transformers 4.57 cannot load Ministral-3 (`KeyError: 'ministral3'`). Launch
+any inference script with the 0.13.0 overlay:
 
 ```bash
-CUDA_VISIBLE_DEVICES=2,7 uv run --with vllm==0.11.0 sample_agreement_run.py --models all
+CUDA_VISIBLE_DEVICES=2,7 uv run --with vllm==0.13.0 sample_agreement_run.py --models all
 ```
 
 Do not `uv add vllm==0.11.0`: it would force torch 2.8 into the lockfile and the analysis

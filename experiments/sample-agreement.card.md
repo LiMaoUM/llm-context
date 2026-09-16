@@ -40,3 +40,12 @@
   - 2026-09-16 smoke v1 passed: 40 rows, ideology parse rate 0.975, load 111 s, 20 prompts per
     seed in 7 s on GPUs 2 and 7 (TP=2).
   - 2026-09-16 full v1 launched: eight models, ten seeds, GPUs 2 and 7, log sample_agreement/run.log.
+  - 2026-09-16 full v1 died at ministral-3-8b: vLLM 0.11.0 overlay ships transformers 4.57, which
+    lacks the ministral3 config. qwen3-4b and llama-3.1-8b outputs (0.11.0) moved to
+    sample_agreement/vllm0.11/. The paper run used vLLM 0.13.0; v2 reruns all eight models under
+    0.13.0 so every model shares one engine version.
+  - 2026-09-16 smoke v2 (ministral-3-8b, 20 x 2, vLLM 0.13.0) launched.
+  - 2026-09-16 smoke v2 passed: 40 rows, ideology parse rate 0.80 (Ministral extraction rates are
+    70 to 93 percent in the paper), load 90 s.
+  - 2026-09-16 full v2 launched: eight models, ten seeds, vLLM 0.13.0, GPUs 2 and 7, log
+    sample_agreement/run.log.

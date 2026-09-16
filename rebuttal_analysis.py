@@ -32,7 +32,7 @@ RESULTS_DIR = "results/20260115_215043"
 VARIANTS = ["T", "T+B", "T+B+C", "T+B+C+M"]
 MODELS = ["gemma-3-27b-it", "gpt-oss-120b", "llama-3.1-8b", "ministral-3-14b",
           "ministral-3-8b", "qwen3-30b-a3b", "qwen3-4b", "qwen3-80b-a3b"]
-SEED_FILES = sorted(glob.glob("seed_stability_*.jsonl")) + sorted(glob.glob("sample_agreement/*.jsonl"))
+SEED_FILES = [f for f in sorted(glob.glob("sample_agreement/*.jsonl")) if "smoke" not in f] + sorted(glob.glob("seed_stability_*.jsonl"))
 OUT = {}
 
 
