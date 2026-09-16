@@ -1,0 +1,597 @@
+\documentclass[11pt]{article}
+\usepackage{booktabs}
+% Change "review" to "final" to generate the final (sometimes called camera-ready) version.
+% Change to "preprint" to generate a non-anonymous version with page numbers.
+\usepackage[review]{acl}
+
+% Standard package includes
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{graphicx}
+
+\title{When to Trust an LLM Annotator: Self-Reported Confidence Ranks (but Overstates) Reliability in Political Stance and Ideology Labeling}
+
+\author{First Author \\
+  Affiliation / Address line 1 \\
+  Affiliation / Address line 2 \\
+  Affiliation / Address line 3 \\
+  \texttt{email@domain} \\\And
+  Second Author \\
+  Affiliation / Address line 1 \\
+  Affiliation / Address line 2 \\
+  Affiliation / Address line 3 \\
+  \texttt{email@domain} \\}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Large language models (LLMs) are increasingly used to annotate political social media at scale, but practitioners rarely know which of the resulting labels to trust. We evaluate whether an LLM's unprompted, self-reported confidence can serve as a \emph{ranking} signal for annotation reliability. Eight open-weight LLMs (4B--120B) label political ideology and stance toward Donald Trump on Truth Social and Bluesky under four nested context conditions that successively add a background brief, conversation history, and user metadata to the post text. Against a human-validated subset, confidence discriminates correct from incorrect predictions \emph{within} context conditions, not merely across them: AUROC exceeds 0.5 in 62 of 64 model$\times$condition$\times$task cells, and controlling for condition and model, each 10-point confidence increase multiplies the odds of correctness by 1.7 (ideology) and 1.4 (stance). Confidence is also higher on posts whose label human coders endorse unanimously. The signal has sharp limits: all eight models are overconfident in absolute terms in nearly every context condition---high-confidence predictions are wrong in 18--68\% of cases---and only one model's confidence distribution resembles human uncertainty. Confidence is therefore usable for triage (ranking which annotations to keep, enrich with context, or route to humans) but not as a probability, and only after a per-model calibration check that we describe.
+\end{abstract}
+
+\section{Introduction}
+Human readers interpret a text by combining its literal content with background knowledge, discourse history, speaker identity, and situational cues \cite{clark_using_2005, grosz_centering_1995, stalnaker_common_2002, bransford_contextual_1972}. Large-scale annotation makes a simplifying move: one gold label per post, on the assumption that the intended meaning is recoverable from the post itself. On social media, where posts are indirect, referential, or written for a particular audience, the information needed to resolve meaning often lies outside the captured text, and disagreement between annotators is often signal about the item rather than noise \cite{aroyo_truth_2015, pavlick_inherent_2019, plank_problem_2022}. Stance detection, ideology inference, and sentiment analysis are nonetheless defined and evaluated on individual posts \cite{mohammad_semeval-2016_2016, li_p-stance_2021, allaway_zero-shot_2020}, and the problem is sharpest in political discourse, where annotators' judgments demonstrably shift when conversational or situational context is added or removed \cite{joseph_constance_2017, niu_challenge_2024}.
+
+LLM-based annotation pipelines increasingly replace or supplement human annotators in this setting \cite{gilardi_chatgpt_2023, tornberg_large_2025}, their reliability requires validation \cite{pangakis_automated_2023, ziems_can_2024}, and they typically operate on isolated posts, delegating the isolationist assumption to the model. A practitioner running such a pipeline faces a concrete decision problem: \emph{of the thousands of labels just produced, which can be used as-is, and which need more context or human review?}
+
+We study whether the model's own verbalized confidence can answer that question. Calibration research shows verbalized confidence carries information about correctness while being systematically inflated \cite{kadavath_language_2022, tian_just_2023, xiong_can_2024}, and confidence-driven routing between LLMs and humans has been proposed as a workflow \cite{gligoric_can_2025}. What is missing is how this signal behaves when the \emph{input} varies in contextual sufficiency, as in social-media annotation, where the amount of available context affects accuracy and confidence at once; without separating these, a confidence--accuracy correlation may simply re-describe the context gradient.
+
+We make four contributions.
+(1)~A context decomposition into post text, a short political background brief, conversation history, and user metadata, evaluated through nested conditions that add one source at a time (marginal effects in a fixed order; see Limitations).
+(2)~An empirical evaluation on Truth Social and Bluesky: 7{,}408 posts in conversation trees, eight open-weight LLMs, and a 295-post validation set with three coders, including a sub-study in which two coders rated their own confidence on text-only posts.
+(3)~Our central result: confidence predicts correctness \emph{within} context conditions, not merely across them. Controlling for condition and model, the association remains strong (odds ratio 1.7 per 10 confidence points for ideology, 1.4 for stance), within-condition AUROC exceeds chance in 62 of 64 model$\times$condition$\times$task cells, and confidence is significantly higher on posts whose gold label coders endorse unanimously---tying the signal to human-perceived ambiguity.
+(4)~We quantify the signal's limits and turn them into a usage protocol: all eight models are overconfident in absolute terms (high-confidence predictions are wrong in 18--68\% of cases), only gpt-oss-120b produces confidence distributions aligned with human uncertainty, and a triage workflow that uses confidence only as a ranking raises agreement with humans from 84.5\% to 91.3\% (ideology) and from 68.5\% to 77.8\% (stance) at 60\% coverage, routing the remainder to context enrichment or human review.
+
+\section{Related Work}
+
+\subsection{Post-Level Annotation and Human Label Variation}
+
+Benchmarks for stance, ideology, and sentiment annotate each post independently with a single label \cite{mohammad_semeval-2016_2016, li_p-stance_2021, allaway_zero-shot_2020}, although annotators struggle on isolated posts, with low agreement and frequent fallback to neutral categories \cite{allaway_zero-shot_2020}, and the context shown to them changes the labels they produce \cite{joseph_constance_2017}. The human-label-variation literature treats such disagreement as informative \cite{aroyo_truth_2015, pavlick_inherent_2019, plank_problem_2022}; we adopt that view by analyzing coder unanimity as an item-level ambiguity measure (Section~\ref{sec:results_unanimity}).
+
+\subsection{Contextual Augmentation in Social Media NLP}
+
+Conversational structure \cite{niu_challenge_2024}, user profile summaries and post histories \cite{sucu_exploiting_2025}, socially grounded entity and event context \cite{pujari_we_2024}, and curated external context \cite{deverna_large_2025} have each been shown to help political text classification. Such context is typically concatenated without distinguishing its kinds and evaluated only on accuracy, and irrelevant context can distort LLM political judgments \cite{davenia_quantifying_2025}. Our nested decomposition asks which kinds of context move accuracy, which move confidence, and whether the two move together.
+
+\subsection{Verbalized Confidence, Calibration, and Selective Prediction}
+
+LLMs can express uncertainty in words, sometimes more informatively than token probabilities \cite{kadavath_language_2022, tian_just_2023}, but verbalized confidence is systematically overconfident and clusters in the 80--100 range \cite{xiong_can_2024}, and self-evaluation improves when relevant source material is present in context \cite{kadavath_language_2022}. We measure how confidence responds to \emph{decomposed, naturalistic} context, and we benchmark model confidence against \emph{human} confidence on the same items---to our knowledge the first such comparison for political annotation.
+
+Using a score to decide which predictions to keep is selective prediction \cite{geifman_selective_2017, kamath_selective_2020}; routing the remainder to humans is the basis of confidence-driven annotation pipelines \cite{gligoric_can_2025}. Our contribution is the evidence that makes this workflow safe in context-poor social-media settings: the signal must survive conditioning on context amount and must be checked for overconfidence per model and condition.
+
+\section{Data and Annotation Paradigm}
+
+\subsection{Conversation Trees as the Unit of Analysis}
+Because posts are embedded in conversational, social, and situational structures that shape their interpretation, we adopt a conversation-centered data representation. We collect political discourse from Truth Social and Bluesky, two platforms with distinct ideological environments, sampling conversation trees---root posts together with their reply chains---rather than isolated keyword hits (Appendix~\ref{app:data_collection}).
+
+The corpus consists of 7{,}408 unique posts in conversation trees ranging from shallow exchanges to extended discussions; all are used for inference, and the validated subset below serves as the evaluation set. Of these, 364 have no text-only rendering (e.g., media-only posts whose cleaned text is empty) and appear only in conditions that supply additional context.
+
+\subsection{From Post-Level Labels to Context-Aware Annotation}
+We focus on two annotation tasks central to political discourse analysis:
+\begin{enumerate}
+    \item Stance toward Donald Trump: \emph{favor} / \emph{against} / \emph{none}, where \emph{none} covers neutral stance, no expressed stance, and explicit non-commitment;
+    \item Author political ideology: \emph{left} / \emph{center} / \emph{right}.
+\end{enumerate}
+Models and coders responded on a four-way stance scheme (favor / against / neutral / undecided); for evaluation we fold \emph{neutral} and \emph{undecided} into \emph{none}, and coder \emph{undecided} ideology responses into \emph{center} (folding rates in Appendix~\ref{app:tables}; abstention is discussed in Section~\ref{sec:results_performance}).
+
+\subsection{Human Validation}
+\label{sec:human_validation}
+To ground our analysis in human judgment, we conducted targeted validation on 295 posts selected across conversation trees so that no single tree dominates; the posts come from 285 distinct authors (eight authors contribute two or three posts each). Each post was independently annotated by three coders with experience in political content analysis, using the full-context rendering (the richest of the four conditions defined in Section~\ref{sec:context_conditions}) and standardized guidelines.
+
+Gold labels are the majority vote across the three coders. A majority exists for 289 of 295 posts on ideology and 291 of 295 on stance; the remaining 6 and 4 posts (three-way splits) are excluded from the respective evaluations. Coders are unanimous on 196/289 ideology and 203/291 stance posts. Pairwise Cohen's $\kappa$ on the folded label space ranges from $0.49$ to $0.69$ for ideology and $0.62$ to $0.67$ for stance---moderate to substantial agreement, indicating a challenging but feasible task. Unless otherwise noted, all classification and calibration metrics are computed against these gold labels; class distributions and per-platform breakdowns appear in Appendix~\ref{app:tables}.
+
+\paragraph{What the gold standard means.}
+Because coders saw the full-context rendering, our gold labels operationalize a \emph{context-rich human reference interpretation}; model accuracy under reduced-context conditions measures the ability to recover that interpretation from less information, which is the practitioner's situation when only post text is available. Part of the accuracy gradient across conditions therefore reflects the information asymmetry between model and reference, and low-context conditions are not evaluated against a separate ``text-only truth,'' which the sub-study below indicates is often not determinable.
+
+\paragraph{Human confidence sub-study.}
+To test whether low model confidence under minimal context reflects genuine under-determination, two coders additionally rated their own confidence ($0$--$100$) in judging ideology and stance from the \emph{text-only} rendering of each post ($n{=}283$; 12 posts have no text-only rendering). Both report low confidence from text alone (ideology means $39$ and $16$; stance $40$ and $15$), and their ratings correlate substantially (Spearman $\rho{=}0.68$ for ideology, $0.66$ for stance; quadratic-weighted $\kappa_w{=}0.54$/$0.55$ on low/medium/high buckets, unweighted $\kappa{=}0.28$/$0.34$, the gap reflecting one coder's more conservative use of the scale). Text-only under-determination is thus real and human-perceptible, and the coders largely agree on \emph{which} posts are hard.
+
+\section{Contextual Conditions and Experimental Design}
+\label{sec:context_design}
+
+\subsection{Context Taxonomy and Conditions}
+\label{sec:context_conditions}
+
+We distinguish three types of contextual prerequisites beyond the focal post text: \textit{background}, \textit{conversation}, and \textit{metadata}, and define four nested conditions:
+
+\begin{itemize}
+    \item \textbf{T (Text only):} the focal post text alone. This condition reflects the dominant post-level annotation paradigm.
+    \item \textbf{T+B (+ Background):} adds a short, researcher-authored background brief summarizing the political events of the collection window (released verbatim), which standardizes situational context across posts at the cost of being curated rather than retrieved.
+    \item \textbf{T+B+C (+ Conversation):} adds conversational context: the parent post(s) above and child replies below the target post.
+    \item \textbf{T+B+C+M (Full context):} adds user metadata: biographical information, summaries of historical posts, and platform-level attributes.
+\end{itemize}
+
+Each condition strictly adds information, so marginal context effects are estimated in a fixed order.
+
+\subsection{Prompting Protocol}
+\label{sec:prompting}
+We use one standardized prompt across all models and conditions (verbatim in Appendix~\ref{app:prompt}). It assigns the role of a political discourse analyst, presents the available information in labeled blocks (\texttt{[BACKGROUND]}, \texttt{[USER METADATA]}, \texttt{[PARENT REPLY]}, \texttt{[TARGET POST]}, \texttt{[CHILD REPLY]})---including only the blocks available in each condition---and instructs the model to rely \emph{only} on the information provided. The model reports an ideology label, a stance label, a confidence score ($0$--$100$) for each, and a brief reasoning sentence, in a fixed plain-text format.
+
+Two design choices matter for interpretation. Confidence is elicited \emph{without any definition or rubric}---the prompt simply requests ``Ideology Confidence: [0--100]\%''---so any systematic relationship between context and confidence is a property of model behavior, not instructed. And models must always produce a label, even under minimal context; non-committal stance options (neutral/undecided) are available and their use is analyzed explicitly.
+
+\subsection{Models and Implementation}
+\label{sec:models}
+
+We apply eight open-weight instruction-tuned models spanning five families and 4B--120B parameters, including dense and mixture-of-experts architectures (full list in Appendix~\ref{app:tables}, Table~\ref{tab:models}). An earlier pilot run with a previous pipeline version additionally included Llama-3.3-70B; it was not re-run under the final protocol and is excluded from all reported results, which cover exactly the eight models run in full under the final pipeline. All models are served locally on NVIDIA H100 GPUs with vLLM \cite{kwon2023vllm} and decoded with temperature $0.7$, top-$p$ $0.9$, and a maximum of $1024$ generated tokens (raised from 512 after observing mid-output truncation); qwen3-80b-a3b is served in FP8 and gpt-oss-120b in its native MXFP4 quantization. Inference is one generation per post-condition-model cell, with no training. Labels and confidence scores are extracted from the structured plain-text output by regular expressions; extraction success rates by model and condition are reported in Appendix~\ref{app:tables} (Table~\ref{tab:parserates}), and all reliability analyses exclude unparseable responses rather than imputing them. Decoding is stochastic; we quantify run-to-run stability in Section~\ref{sec:evaluation_metrics} and the Limitations. We release code, configuration with pinned package versions, and the anonymized validation annotations with the camera-ready version.
+
+\subsection{Evaluation}
+\label{sec:evaluation_metrics}
+
+We evaluate three things: predictive performance, confidence behavior, and the confidence--correctness relationship.
+
+\paragraph{Classification performance.}
+We report accuracy and macro-averaged F$_1$ (to account for class imbalance) against the gold labels, pooled over models and per model. All pooled estimates carry 95\% confidence intervals from a cluster bootstrap that resamples \emph{posts} (2{,}000 replicates), respecting the repetition of each post across models and conditions. Posts also nest within conversation trees; the validation sample was drawn to spread across trees (285 authors over 295 posts) and we do not cluster at tree level. We report two reference points: a majority-class baseline, and a \emph{platform-prior} baseline that labels every Bluesky author left/against and every Truth Social author right/favor---a deliberately crude rule that quantifies how much of the task is solvable from community identity alone (Section~\ref{sec:results_platform}).
+
+\paragraph{Confidence behavior.}
+We analyze mean confidence and its dispersion per condition, and the distribution of confidence conditioned on correctness.
+
+\paragraph{Confidence--correctness relationship.}
+Our primary analyses are conducted \emph{within} context conditions, because context simultaneously raises confidence and accuracy, and pooling across conditions would confound the two. We use three complementary tools: (i) AUROC---the probability that a randomly chosen correct prediction carries higher confidence than a randomly chosen incorrect one---computed per model$\times$condition$\times$task, which requires no binning; (ii) reliability curves with \emph{equal-mass} bins and per-bin counts reported; and (iii) a logistic regression of correctness on confidence with condition and model fixed effects and standard errors clustered by post. For absolute calibration we report expected calibration error (ECE, 10 equal-mass bins), Brier score, and the confidence--accuracy gap per model.
+
+\section{Results}
+\label{sec:results}
+
+\subsection{Classification Performance Across Context Conditions}
+\label{sec:results_performance}
+
+Table~\ref{tab:perf} reports pooled accuracy and macro-F$_1$ by condition with bootstrap CIs; Figure~\ref{fig:f1_results} shows per-model trajectories. Richer context improves performance, but the size and consistency of the gain vary by task and model.
+
+For \textbf{ideology}, gains are negligible from T to T+B (accuracy $53.6\%$ vs.\ $56.7\%$, CIs overlapping) and emerge once conversation and metadata are added ($73.5\%$, then $84.5\%$). Notably, at T the pooled accuracy is \emph{below} the majority-class baseline ($65.4\%$). For \textbf{stance}, gains likewise concentrate in T+B+C and T+B+C+M; the background brief alone does not reliably help either task (stance macro-F$_1$ actually dips at T+B).
+
+Abstention interacts with context: the share of stance responses using \emph{neutral}/\emph{undecided} falls from $10$--$47\%$ at T to $6\%$ or less at full context for every model (Table~\ref{tab:parserates}), so part of the accuracy gain from context comes from models committing to a polar label at all.
+
+\paragraph{The gain is confined to one platform.}
+The pooled gradient hides a platform split (Appendix Table~\ref{tab:platform}). On Truth Social, accuracy rises with context on both tasks ($57.8\%\to89.6\%$ ideology, $40.0\%\to75.4\%$ stance). On Bluesky it does not: ideology reaches $69.6\%$ at full context, below the $74.3\%$ majority class, and stance is highest with no context ($56.2\%$), falls when the brief is added ($46.1\%$), and ends at $50.8\%$, within two-tenths of a point of the $50.6\%$ majority class. As context accumulates, the share of Bluesky stance predictions reading \emph{against} climbs from $52\%$ to $82\%$, while the gold set is split almost evenly between \emph{against} and \emph{none}: context pulls models toward the community prior, which is right on Truth Social and half right on Bluesky. For stance on a quarter of the validation set, the context pipeline delivers nothing; Section~\ref{sec:results_platform} takes up what this implies.
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3.4pt}
+\begin{tabular}{lcccc}
+\toprule
+ & \multicolumn{2}{c}{Ideology} & \multicolumn{2}{c}{Stance} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+Condition & Acc. & F1 & Acc. & F1 \\
+\midrule
+T        & 53.6 {\tiny[49.5, 57.9]} & 45.2 & 44.6 {\tiny[40.2, 48.7]} & 43.6 \\
+T+B      & 56.7 {\tiny[52.9, 60.0]} & 44.4 & 46.6 {\tiny[42.8, 50.2]} & 40.1 \\
+T+B+C    & 73.5 {\tiny[69.6, 77.2]} & 54.3 & 59.7 {\tiny[55.6, 63.4]} & 47.0 \\
+T+B+C+M  & 84.5 {\tiny[80.9, 88.0]} & 65.0 & 68.9 {\tiny[64.9, 73.0]} & 52.8 \\
+\midrule
+Majority class    & 65.4 & 26.4 & 58.8 & 24.7 \\
+Platform prior    & 83.7 & 57.0 & 72.2 & 49.6 \\
+\bottomrule
+\end{tabular}
+\caption{Accuracy and macro-F1 (\%) by context condition, pooled across eight models, against human gold labels ($n{=}289$ ideology, $291$ stance; the T row covers the 283 gold posts with a text-only rendering). Brackets: 95\% post-cluster bootstrap CIs (F1 CIs in Appendix~\ref{app:tables}). The platform-prior baseline labels every author by platform majority (Section~\ref{sec:results_platform}).}
+\label{tab:perf}
+\end{table}
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.46\textwidth]{fig_f1_rev}
+    \caption{Macro F$_1$ for ideology (left) and stance (right) by model and context condition, on the gold subset. Gains are task- and model-dependent; the background brief alone does not consistently help.}
+    \label{fig:f1_results}
+\end{figure*}
+
+\subsection{Platform Identity Is a Strong Confound}
+\label{sec:results_platform}
+
+Our two platforms are ideologically near-homogeneous: in the gold subset, $187$ of $218$ Truth Social authors are labeled \emph{right} and only $2$ of $77$ Bluesky authors are; no Bluesky post in the gold set favors Trump. The crude platform-prior rule therefore reaches $83.7\%$/$72.2\%$ accuracy (Table~\ref{tab:perf})---statistically indistinguishable from pooled full-context model accuracy---though models exceed it on macro-F$_1$ ($65.0$ vs.\ $57.0$; $52.8$ vs.\ $49.6$), i.e., on the minority classes the rule gets wrong by construction.
+
+The platform split in Section~\ref{sec:results_performance} shows where the metadata gain comes from: models recover community identity from user metadata rather than reading individual posts more deeply. In platform-segregated political spaces, ideology inference is partly community-prior recovery, for humans and models alike (our coders saw the same metadata), and studies deploying these pipelines on more ideologically mixed platforms should expect numbers closer to our Bluesky column. Section~\ref{sec:results_within} shows, however, that the confidence--correctness signal itself is not platform recovery: it survives a platform fixed effect and holds within each platform separately.
+
+\subsection{Confidence Rises with Context---Unprompted}
+\label{sec:results_confidence}
+
+Self-reported confidence increases monotonically as context is added, for every model and both tasks (Figure~\ref{fig:confidence_results}, Appendix). The trend is far more uniform than the accuracy changes: most clearly at T+B, models grow more confident while accuracy stays flat or falls. Nothing in the prompt asks models to scale confidence with context availability (Section~\ref{sec:prompting}); models treat additional context blocks as grounds for higher confidence whether or not those blocks improve accuracy. This is why the next section conditions on context when testing whether confidence carries any signal beyond ``how much context was I given.''
+
+\subsection{Confidence Predicts Correctness \emph{Within} Conditions}
+\label{sec:results_within}
+
+Context raises both confidence and accuracy, so pooling across conditions guarantees a positive association even if confidence carried no information within any condition. We therefore test the relationship with context held fixed; three analyses agree.
+
+\paragraph{Discrimination.}
+AUROC of confidence for correctness, computed separately per model, condition, and task, exceeds $0.5$ in $62$ of $64$ cells (the two exceptions: llama-3.1-8b and qwen3-4b, stance, T+B). Mean AUROC by condition ranges from $0.62$ to $0.73$ for ideology and $0.56$ to $0.74$ for stance (Figure~\ref{fig:auroc}, Appendix Table~\ref{tab:auroc}). Discrimination is strongest at full context on both tasks and dips in the middle conditions, with the minimum at T+B for stance ($0.56$) and at T+B+C for ideology ($0.62$, with T+B at $0.63$). The dip coincides with the conditions where confidence rises faster than accuracy (Section~\ref{sec:results_confidence}), but the two tasks bottom out in different conditions, so we read it as a general mid-spectrum weakening and attach no mechanism to the T+B condition specifically.
+
+\paragraph{Regression.}
+A logistic regression of correctness on confidence with condition and model fixed effects, clustered by post, yields an odds ratio of $1.73$ per 10 confidence points for ideology ($95\%$ CI $[1.58, 1.89]$, $z{=}12.0$, $n{=}7{,}990$) and $1.40$ for stance (CI $[1.30, 1.50]$, $z{=}9.4$, $n{=}8{,}090$). Fit per LLM, the confidence coefficient is positive for all 16 model$\times$task fits and significant at $p{<}.05$ for 15 (llama-3.1-8b stance: $p{=}.069$). The association is not platform-identity recovery in disguise: a platform fixed effect leaves the odds ratios essentially unchanged ($1.71$ and $1.39$), and \emph{within-platform} AUROC at full context exceeds $0.5$ for all eight models on both platforms and tasks (means $0.69$--$0.74$).
+
+\paragraph{Reliability curves.}
+Figure~\ref{fig:within_condition} shows equal-mass binned curves within T and within full context, pooled over models. Within text-only, accuracy climbs from $28\%$ in the lowest ideology bin (mean confidence $42$, $n{=}516$) to $80\%$ in the highest (mean confidence $95$, $n{=}348$); within full context, from $69\%$ to $98\%$; stance is likewise monotone. Even the \emph{highest}-confidence text-only stance bin reaches only $64\%$: confidence ranks reliability within a condition but does not erase the condition's information ceiling.
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.46\textwidth]{fig_within_condition}
+    \caption{Confidence vs.\ accuracy \emph{within} a fixed context condition (equal-mass bins pooled over models; marker area $\propto$ bin size; bin sizes are unequal where ties at round confidence values prevent exact quantile splits; dashed line = perfect calibration). Confidence rank-orders correctness inside both the text-only and the full-context condition, but curves sit below the diagonal: absolute confidence overstates accuracy.}
+    \label{fig:within_condition}
+\end{figure*}
+
+\subsection{Absolute Calibration: All Models Overconfident, One Exception Usable}
+\label{sec:results_calibration}
+
+Discrimination does not imply calibration. Because confidence and accuracy both rise with context, we assess absolute calibration per condition (Appendix Table~\ref{tab:calibration_cond}; pooled values in Table~\ref{tab:calibration} for reference). Mean confidence exceeds accuracy in $62$ of $64$ model$\times$condition$\times$task cells; the exceptions are gemma-3-27b-it and gpt-oss-120b on ideology at full context, where confidence sits $1$--$2$ points \emph{below} accuracy. Overconfidence peaks at T+B (pooled gap $25$ points for ideology, $39$ for stance) and is smallest at full context ($6$ and $23$), so a pooled gap averages a model's worst and best cases: gemma-3-27b-it's pooled ideology gap of $4.9$ combines $13.6$ at T+B with $-1.9$ at full context. The least overconfident model is task-specific, gemma-3-27b-it on ideology and gpt-oss-120b on stance; every other model exceeds a $10$-point gap in most conditions, and high-confidence ($\ge$70) predictions are wrong in up to $52\%$ of cases for ideology and $78\%$ for stance. Confidence is therefore \emph{reliable for ranking, not as a probability}: a fixed threshold like ``trust everything above 80'' transfers across neither models, tasks, nor conditions.
+
+\paragraph{Do models share the human sense of (un)certainty?}
+We compare each model's text-only confidence against the two coders' (Table~\ref{tab:conf_agree}), bucketing confidence into low/medium/high ($\le$33, 34--66, $>$66) and measuring quadratic-weighted Cohen's $\kappa_w$ against the coder mean. Most models are far more confident than humans (means $64$--$84$ vs.\ a human mean near $28$) and pile nearly everything into ``high,'' so their categorical agreement with human uncertainty is near zero ($\kappa_w \le 0.30$) \emph{even where rank correlation is moderate}: global overconfidence, not mis-ranking, breaks the alignment. The exception, \textbf{gpt-oss-120b} (mean ${\approx}46$), agrees with the coder consensus about as well as the coders agree with each other ($\kappa_w{=}0.57$/$0.56$; $\rho{=}0.82$/$0.77$; coder--coder ceiling $\kappa_w{=}0.54$/$0.55$). Because the two coders use the scale differently (means $39$ and $16$), Appendix Table~\ref{tab:conf_agree_coder} repeats the comparison against each coder separately and against a scale-free rank consensus: the model ordering is unchanged, and gpt-oss-120b leads against both coders on both tasks ($\rho{=}0.82$ and $0.66$ for ideology). A model's confidence is human-like only when the model is not globally overconfident---among our eight, that holds for one.
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lcccccc}
+\toprule
+ & \multicolumn{3}{c}{Ideology} & \multicolumn{3}{c}{Stance} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Model & conf & $\rho$ & $\kappa_w$ & conf & $\rho$ & $\kappa_w$ \\
+\midrule
+gpt-oss-120b    & 46.7 & 0.82 & 0.57 & 45.4 & 0.77 & 0.56 \\
+gemma-3-27b-it  & 64.5 & 0.59 & 0.24 & 80.5 & 0.03 & 0.04 \\
+ministral-3-14b & 63.6 & 0.60 & 0.24 & 56.5 & 0.50 & 0.30 \\
+ministral-3-8b  & 73.8 & 0.60 & 0.15 & 73.1 & 0.56 & 0.17 \\
+qwen3-4b        & 74.1 & 0.53 & 0.09 & 71.6 & 0.52 & 0.12 \\
+qwen3-80b-a3b   & 77.2 & 0.60 & 0.11 & 74.1 & 0.39 & 0.13 \\
+llama-3.1-8b    & 76.4 & 0.36 & 0.06 & 77.2 & 0.26 & 0.07 \\
+qwen3-30b-a3b   & 83.5 & 0.48 & 0.05 & 80.4 & 0.38 & 0.05 \\
+\bottomrule
+\end{tabular}
+\caption{Agreement between each model's \emph{text-only} confidence and the human coders (mean of two): mean model confidence, Spearman $\rho$, quadratic-weighted $\kappa_w$ on low/med/high buckets. Sorted by ideology $\kappa_w$. Human--human ceiling: $\kappa_w{\approx}0.55$. Per-model $n{=}160$--$283$ valid pairs (ministral-3-14b lowest due to extraction failures; Table~\ref{tab:parserates}).}
+\label{tab:conf_agree}
+\end{table}
+
+\subsection{Confidence Tracks Human Disagreement}
+\label{sec:results_unanimity}
+
+If confidence reflects item-level ambiguity, it should be lower on posts where the three coders split 2--1 than where they are unanimous. It is: at full context, mean model confidence is $92.1$ on unanimous ideology posts vs.\ $85.9$ on 2--1 posts (Mann--Whitney $p{<}.001$; stance $92.3$ vs.\ $89.5$, $p{<}.001$), the gap holds in every condition, and accuracy is far lower on contested posts ($94.9\%$ vs.\ $62.5\%$ ideology; $77.7\%$ vs.\ $47.9\%$ stance). LLM confidence thus encodes part of the ambiguity humans perceive, supporting the label-variation view that disagreement is signal \cite{plank_problem_2022}, which majority-vote evaluation alone would hide.
+
+\subsection{Triage in Practice: Coverage--Accuracy Trade-offs}
+\label{sec:results_triage}
+
+What does using confidence as a ranking actually buy? Table~\ref{tab:coverage} simulates the workflow: within a fixed condition, keep only the top $x\%$ most confident predictions (pooled over models) and route the rest onward. At full context, keeping the top $60\%$ raises agreement with humans from $84.5\%$ to $91.3\%$ for ideology and from $68.5\%$ to $77.8\%$ for stance; at text-only, the same policy raises ideology agreement from $53.7\%$ to $66.8\%$. Per-model curves (Appendix Table~\ref{tab:coverage_permodel}) show the same pattern within every model, so the pooled gains are not an artifact of ranking better models above worse ones. How does this compare with the free rival policy of keeping only Truth Social labels? At the platform rule's own coverage ($75\%$), confidence selection ties it ($89.8\%$ vs.\ $89.5\%$ ideology; $74.8\%$ vs.\ $74.9\%$ stance). Over the whole coverage range it is better: the area under the risk--coverage curve \cite{elyaniv_foundations_2010}, the mean error rate across all coverage levels, is $9.0$ for confidence against $11.5$ for the platform rule on ideology (post-bootstrap 95\% CI on the difference $[-4.7, -0.6]$) and $18.8$ against $26.8$ on stance ($[-10.9, -4.7]$), and ranking by platform and then by confidence within platform gives $8.1$ and $18.2$ (Appendix Table~\ref{tab:aurc}). The platform rule has one operating point; confidence keeps ranking inside each platform, where keeping the top $60\%$ raises full-context ideology agreement from $89.5\%$ to $93.2\%$ on Truth Social and from $69.7\%$ to $77.1\%$ on Bluesky, and within-platform AUROC exceeds $0.5$ for every model on both platforms. Selection reliably buys accuracy, but even aggressive selection cannot lift text-only stance much above $64\%$: under-determined inputs need more context, not more selectivity.
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4.5pt}
+\begin{tabular}{llccccc}
+\toprule
+Task & Cond. & 100\% & 80\% & 60\% & 40\% & 20\% \\
+\midrule
+Ideo. & T        & 53.7 & 61.7 & 66.8 & 70.8 & 77.3 \\
+Ideo. & Full     & 84.5 & 88.3 & 91.3 & 91.4 & 93.9 \\
+Stance & T       & 44.5 & 49.4 & 52.6 & 54.9 & 64.0 \\
+Stance & Full    & 68.5 & 73.0 & 77.8 & 84.5 & 89.4 \\
+\bottomrule
+\end{tabular}
+\caption{Coverage--accuracy curves for confidence-based triage (pooled over models, within condition): accuracy (\%) among the top-$x\%$ most confident predictions. Computed over predictions with parsed labels \emph{and} confidence scores, so full-coverage values differ from Table~\ref{tab:perf} by $\le$0.4 points. Pooling over models mixes confidence scales; per-model curves (Appendix Table~\ref{tab:coverage_permodel}) confirm the same monotone pattern for each model individually.}
+\label{tab:coverage}
+\end{table}
+
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{What Confidence Is, and Is Not}
+
+Confidence rises with added context even when accuracy does not (§\ref{sec:results_confidence}), so it partly encodes how much context was shown; with context held fixed, it still discriminates correct from incorrect predictions in essentially every model and condition (§\ref{sec:results_within}) and tracks the ambiguity humans perceive (§\ref{sec:results_unanimity}); yet it overstates accuracy for every model, often grossly (§\ref{sec:results_calibration}). Verbalized confidence is thus a graded \emph{ranking} signal of contextual sufficiency and difficulty, usable to order predictions by trustworthiness and unusable as a probability without per-model recalibration.
+
+\subsection{Revisiting Post-Level Annotation Assumptions}
+
+The post-level paradigm assumes a single label is recoverable from each post in isolation. Our text-only results (models below the majority-class baseline on ideology, coder confidence means of 16--40, a 30-point accuracy gap between contested and unanimous posts) show this fails for a substantial fraction of political posts; reading confidence alongside correctness separates well-supported interpretations from forced guesses.
+
+\subsection{A Usage Protocol for Practitioners}
+
+Our results support confidence-aware pipelines \cite{gligoric_can_2025, kamath_selective_2020}, with two non-optional preconditions:
+(1) \emph{check overconfidence first, in the configuration to be deployed}---compare mean confidence to accuracy on a small validated sample under the same context condition, since the gap varies by up to $15$ points across conditions within one model (Table~\ref{tab:calibration_cond}) and a pooled check can pass a model that is badly overconfident in the condition actually used; where possible, also check alignment with human confidence (Table~\ref{tab:conf_agree}), which in our pool only gpt-oss-120b passes; and
+(2) \emph{use confidence as a ranking, not a threshold}---select by coverage (top-$x\%$) within a fixed configuration (Table~\ref{tab:coverage}), since absolute cutoffs transfer across neither models, tasks, nor conditions.
+Then keep high-rank labels, route mid-rank posts to context enrichment, send low-rank posts to human review, and report aggregate quantities at several coverage levels, since selection changes the effective sample non-randomly.
+
+\section{Conclusion}
+
+Across eight LLMs under nested context conditions, confidence rises uniformly and unprompted while accuracy improves unevenly; within a fixed condition, confidence still rank-orders correctness and tracks human-perceived ambiguity, yet every model is overconfident. Self-reported confidence is a usable triage signal as a ranking, after a per-model, per-condition overconfidence check, and never as a probability.
+
+\section*{Limitations}
+
+Several limitations bound our conclusions. \textbf{Design.} Our context conditions are strictly nested ($\text{T} \subset \text{T+B} \subset \text{T+B+C} \subset \text{T+B+C+M}$), so we estimate marginal effects of each context type in one fixed order and cannot separate component contributions from ordering and interaction effects. The background condition uses a researcher-authored brief rather than retrieved context; it standardizes situational information but may not reflect what readers encounter and could prime topical cues. \textbf{Measurement.} We elicit verbalized confidence rather than token-likelihood-based confidence, and the two need not coincide \cite{xiong_can_2024}. The unprompted rise of confidence with added context (Section~\ref{sec:results_confidence}) could in principle reflect prompt length rather than content; an irrelevant-filler control block would separate the two and was not run---though under either reading the rise is the failure mode our within-condition analyses are designed to guard against. Decoding uses temperature $0.7$ and top-$p$ $0.9$, the settings under which these models are typically deployed for annotation, so that the confidence we study is the one a practitioner would see; a single sample per cell mirrors the same workflow. Stochasticity is bounded: a three-seed re-decoding of the validation subset for two models yields cells with at least one cross-seed label flip in $2.5\%$ (gemma-3-27b-it) to $15.1\%$ (qwen3-4b) of cases for ideology and $10.9$--$14.1\%$ for stance, with mean within-cell confidence SD of $2$--$3$ points, an order of magnitude smaller than the condition and confidence effects we report. Stochastic decoding also offers a rival reliability signal, agreement across repeated samples, which we compare against verbalized confidence in Appendix~\ref{app:agreement}: on the same cells, agreement across $k$ samples discriminates correct from incorrect labels far more weakly than a single verbalized confidence score, and adding it to confidence changes AUROC by at most $0.03$. % AUTHORS: numbers to be updated from the eight-model, ten-seed run (sample_agreement/) once complete. \textbf{Evaluation target.} Gold labels are majority votes from three coders viewing full context; they constitute a context-rich reference interpretation, not a context-independent truth (Section~\ref{sec:human_validation}), and coder agreement ($\kappa$ 0.49--0.69) bounds attainable ``accuracy.'' The human confidence sub-study covers two coders and the text-only condition, so human--model confidence comparisons speak to minimal-context behavior only. \textbf{Scope.} Two platforms whose ideological homogeneity makes platform identity a strong prior (Section~\ref{sec:results_platform}); English; one month around two high-salience legal events involving one political figure---close to a best case for stance detectability. The one well-calibrated model (gpt-oss-120b) is also our only reasoning-trained model and the largest; with $n{=}1$ in that cell we cannot attribute its calibration to scale, architecture, or post-training. Finally, the internal mechanisms by which models generate verbalized confidence remain opaque.
+
+\section*{Ethical Considerations}
+
+This study analyzes public political speech and infers sensitive attributes---political ideology and stance toward a political figure---about the authors of real posts. Inferring political orientation for identifiable accounts is dual-use: the same pipeline that supports research on discourse could enable profiling or surveillance. We therefore restrict our use to aggregate research analysis. We collect only content made publicly available through platform interfaces, do not access private or restricted accounts, and use account identifiers solely to reconstruct reply structure and de-duplicate posts (Appendix~\ref{app:data_collection}). We do not release individual-level inferred labels tied to identities, and we report results only in aggregate; released validation annotations are keyed to hashed post identifiers. Human annotation was performed by three of the authors, who have experience in political content analysis, as part of their regular research duties; no crowdworkers were recruited, and coders could discuss exposure to hostile political content with the team at any time. Because the study uses only publicly available data and involves no intervention or interaction with human participants, it did not require review by an institutional ethics board under our institutional framework.
+
+We release our code and configuration and the validation annotations (labels and confidence ratings keyed to hashed post identifiers, without raw post text) for research use, consistent with each platform's terms of service and the research-use licenses of the open-weight models we evaluate. Because we release labels keyed to hashed identifiers rather than a redistributed corpus of raw posts, we do not amplify any offensive content the original posts may contain. By design, our framework surfaces---rather than hides---cases where context is insufficient for a confident judgment, which we view as a safeguard against over-confident automated labeling of individuals.
+
+\bibliography{references}
+\appendix
+\section{Data Collection and Conversation Trees}
+\label{app:data_collection}
+
+This appendix describes how we constructed the corpus from which the annotated
+conversation trees were drawn. Our goal was to collect public political discussion on two
+platforms and to reconstruct the surrounding reply structure so that we could later vary
+how much context is shown to models.
+
+\subsection{Platforms and Time Window}
+We collected public posts from Bluesky and Truth Social during a fixed period from
+May 30 to June 30, 2024. We chose a single shared window to make the two platforms
+comparable and to avoid mixing content from different political moments. The window
+includes two high-salience legal events involving Donald Trump and Hunter Biden, which
+generated substantial discussion volume and many reply chains.
+
+\subsection{Keyword Search for the General Corpus}
+To build the general corpus, we used each platform's public search functionality to
+retrieve posts containing the keywords \texttt{Biden} and \texttt{Trump}. For each keyword query,
+we paginated through all available results in the time window and stored the post identifier,
+author identifier, timestamp, post text, and basic engagement fields when available.
+
+\subsection{Reconstructing Conversational Context}
+Keyword search returns individual posts, but many posts are written as replies that rely
+on prior turns. To recover conversational context, we expanded each matched post into its
+surrounding conversation:
+
+\begin{itemize}
+    \item \textbf{Bluesky.} For each matched post, we used the thread retrieval endpoint to
+    fetch the post within its conversation thread, returning the reply chain above the post
+    and the reply subtree below it.
+    \item \textbf{Truth Social.} For each matched post, we used a context-style endpoint
+    to retrieve ancestors and descendants of the post within the same conversation.
+\end{itemize}
+
+Thread expansion is recursive: starting from a matched post, we retrieve ancestors and
+descendants, then repeat for newly discovered posts until no additional parents
+or children are returned, merging overlapping expansions and de-duplicating by post identifier.
+
+\subsection{Constructing the Conversation Tree Sample}
+From this general corpus, we selected approximately 100 conversation trees spanning a range of
+sizes and dates and including both platforms, yielding the 7{,}408-post inference corpus.
+The 295-post human-validated subset (Section~\ref{sec:human_validation}) was drawn across these
+trees so that no single tree dominates; it serves as the evaluation set for all
+classification and calibration metrics.
+
+\subsection{Ethics and Access}
+We collected only public content made available through platform interfaces. We did not
+attempt to access private posts or restricted accounts. Identifiers were used only to
+reconstruct reply structure and to support de-duplication across endpoints.
+
+\section{Prompt Template}
+\label{app:prompt}
+
+The prompt below is applied verbatim across all models and conditions; only the
+available context blocks vary by condition (T provides only the target post text;
+T+B adds \texttt{[BACKGROUND]}; T+B+C adds \texttt{[PARENT REPLY]}/\texttt{[CHILD REPLY]};
+T+B+C+M adds \texttt{[USER METADATA]}). Note that confidence is requested without any
+definition or rubric.
+
+{\small
+\begin{verbatim}
+You are a political discourse analyst. Your
+task is to analyze the author's political
+views based on ONLY the information provided.
+
+[BACKGROUND]
+{background_brief}
+
+[USER METADATA]
+{user_metadata}
+
+[PARENT REPLY]
+{parent_post_text}
+
+[TARGET POST]
+{focal_post_text}
+
+[CHILD REPLY]
+{child_post_text}
+
+ANALYSIS QUESTIONS:
+
+1. POLITICAL IDEOLOGY
+   Based ONLY on the information above, what
+   is the author's political ideology?
+   Answer Options: Left (progressive/liberal),
+   Center (moderate), Right (conservative/
+   libertarian)
+
+2. STANCE TOWARD TRUMP
+   Based ONLY on the information above, what
+   is the author's stance toward Trump?
+   Answer Options: favor, against, neutral,
+   undecided
+
+RESPONSE FORMAT:
+Please provide your answer in this exact
+format:
+
+Ideology: [Left/Center/Right]
+Ideology Confidence: [0-100]%
+
+Trump Stance: [one of the options]
+Stance Confidence: [0-100]%
+
+Brief Reasoning: [1-2 sentences explaining
+your assessment]
+\end{verbatim}
+}
+
+\section{Additional Tables and Figures}
+\label{app:tables}
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.86\textwidth]{fig_conf_rev}
+    \caption{Mean self-reported confidence for ideology (left) and stance (right) by model and context condition, over the full inference corpus. Confidence increases monotonically with context for every model, despite the prompt containing no instruction linking confidence to context availability.}
+    \label{fig:confidence_results}
+\end{figure*}
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.86\textwidth]{fig_auroc_within}
+    \caption{Within-condition discrimination: AUROC of self-reported confidence for correctness, per model and condition (left: ideology; right: stance). AUROC exceeds 0.5 (dashed) in 62 of 64 cells.}
+    \label{fig:auroc}
+\end{figure*}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lccc}
+\toprule
+Model & Family & Params & Architecture \\
+\midrule
+gemma-3-27b-it & Gemma & 27B & Dense (IT) \\
+llama-3.1-8b & Llama & 8B & Dense (IT) \\
+ministral-3-8b & Mistral & 8B & Dense (IT) \\
+ministral-3-14b & Mistral & 14B & Dense (IT) \\
+qwen3-4b & Qwen & 4B & Dense (IT) \\
+qwen3-30b-a3b & Qwen & 30B & MoE (IT) \\
+qwen3-80b-a3b & Qwen & 80B & MoE (IT) \\
+gpt-oss-120b & GPT-OSS & 120B & MoE (Reasoning) \\
+\bottomrule
+\end{tabular}
+\caption{Large language models evaluated in this study: Gemma-3 \cite{gemma3_2025}, Llama-3.1 \cite{llama3_2024}, Qwen3 \cite{qwen3_2025}, gpt-oss \cite{gptoss_2025}, and Ministral-3 \cite{mistral3_2025}.}
+\label{tab:models}
+\end{table}
+
+\begin{table}[h]
+\centering
+\small
+\setlength{\tabcolsep}{3.6pt}
+\begin{tabular}{lcccc}
+\toprule
+Model & T & T+B & T+B+C & Full \\
+\midrule
+\multicolumn{5}{l}{\emph{Label extraction success (\%, ideology)}}\\
+gemma-3-27b-it  & 97.8 & 99.6 & 99.7 & 99.7 \\
+gpt-oss-120b    & 98.6 & 97.3 & 96.8 & 96.7 \\
+llama-3.1-8b    & 92.9 & 86.6 & 82.6 & 90.6 \\
+ministral-3-14b & 69.7 & 69.5 & 85.4 & 89.9 \\
+ministral-3-8b  & 84.7 & 93.4 & 91.1 & 92.8 \\
+qwen3-30b-a3b   & 96.3 & 97.8 & 98.8 & 98.2 \\
+qwen3-4b        & 95.3 & 99.1 & 99.9 & 100.0 \\
+qwen3-80b-a3b   & 96.8 & 99.7 & 99.9 & 99.6 \\
+\midrule
+\multicolumn{5}{l}{\emph{Non-committal stance responses (\% of parsed)}}\\
+gemma-3-27b-it  & 33.7 & 19.1 & 12.3 & 5.9 \\
+gpt-oss-120b    & 46.9 & 30.6 & 14.8 & 3.6 \\
+llama-3.1-8b    & 21.5 &  1.0 &  0.7 & 0.2 \\
+ministral-3-14b & 16.6 &  6.5 &  4.8 & 2.7 \\
+ministral-3-8b  &  9.8 &  1.3 &  0.7 & 0.8 \\
+qwen3-30b-a3b   & 25.3 &  6.7 &  2.8 & 1.4 \\
+qwen3-4b        & 24.2 &  0.9 &  0.4 & 0.1 \\
+qwen3-80b-a3b   & 35.5 &  6.6 &  2.5 & 1.3 \\
+\bottomrule
+\end{tabular}
+\caption{Top: percentage of responses from which an ideology label could be extracted, by model and condition (stance and confidence extraction rates are within 1--3 points; full table in released materials). Unparseable responses are excluded from analyses, not imputed. Bottom: percentage of parsed stance responses using \emph{neutral}/\emph{undecided} (folded into \emph{none} for evaluation); non-commitment falls sharply as context is added.}
+\label{tab:parserates}
+\end{table}
+
+\begin{table}[h]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llcccc}
+\toprule
+Task & Platform & T & T+B & T+B+C & Full \\
+\midrule
+Ideology & Bluesky      & 42.9 & 48.5 & 57.5 & 69.6 \\
+Ideology & Truth Social & 57.8 & 59.5 & 79.0 & 89.6 \\
+Stance   & Bluesky      & 56.2 & 46.1 & 49.2 & 50.8 \\
+Stance   & Truth Social & 40.0 & 46.8 & 63.5 & 75.4 \\
+\bottomrule
+\end{tabular}
+\caption{Pooled model accuracy (\%) by platform and condition. Gold-set composition: Truth Social $n{=}218$ (187 right, 11 left, 17 center; 171 favor, 14 against, 29 none), Bluesky $n{=}77$ (2 right, 55 left, 17 center; 0 favor, 39 against, 38 none).}
+\label{tab:platform}
+\end{table}
+
+\begin{table}[h]
+\centering
+\small
+\setlength{\tabcolsep}{3.2pt}
+\setlength{\tabcolsep}{2.6pt}
+\begin{tabular}{lcccccccc}
+\toprule
+ & \multicolumn{4}{c}{Ideology} & \multicolumn{4}{c}{Stance} \\
+\cmidrule(lr){2-5}\cmidrule(lr){6-9}
+Model & gap & ECE & Br. & CW\% & gap & ECE & Br. & CW\% \\
+\midrule
+gemma-3-27b-it  &  4.9 & .06 & .17 & 17.8 & 22.9 & .23 & .27 & 35.4 \\
+gpt-oss-120b    &  7.1 & .08 & .16 & 20.3 &  9.2 & .11 & .21 & 29.3 \\
+llama-3.1-8b    & 15.1 & .15 & .24 & 32.3 & 55.7 & .56 & .54 & 67.8 \\
+ministral-3-14b & 15.3 & .15 & .21 & 25.4 & 20.5 & .24 & .27 & 33.2 \\
+ministral-3-8b  & 15.8 & .18 & .22 & 25.9 & 34.0 & .34 & .36 & 42.7 \\
+qwen3-30b-a3b   & 22.5 & .23 & .24 & 29.8 & 27.2 & .27 & .30 & 37.4 \\
+qwen3-4b        & 28.5 & .29 & .30 & 37.0 & 41.4 & .41 & .41 & 49.8 \\
+qwen3-80b-a3b   & 19.6 & .20 & .22 & 25.4 & 27.6 & .28 & .29 & 33.9 \\
+\bottomrule
+\end{tabular}
+\caption{Absolute calibration, pooled over conditions: confidence--accuracy gap (points), expected calibration error (10 equal-mass bins), Brier score, and confidently-wrong rate (\% of predictions with confidence $\ge$70 that are incorrect). Every model is overconfident on both tasks; gemma-3-27b-it least so on ideology and gpt-oss-120b on stance. Pooling averages over conditions with very different gaps; Table~\ref{tab:calibration_cond} gives the per-condition values.}
+\label{tab:calibration}
+\end{table}
+
+\begin{table}[h]
+\centering
+\small
+\setlength{\tabcolsep}{3.6pt}
+\begin{tabular}{lcc}
+\toprule
+Condition & Ideology & Stance \\
+\midrule
+T        & 0.720 & 0.652 \\
+T+B      & 0.633 & 0.562 \\
+T+B+C    & 0.621 & 0.622 \\
+T+B+C+M  & 0.729 & 0.738 \\
+\bottomrule
+\end{tabular}
+\caption{Mean within-condition AUROC of confidence for correctness, averaged over the eight models (per-model values in Figure~\ref{fig:auroc}). Discrimination is strongest at full context and weakest in the middle conditions: T+B for stance, T+B+C for ideology.}
+\label{tab:auroc}
+\end{table}
+
+\begin{table}[h]
+\centering
+\small
+\setlength{\tabcolsep}{3.2pt}
+\begin{tabular}{lccccc}
+\toprule
+Model & 100\% & 80\% & 60\% & 40\% & 20\% \\
+\midrule
+\multicolumn{6}{l}{\emph{Ideology, full context}}\\
+gemma-3-27b-it  & 87.5 & 93.5 & 97.7 & 99.1 & 98.2 \\
+gpt-oss-120b    & 87.0 & 93.7 & 96.4 & 97.3 & 96.4 \\
+llama-3.1-8b    & 82.6 & 84.8 & 84.8 & 91.4 & 92.3 \\
+ministral-3-14b & 81.6 & 87.7 & 90.7 & 90.8 & 96.9 \\
+ministral-3-8b  & 85.0 & 91.5 & 91.1 & 95.1 & 100.0 \\
+qwen3-30b-a3b   & 84.3 & 90.4 & 89.5 & 90.4 & 89.5 \\
+qwen3-4b        & 80.3 & 86.6 & 90.2 & 93.0 & 91.2 \\
+qwen3-80b-a3b   & 86.3 & 88.2 & 88.9 & 88.6 & 93.0 \\
+\midrule
+\multicolumn{6}{l}{\emph{Stance, full context}}\\
+gemma-3-27b-it  & 78.0 & 87.1 & 92.5 & 92.2 & 96.6 \\
+gpt-oss-120b    & 76.3 & 86.0 & 92.8 & 96.4 & 98.2 \\
+llama-3.1-8b    & 42.0 & 44.1 & 46.2 & 51.4 & 53.8 \\
+ministral-3-14b & 73.5 & 79.5 & 80.8 & 86.4 & 97.0 \\
+ministral-3-8b  & 64.1 & 71.3 & 76.8 & 79.5 & 85.4 \\
+qwen3-30b-a3b   & 72.3 & 78.8 & 78.6 & 87.8 & 93.0 \\
+qwen3-4b        & 66.7 & 69.8 & 77.6 & 86.2 & 86.2 \\
+qwen3-80b-a3b   & 74.2 & 81.7 & 82.6 & 95.6 & 98.2 \\
+\bottomrule
+\end{tabular}
+\caption{Per-model coverage--accuracy at full context: accuracy (\%) among each model's own top-$x\%$ most confident predictions. Accuracy is monotone (to small-sample noise) in coverage for every model, including the weakest (llama-3.1-8b stance: 42.0$\rightarrow$53.8), confirming that the pooled gains in Table~\ref{tab:coverage} are not an artifact of ranking better-calibrated models first.}
+\label{tab:coverage_permodel}
+\end{table}
+
+\input{tab_rebuttal}
+
+\paragraph{Macro-F1 bootstrap CIs for Table~\ref{tab:perf}.}
+Ideology: T $45.2$ $[40.7, 49.1]$; T+B $44.4$ $[40.9, 47.9]$; T+B+C $54.3$ $[49.8, 58.5]$; full $65.0$ $[60.5, 69.5]$.
+Stance: T $43.6$ $[39.4, 47.9]$; T+B $40.1$ $[36.6, 43.2]$; T+B+C $47.0$ $[43.4, 49.9]$; full $52.8$ $[49.2, 55.5]$.
+
+\paragraph{Sensitivity to parse-failure handling.}
+Treating unparseable responses as \emph{none}/\emph{center} predictions instead of excluding them lowers pooled accuracy by 2--4 points per condition (e.g., full-context ideology $84.5 \rightarrow 81.5$) without changing any ordering or any conclusion in Section~\ref{sec:results}.
+
+\section{Cross-Sample Agreement as a Rival Signal}
+\label{app:agreement}
+
+Stochastic decoding offers a second reliability signal that costs no extra prompt engineering: decode each cell $k$ times and treat the share of samples that agree with the deployed label as a stability score. We re-decoded the gold-subset prompts (295 posts $\times$ 4 conditions, identical prompts to the main run) $k$ times per model at temperature $0.7$ and compare three signals for the first sample's correctness, within condition: the first sample's verbalized confidence; the share of the remaining $k{-}1$ samples agreeing with its label; and their rank average (Table~\ref{tab:agreement}).
+
+Two findings. First, agreement is a coarse signal at deployment temperatures: with $k{=}3$, $85$--$98\%$ of cells are unanimous, so agreement takes essentially one value for most cells and its AUROC stays between $0.49$ and $0.64$, against $0.54$--$0.85$ for verbalized confidence on the same cells. Second, the two signals are nearly independent (Spearman $\rho$ between them $0.08$--$0.30$), yet combining them adds at most $0.03$ AUROC over verbalized confidence alone, and averaging verbalized confidence over the $k$ samples helps about as much ($+0.01$ to $+0.05$). Coverage-matched accuracy tells the same story: keeping the $60\%$ of full-context cells ranked highest by agreement leaves ideology accuracy essentially at its full-coverage value ($87.9\%$ vs.\ $88.2\%$ for gemma-3-27b-it), whereas ranking by verbalized confidence raises it to $96.6\%$. Agreement does carry information about item difficulty for the weaker model: qwen3-4b's full-context ideology label flips across seeds on $21.5\%$ of posts where coders split $2$--$1$ against $2.0\%$ of unanimous posts, which addresses the question of whether repeated sampling can flag items that are hard for humans. Verbalized confidence flags the same items more sharply (AUROC for coder unanimity $0.74$ vs.\ $0.60$ for agreement). % AUTHORS: figures above are from the k=3 pilot on two models; replace with the eight-model, k=10 values in Table~\ref{tab:agreement} once sample_agreement/ completes.
+
+\end{document}

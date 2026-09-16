@@ -1,0 +1,92 @@
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{l|cccc|cccc}
+\toprule
+ & \multicolumn{4}{c|}{Ideology: gap / ECE} & \multicolumn{4}{c}{Stance: gap / ECE} \\
+Model & T & T+B & T+B+C & Full & T & T+B & T+B+C & Full \\
+\midrule
+gemma-3-27b-it & 5.8 / 0.10 & 13.6 / 0.16 & 2.1 / 0.06 & -1.9 / 0.04 & 29.3 / 0.29 & 33.7 / 0.34 & 20.3 / 0.20 & 8.8 / 0.10 \\
+gpt-oss-120b & 8.9 / 0.10 & 15.4 / 0.16 & 5.1 / 0.08 & -1.0 / 0.04 & 1.5 / 0.08 & 15.0 / 0.18 & 11.2 / 0.13 & 8.9 / 0.11 \\
+llama-3.1-8b & 22.9 / 0.23 & 23.8 / 0.24 & 12.5 / 0.12 & 1.6 / 0.08 & 44.3 / 0.44 & 68.3 / 0.68 & 61.4 / 0.61 & 49.6 / 0.50 \\
+ministral-3-14b & 16.0 / 0.16 & 19.8 / 0.20 & 15.3 / 0.16 & 11.8 / 0.13 & 17.7 / 0.28 & 23.3 / 0.26 & 23.5 / 0.24 & 18.9 / 0.19 \\
+ministral-3-8b & 10.9 / 0.19 & 25.2 / 0.25 & 18.0 / 0.18 & 7.8 / 0.08 & 29.3 / 0.33 & 42.6 / 0.43 & 32.7 / 0.33 & 30.3 / 0.30 \\
+qwen3-30b-a3b & 32.0 / 0.32 & 30.2 / 0.30 & 18.8 / 0.19 & 10.1 / 0.11 & 34.6 / 0.35 & 33.4 / 0.33 & 21.5 / 0.21 & 19.9 / 0.20 \\
+qwen3-4b & 32.5 / 0.33 & 44.5 / 0.45 & 26.5 / 0.27 & 11.2 / 0.12 & 37.6 / 0.38 & 58.4 / 0.58 & 41.9 / 0.42 & 27.6 / 0.28 \\
+qwen3-80b-a3b & 25.6 / 0.27 & 26.7 / 0.27 & 18.1 / 0.18 & 8.3 / 0.10 & 28.4 / 0.29 & 33.9 / 0.34 & 26.0 / 0.26 & 22.0 / 0.22 \\
+\midrule
+Pooled over models & 19.6 / 0.20 & 25.4 / 0.25 & 14.5 / 0.14 & 5.7 / 0.06 & 28.3 / 0.30 & 39.4 / 0.39 & 29.6 / 0.30 & 23.0 / 0.23 \\
+\bottomrule
+\end{tabular}
+\caption{Absolute calibration \emph{per context condition}: confidence--accuracy gap (points; negative means under-confident) and expected calibration error (10 equal-mass bins), per model and task. Mean confidence exceeds accuracy in 62 of 64 cells; the exceptions are gemma-3-27b-it and gpt-oss-120b on ideology at full context. The gap is largest at T+B for almost every model and smallest at full context, so a check pooled over conditions (Table~\ref{tab:calibration}) averages a model's worst and best cases.}
+\label{tab:calibration_cond}
+\end{table*}
+
+\begin{table}[h]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lcc}
+\toprule
+Selection policy (full context) & Ideology & Stance \\
+\midrule
+Random order & 16.8 & 32.4 \\
+Platform rule (Truth Social first) & 11.5 & 26.8 \\
+Verbalized confidence & 8.9 & 18.8 \\
+Platform, then confidence within platform & 8.1 & 18.2 \\
+\midrule
+\multicolumn{3}{l}{\emph{Accuracy (\%) at the platform rule's coverage}}\\
+Platform rule & 89.5 & 74.9 \\
+Verbalized confidence & 89.8 & 74.8 \\
+\midrule
+\multicolumn{3}{l}{\emph{Confidence triage within platform: accuracy at 100 / 60 / 20\% coverage}}\\
+Truth Social & 89.5 / 93.2 / 96.4 & 74.9 / 82.9 / 91.8 \\
+Bluesky & 69.7 / 77.1 / 81.9 & 50.7 / 57.6 / 70.0 \\
+\bottomrule
+\end{tabular}
+\caption{Selective-prediction comparison at full context, pooled over models. Top: area under the risk--coverage curve (mean error rate over all coverage levels, lower is better; \citealp{elyaniv_foundations_2010}). Post-level bootstrap 95\% CI on the confidence-minus-platform difference: $[-4.7, -0.6]$ ideology, $[-10.9, -4.7]$ stance. Middle: accuracy at the platform rule's coverage (75\%). Bottom: confidence triage inside each platform.}
+\label{tab:aurc}
+\end{table}
+
+\begin{table}[h]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lcccc|cccc}
+\toprule
+ & \multicolumn{4}{c|}{Ideology $\rho$} & \multicolumn{4}{c}{Stance $\rho$} \\
+Model & C1 & C2 & Mean & Rank & C1 & C2 & Mean & Rank \\
+\midrule
+gpt-oss-120b & 0.82 & 0.66 & 0.82 & 0.82 & 0.76 & 0.60 & 0.77 & 0.76 \\
+gemma-3-27b-it & 0.62 & 0.51 & 0.61 & 0.61 & 0.03 & 0.19 & 0.04 & 0.04 \\
+ministral-3-14b & 0.59 & 0.49 & 0.60 & 0.61 & 0.48 & 0.44 & 0.50 & 0.50 \\
+ministral-3-8b & 0.61 & 0.48 & 0.60 & 0.60 & 0.56 & 0.48 & 0.56 & 0.56 \\
+qwen3-80b-a3b & 0.61 & 0.47 & 0.60 & 0.60 & 0.42 & 0.32 & 0.41 & 0.40 \\
+qwen3-4b & 0.52 & 0.44 & 0.52 & 0.53 & 0.50 & 0.46 & 0.51 & 0.51 \\
+qwen3-30b-a3b & 0.48 & 0.42 & 0.48 & 0.48 & 0.36 & 0.37 & 0.37 & 0.37 \\
+llama-3.1-8b & 0.34 & 0.33 & 0.36 & 0.36 & 0.25 & 0.27 & 0.26 & 0.26 \\
+\bottomrule
+\end{tabular}
+\caption{Spearman correlation between each model's text-only confidence and human confidence under four references: coder 1 alone (mean 39/40), coder 2 alone (mean 16/15), their raw mean (as in Table~\ref{tab:conf_agree}), and the mean of within-coder percentile ranks, which removes the scale difference. Quadratic-weighted $\kappa_w$ against coder 1 / coder 2 for gpt-oss-120b: 0.71 / 0.43 (ideology). $n{=}281$ posts.}
+\label{tab:conf_agree_coder}
+\end{table}
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{llc|cccc|cccc|cc}
+\toprule
+ & & & \multicolumn{4}{c|}{AUROC, verbalized / agreement} & \multicolumn{4}{c|}{AUROC, combined} & \multicolumn{2}{c}{Acc.\ at 60\% cov., full} \\
+Model & Task & $k$ & T & T+B & T+B+C & Full & T & T+B & T+B+C & Full & Verb. & Agree. \\
+\midrule
+gemma-3-27b-it & ideology & 3 & 0.75 / 0.53 & 0.74 / 0.51 & 0.71 / 0.53 & 0.85 / 0.53 & 0.76 & 0.74 & 0.73 & 0.85 & 96.6 & 87.9 \\
+ & stance & 3 & 0.54 / 0.52 & 0.58 / 0.49 & 0.72 / 0.55 & 0.78 / 0.55 & 0.55 & 0.57 & 0.71 & 0.79 & 91.4 & 80.6 \\
+qwen3-4b & ideology & 3 & 0.77 / 0.56 & 0.59 / 0.53 & 0.62 / 0.64 & 0.78 / 0.59 & 0.78 & 0.58 & 0.68 & 0.79 & 92.0 & 82.2 \\
+ & stance & 3 & 0.66 / 0.52 & 0.48 / 0.51 & 0.50 / 0.59 & 0.67 / 0.59 & 0.67 & 0.48 & 0.56 & 0.72 & 73.1 & 73.1 \\
+\bottomrule
+\end{tabular}
+\caption{Verbalized confidence vs.\ cross-sample agreement as reliability signals, on the gold subset re-decoded $k$ times (temperature 0.7). Signals: the first sample's verbalized confidence; the share of the other $k{-}1$ samples whose label agrees with the first sample's; and their rank average. AUROC is for the first sample's correctness, within condition. Right: accuracy among the 60\% of full-context cells ranked highest by each signal.}
+\label{tab:agreement}
+\end{table*}
