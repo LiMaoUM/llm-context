@@ -49,3 +49,8 @@
     70 to 93 percent in the paper), load 90 s.
   - 2026-09-16 full v2 launched: eight models, ten seeds, vLLM 0.13.0, GPUs 2 and 7, log
     sample_agreement/run.log.
+  - 2026-09-16 full v2 complete: eight models x 10 seeds, 11,680 rows each, ideology parse rates
+    0.75 (ministral-3-14b) to 0.99. Headline: verbalized >= agreement AUROC in 44/64 cells and
+    14/16 pooled pairs; llama-3.1-8b ideology is the exception (0.80 vs 0.59); combined >= verbalized
+    in 56/64 cells. Hypothesis held for seven of eight models; the "at most 0.02 combined gain"
+    clause is rejected for unstable models (up to 0.22). Study closed; no larger k.

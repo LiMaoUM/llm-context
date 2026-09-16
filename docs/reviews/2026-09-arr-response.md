@@ -4,8 +4,8 @@ Source reviews: `2026-09-arr-submission2351-reviews.md`. Revised manuscript: `la
 at commit 72a08df and later. New numbers: `rebuttal_analysis_output.json` (script
 `rebuttal_analysis.py`); new appendix tables: `latex/tab_rebuttal.tex` (script `rebuttal_tables.py`).
 
-Items marked PENDING depend on the eight-model, ten-seed re-decoding run
-(`sample_agreement_run.py`, log `sample_agreement/run.log`). Everything else is in the manuscript.
+The eight-model, ten-seed re-decoding run (`sample_agreement_run.py`, vLLM 0.13.0, outputs in
+`sample_agreement/`) is complete; every number below is in the manuscript.
 
 ## Part 1: Revision Roadmap
 
@@ -26,7 +26,7 @@ Items marked PENDING depend on the eight-model, ten-seed re-decoding run
 | 3 | Table 7 caption says gpt-oss-120b least overconfident; on ideology gemma-3-27b-it is better on gap, ECE, and confidently-wrong rate; the "only gpt-oss passes" claim is task-aggregated | h3ni W2b | Major | 5.5, Table 7, abstract, 6.3, conclusion | Least-overconfident model stated per task; the "only gpt-oss-120b passes" claim now refers only to alignment with human confidence (Table 2), where it holds; abstract and conclusion qualified | Done |
 | 4 | Triage advantage over the platform rule does not survive coverage matching; risk-coverage curve and AURC requested | h3ni W3 | Major | 5.7, App. | Matched-coverage comparison reported honestly (tie at 75 percent); AURC over the full frontier with post-level bootstrap CI (Table `tab:aurc`); within-platform triage numbers carry the argument | Done |
 | 5 | Bluesky stance is at chance under every condition and highest at text-only; belongs in 5.1, not an appendix | 8FDE W1 | Major | 5.1, 5.2 | New paragraph in 5.1 with majority baselines, the T to full trajectory, and the predicted-label collapse toward the community prior; 5.2 shortened to avoid repetition | Done |
-| 6 | No comparison of verbalized confidence against cross-sample agreement | 8FDE W2, 24ts W2 | Major | Limitations, new App. | Re-decode the gold subset k times for every model; AUROC, coverage-matched accuracy, and combination for the three signals (Table `tab:agreement`, Appendix `app:agreement`) | Pilot done (k=3, two models); eight-model k=10 PENDING |
+| 6 | No comparison of verbalized confidence against cross-sample agreement | 8FDE W2, 24ts W2 | Major | Limitations, new App. | Re-decode the gold subset k times for every model; AUROC, coverage-matched accuracy, and combination for the three signals (Table `tab:agreement`, Appendix `app:agreement`) | Done (k=10, eight models) |
 
 ### P2: Should fix
 
@@ -34,7 +34,7 @@ Items marked PENDING depend on the eight-model, ten-seed re-decoding run
 |---|---|---|---|---|---|---|
 | 7 | Human confidence reference rests on two coders whose scale use differs by 2.5x; unweighted kappa 0.28 / 0.34 | 8FDE W3 | Minor | 3.3, 5.5, App. | Model-versus-coder agreement recomputed against each coder separately and against a scale-free rank consensus (Table `tab:conf_agree_coder`); ordering unchanged | Done |
 | 8 | Why temperature 0.7; it adds a stochastic component | 24ts W3 | Minor | 4.2, Limitations | Rationale added (deployment setting; the confidence studied is the one practitioners see); three-seed stability bound retained; cross-sample comparison turns the concern into a measured quantity | Done |
-| 9 | Use human agreement more, e.g. predict hard-for-humans cases from class-flip probability under repeated prompting | 24ts W2 | Minor | App. `app:agreement` | Flip rate on split versus unanimous posts, and AUROC of agreement and of verbalized confidence for coder unanimity | Pilot done; PENDING for eight models |
+| 9 | Use human agreement more, e.g. predict hard-for-humans cases from class-flip probability under repeated prompting | 24ts W2 | Minor | App. `app:agreement` | Flip rate on split versus unanimous posts, and AUROC of agreement and of verbalized confidence for coder unanimity | Done |
 | 10 | Data from a less biased platform | 24ts W1 | Minor | Limitations | Out of scope for this cycle; acknowledged in the response and in Limitations (Scope) | Response only |
 
 ### P3: Editorial
@@ -55,13 +55,13 @@ Items marked PENDING depend on the eight-model, ten-seed re-decoding run
 
 8FDE scored Datasets 1 and Software 1; 24ts and h3ni scored both 3 to 4. Check what the submission package contained. If code and annotations were attached, say so in the response; if not, state the release plan.
 
-### Revision order (all applied at commit 72a08df unless PENDING)
+### Revision order (all applied; commits 72a08df through the current HEAD)
 
 1. h3ni factual corrections (items 2, 3) and the per-condition calibration table (item 1).
 2. AURC comparison and within-platform triage (item 4).
 3. Bluesky paragraph in 5.1 (item 5).
 4. Per-coder agreement (item 7), temperature rationale (item 8), acronyms (item 11).
-5. Sample-agreement appendix with pilot numbers (items 6, 9); update from the eight-model run.
+5. Sample-agreement appendix from the eight-model, ten-seed run (items 6, 9).
 6. Trim introduction, related work, and discussion so the body ends on page 8.
 
 ## Part 2: Author Response (ARR format)
@@ -119,16 +119,23 @@ builds on this paragraph instead of restating the platform difference as a diffe
 
 **W2 (rival signal: cross-sample agreement).** This was the most useful comment we received, and
 we ran the experiment. We re-decoded every gold cell (295 posts x 4 conditions, identical prompts)
-k times per model at temperature 0.7 and compared, within condition, three signals for the first
-sample's correctness: its verbalized confidence, the share of the other k minus 1 samples agreeing
-with its label, and their rank average (Appendix `app:agreement`, Table `tab:agreement`).
-Pilot results (k=3, gemma-3-27b-it and qwen3-4b): agreement is a coarse signal at deployment
-temperatures, since 85 to 98 percent of cells are unanimous, so its AUROC stays between 0.49 and
-0.64 against 0.54 to 0.85 for verbalized confidence on the same cells; the two are nearly
-independent (Spearman 0.08 to 0.30) yet combining them adds at most 0.03 AUROC; and ranking
-full-context cells by agreement leaves accuracy at its full-coverage value (87.9 vs 88.2 for
-gemma-3-27b-it at 60 percent coverage) where verbalized confidence raises it to 96.6.
-PENDING: eight models, k=10; the appendix and this response will carry those numbers.
+ten times for every model at temperature 0.7 and compared, within condition, three signals for
+the first sample's correctness: its verbalized confidence, the share of the other nine samples
+agreeing with its label, and their rank average (Appendix `app:agreement`, Table `tab:agreement`).
+Verbalized confidence is at least as discriminative as agreement in 44 of 64 model x condition x
+task cells and in 14 of 16 model x task pairs pooled over conditions. The exception is
+llama-3.1-8b on ideology, where agreement reaches AUROC 0.80 against 0.59 for verbalized
+confidence at full context. The pattern has a simple explanation: agreement carries information
+only when the model flips, and the share of cells where all ten samples agree runs from 48 percent
+(llama-3.1-8b) to 95 percent (gemma-3-27b-it); the gap between the two signals tracks that share
+(Spearman 0.58 over the 16 pairs). The two signals are complementary: their rank average matches
+or exceeds verbalized confidence in 56 of 64 cells and adds 0.05 or more AUROC in 21, up to 0.22
+for llama-3.1-8b. At the deployment operating point (top 60 percent of full-context cells),
+verbalized confidence beats agreement for 13 of 16 pairs and the combination is best or tied in 15;
+majority voting over ten samples moves accuracy by at most 3 points. So verbalized confidence
+does beat the rival a practitioner would reach for first, for every model but the least stable
+one, and the appendix gives the practitioner a criterion (flip rate on a small validated sample)
+for when extra samples are worth paying for.
 
 **W3 (two-coder confidence reference).** We agree the reference is thin and now show what it
 can and cannot carry. Appendix Table `tab:conf_agree_coder` repeats the model-versus-human
@@ -149,11 +156,12 @@ Limitations (Scope) paragraph states that headline numbers on mixed platforms sh
 to sit near the Bluesky column.
 
 **W2 (use human agreement more; predict hard cases from class-flip probability).** Done as part of
-the re-decoding experiment (Appendix `app:agreement`). Pilot result: qwen3-4b's full-context
-ideology label flips across seeds on 21.5 percent of posts where coders split 2 to 1 against
-2.0 percent of unanimous posts, so flip probability does flag hard-for-humans items; verbalized
-confidence flags the same items more sharply (AUROC for coder unanimity 0.74 vs 0.60 for
-agreement). PENDING: eight-model values.
+the re-decoding experiment (Appendix `app:agreement`). Across ten samples per cell, the flip rate
+is higher on posts where coders split 2 to 1 than on unanimous posts for 15 of 16 model x task
+pairs, typically by a factor of two to six (llama-3.1-8b ideology 44 vs 13 percent; qwen3-4b
+29 vs 5 percent), so flip probability does flag hard-for-humans items. Verbalized confidence
+flags the same items more sharply (higher AUROC for coder unanimity in 15 of 16 pairs), which is
+consistent with Section 5.6.
 
 **W3 (temperature 0.7).** The Limitations section now gives the rationale: temperature 0.7 with
 top-p 0.9 is the setting under which these models are typically deployed for annotation, and the

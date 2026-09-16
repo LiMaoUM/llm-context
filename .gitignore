@@ -9,3 +9,7 @@ wheels/
 # Virtual environments
 .venv
 data/
+# derived re-decoding outputs (registered in ~/maospace/map/DATA-REGISTRY.md)
+sample_agreement/*.jsonl
+sample_agreement/*.log
+sample_agreement/vllm0.11/
