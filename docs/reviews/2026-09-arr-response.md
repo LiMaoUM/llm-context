@@ -5,7 +5,9 @@ at commit 72a08df and later. New numbers: `rebuttal_analysis_output.json` (scrip
 `rebuttal_analysis.py`); new appendix tables: `latex/tab_rebuttal.tex` (script `rebuttal_tables.py`).
 
 The eight-model, ten-seed re-decoding run (`sample_agreement_run.py`, vLLM 0.13.0, outputs in
-`sample_agreement/`) is complete; every number below is in the manuscript.
+`sample_agreement/`) is complete; every number below is in the manuscript. The paste-ready
+response, with Mao's 2026-09-19 decisions applied (text-only, third-coder promise, no discussion
+of supplementary scores; see DECISIONS.md), is `2026-09-arr-response-final.md`.
 
 ## Part 1: Revision Roadmap
 
@@ -53,7 +55,7 @@ The eight-model, ten-seed re-decoding run (`sample_agreement_run.py`, vLLM 0.13.
 
 ### Open item for the authors
 
-8FDE scored Datasets 1 and Software 1; 24ts and h3ni scored both 3 to 4. Check what the submission package contained. If code and annotations were attached, say so in the response; if not, state the release plan.
+Resolved 2026-09-19: nothing was attached; the response restates the release plan and does not discuss the scores (Mao's decision, DECISIONS.md).
 
 ### Revision order (all applied; commits 72a08df through the current HEAD)
 
@@ -143,9 +145,10 @@ comparison against each coder separately and against a scale-free consensus (mea
 percentile ranks). The model ordering is identical under every reference; gpt-oss-120b leads
 against both coders on both tasks (Spearman 0.82 and 0.66 for ideology; quadratic-weighted kappa
 0.71 and 0.43), and the rank-based consensus reproduces Table 2's correlations to two decimals.
-The third coder did not rate confidence; the Limitations section already states that the
-confidence comparison speaks to two coders and the text-only condition only. [AUTHORS: decide
-whether to state a plan to collect the third coder's confidence ratings for the camera-ready.]
+Decided 2026-09-19 (Mao): the response promises that the camera-ready adds the third coder's
+text-only confidence ratings on the same 283 posts and recomputes Table 2 against a three-coder
+reference. Rationale: it answers 8FDE's central objection directly and is the item most likely to
+move that reviewer's soundness score.
 
 ### Reviewer 24ts
 
@@ -175,5 +178,6 @@ and the new cross-sample experiment uses the same stochasticity as a rival signa
 
 ### Note on Datasets and Software scores
 
-[AUTHORS: 8FDE scored Datasets 1 / Software 1; the other two reviewers scored 3 to 4. Confirm
-what the submission package contained and state it here in one sentence.]
+Decided 2026-09-19 (Mao): nothing was attached at submission, and the response does not discuss
+the score discrepancy; the general comment restates the release plan (code, configuration, and
+hashed-id annotations with the camera-ready) in one sentence.
