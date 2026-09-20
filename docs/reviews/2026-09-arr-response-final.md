@@ -2,7 +2,7 @@
 
 Post one general comment on the submission and one official comment under each review. Text only,
 no links (ARR rule). The manuscript cannot change within this cycle, so the response accepts,
-states the corrected claims with their numbers, and commits; it never describes edits as made.
+states the corrected claims with their numbers, and says what the revised version will do; it never describes edits as made.
 Table numbers are the submitted paper's: Table 2 model-versus-human confidence agreement, Table 3
 coverage-accuracy, Table 6 per-platform accuracy, Table 7 absolute calibration, Table 8
 within-condition AUROC, Table 9 per-model coverage.
@@ -18,7 +18,7 @@ is restated once.
 Thanks so much to all three reviewers for reading the paper this carefully. Every factual point
 raised checked out against our own tables, and we are glad to have them caught now. Since the
 manuscript cannot change within this cycle, this response says what we accept, what the corrected
-claims are, and what we commit to for the revised version, with the numbers so that nothing has to
+claims are, and what the revised version will do, with the numbers so that nothing has to
 be taken on trust.
 
 Three of the questions concern stochastic decoding at temperature 0.7: why that setting, whether
@@ -28,9 +28,9 @@ We re-decoded every validated cell (295 posts x 4 conditions, identical prompts)
 each of the eight models and compared verbalized confidence against cross-sample agreement within
 condition. The results are in the replies below.
 
-For the revised version we commit to the following: the body stays at eight pages and the new
-material goes into the appendix; the camera-ready adds the third coder's text-only confidence
-ratings; and we release the code, the configuration, and the validation annotations keyed to
+In the revised version the body will stay at eight pages and the new material will go into the
+appendix; the camera-ready will add the third coder's text-only confidence ratings; and we will
+release the code, the configuration, and the validation annotations keyed to
 hashed post identifiers.
 
 ---
@@ -41,22 +41,22 @@ Thanks so much for a review that checked the tables. All three points are right,
 each of them.
 
 On the pooled calibration analysis. You are right that Table 7 pools over the very conditions the
-paper insists on separating everywhere else. We commit to assessing absolute calibration per
-condition, with a gap and ECE table for all 8 models x 4 conditions x 2 tasks, and to rewriting
-Section 5.5 around it. The per-condition picture is this. Mean confidence exceeds accuracy in 62
+paper insists on separating everywhere else. We will assess absolute calibration per condition,
+with a gap and ECE table for all 8 models x 4 conditions x 2 tasks, and rewrite Section 5.5
+around it. The per-condition picture is this. Mean confidence exceeds accuracy in 62
 of 64 cells; the two exceptions are gemma-3-27b-it and gpt-oss-120b on ideology at full context,
 where confidence sits 1 to 2 points below accuracy. Pooled over models, the gap peaks at T+B (25
 points on ideology, 39 on stance) and is smallest at full context (6 and 23). The pooled figure
 hides exactly what you suspected: gemma-3-27b-it's pooled ideology gap of 4.9 averages 13.6 at T+B
-with minus 1.9 at full context. Protocol step 1 in Section 6.3 therefore becomes a check under the
+with minus 1.9 at full context. Protocol step 1 in Section 6.3 will therefore become a check under the
 context condition that will be deployed, with the reason stated, since a pooled check can pass a
 model that is badly overconfident in the condition actually used.
 
-On Table 8 and Table 7. Both captions are wrong as written, and we commit to the corrected
-statements. Discrimination is weakest at T+B for stance (0.56) and at T+B+C for ideology (0.62,
-with T+B at 0.63), so the paper describes a mid-spectrum dip and attaches no mechanism to T+B
+On Table 8 and Table 7. Both captions are wrong as written, and we will correct them.
+Discrimination is weakest at T+B for stance (0.56) and at T+B+C for ideology (0.62, with T+B at
+0.63), so the paper will describe a mid-spectrum dip and attach no mechanism to T+B
 specifically. The least overconfident model is task-specific: gemma-3-27b-it on ideology and
-gpt-oss-120b on stance. The statement that only gpt-oss-120b "passes" is confined, in the
+gpt-oss-120b on stance. The statement that only gpt-oss-120b "passes" will be confined, in the
 abstract, Section 5.5, Section 6.3, and the conclusion, to the check it concerns, alignment of the
 confidence distribution with human confidence (Table 2), where gpt-oss-120b is the only model
 within the coder-coder ceiling.
@@ -68,8 +68,8 @@ suggest, the area under the risk-coverage curve (the mean error rate over all co
 El-Yaniv and Wiener 2010) is 9.0 for confidence against 11.5 for the platform rule on ideology,
 with a post-level bootstrap 95 percent CI on the difference of [minus 4.7, minus 0.6], and 18.8
 against 26.8 on stance ([minus 10.9, minus 4.7]). The two policies also compose: ranking by
-platform and then by confidence within platform gives 8.1 and 18.2. We commit to reporting these
-in place of the current comparison and to letting the within-platform argument carry the point.
+platform and then by confidence within platform gives 8.1 and 18.2. We will report these in
+place of the current comparison and let the within-platform argument carry the point.
 Keeping the top 60 percent raises full-context ideology agreement from 89.5 to 93.2 on Truth
 Social and from 69.7 to 77.1 on Bluesky, and within-platform AUROC exceeds 0.5 for every model on
 both platforms.
@@ -81,16 +81,16 @@ both platforms.
 Thanks so much for this review. Your first two points change how the paper reads, and we are
 grateful for both.
 
-On Bluesky. You are right that a result of this size belongs in Section 5.1, and we commit to
-giving it a paragraph of its own there. On Truth Social, accuracy rises with context on both
+On Bluesky. You are right that a result of this size belongs in Section 5.1, and we will give
+it a paragraph of its own there. On Truth Social, accuracy rises with context on both
 tasks (57.8 to 89.6 on ideology, 40.0 to 75.4 on stance). On Bluesky it does not. Stance is
 highest with no context (56.2), falls when the brief is added (46.1), and ends at 50.8 against a
 50.6 majority class; ideology at full context (69.6) is also below its majority class (74.3). The
 predicted labels show why. As context accumulates, the share of Bluesky stance predictions
 reading "against" climbs from 52 to 82 percent while the gold set is split almost evenly between
 "against" (39) and "none" (38). Context pulls models toward the community prior, which is right
-on Truth Social and half right on Bluesky. Section 5.2 then builds on that paragraph, and the
-platform asymmetry is presented as a difference in what context does on each platform.
+on Truth Social and half right on Bluesky. Section 5.2 will then build on that paragraph, and the
+platform asymmetry will be presented as a difference in what context does on each platform.
 
 On verbalized confidence versus cross-sample agreement. We ran the comparison you asked for.
 Every validated cell (295 posts x 4 conditions, the same prompts as the paper) was re-decoded ten
@@ -111,14 +111,14 @@ full-context cells), verbalized confidence beats agreement for 13 of 16 pairs an
 combination is best or tied in 15; majority voting over the ten samples moves accuracy by at most
 3 points. So verbalized confidence does beat the rival a practitioner would reach for first, for
 every model except the least stable one, and the flip rate on a small validated sample tells a
-practitioner whether extra samples are worth paying for. We commit to reporting the full
-per-model, per-condition table in the appendix and to stating the result in the Limitations
-paragraph on decoding.
+practitioner whether extra samples are worth paying for. We will report the full per-model,
+per-condition table in the appendix and state the result in the Limitations paragraph on
+decoding.
 
 On the two-coder reference. You are right that two coders who use the scale this differently are
-a thin reference for the paper's most novel claim, and we commit to strengthening it in two
-steps. For the camera-ready, the third coder, who was recruited for the label task as you note,
-rates text-only confidence on the same 283 posts, and Table 2 is recomputed against a three-coder
+a thin reference for the paper's most novel claim, and we will strengthen it in two steps. For
+the camera-ready, the third coder, who was recruited for the label task as you note, will rate
+text-only confidence on the same 283 posts, and Table 2 will be recomputed against a three-coder
 reference with a three-coder ceiling. In the meantime we can say what the two-coder reference
 does carry. Repeating the comparison against each coder separately and against a scale-free
 consensus (the mean of within-coder percentile ranks) leaves the model ordering unchanged:
@@ -134,7 +134,7 @@ agreement and leaves the ranking of models where it is.
 Thanks so much for the kind words and for the careful reading, including the acronym catch.
 
 On a less polarized platform. We agree it would strengthen the conclusions, and it is more than
-we can add within this cycle. What we commit to is making the Bluesky result, our closest
+we can add within this cycle. What we will do is make the Bluesky result, our closest
 approximation to a mixed platform, a headline finding in Section 5.1 (stance stays at the
 majority-class level under every condition; the numbers are in our reply to Reviewer 8FDE), with
 the Limitations section stating that headline numbers on mixed platforms should be expected to
@@ -147,7 +147,7 @@ where the three coders split 2 to 1 than on unanimous posts for 15 of 16 model x
 typically by a factor of two to six (llama-3.1-8b ideology 44 vs 13 percent; qwen3-4b 29 vs 5
 percent), so flip probability does flag items that are hard for humans. Verbalized confidence
 flags the same items more sharply (higher AUROC for coder unanimity in 15 of 16 pairs), which
-agrees with Section 5.6. We commit to reporting both in the appendix.
+agrees with Section 5.6. We will report both in the appendix.
 
 On temperature 0.7. The reason is that temperature 0.7 with top-p 0.9 is the setting under which
 these models are typically deployed for annotation, and the paper's question is whether the
@@ -156,8 +156,8 @@ measured the noise it introduces. The three-seed check bounds that noise (label 
 15.1 percent of cells, confidence SD of 2 to 3 points), and the ten-sample experiment above turns
 the same stochasticity into a measured rival signal: for seven of eight models a single
 verbalized confidence score is at least as informative as agreement across ten samples. We
-commit to stating this rationale in the Limitations section.
+will state this rationale in the Limitations section.
 
-On the acronyms in Section 3.3. Thank you, and we commit to removing them; the section will say
+On the acronyms in Section 3.3. Thank you, and we will remove them; the section will say
 "the full-context rendering" and "the text-only rendering" with a forward reference to Section
 4.1.
