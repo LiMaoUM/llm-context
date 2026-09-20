@@ -63,24 +63,21 @@ least as much information as agreement across ten samples. The revised Limitatio
 
 Thanks so much for this review, especially the first two points, which we will address in the camera-ready.
 
-**R2.1, Bluesky.** Agreed, this belongs in Section 5.1 and will get its own paragraph there. On
-Bluesky, stance accuracy is highest with no context (56.2) and ends at 50.8 against a 50.6
-majority class; ideology at full context (69.6) is below its majority class (74.3) too. Added
-context pulls predictions toward the community prior: the share of Bluesky stance labels reading
-"against" rises from 52 to 82 percent while the gold set is split almost evenly between "against"
-and "none". That prior is right on Truth Social and half right on Bluesky.
+**R2.1, Bluesky.** Agreed, this belongs in Section 5.1 and will get its own paragraph there. Bluesky
+stance accuracy is highest with no context (56.2) and ends at 50.8 against a 50.6 majority class;
+ideology at full context (69.6) is below its majority class (74.3) too. Added context pulls
+predictions toward the community prior: the share of Bluesky stance labels reading "against"
+rises from 52 to 82 percent while the gold set is split evenly between "against" and "none".
 
 **R2.2, verbalized confidence versus agreement across samples.** We ran this. Each validated cell
 was re-decoded ten times per model at temperature 0.7, and within each condition we compared the
 first sample's verbalized confidence, the share of the other nine samples agreeing with its label,
-and the rank average of the two, as predictors of the first sample's correctness. Verbalized
-confidence is at least as discriminative as agreement in 44 of 64 cells and 14 of 16 model by task
-pairs. The exception is llama-3.1-8b on ideology (agreement AUROC 0.80 vs 0.59), which is also the
-least stable model: all ten samples agree in 48 percent of its cells, against 95 percent for
-gemma. Combining the two helps where the model is unstable (up to 0.22 AUROC for llama) and does
-no harm elsewhere. So verbalized confidence does beat the rival a practitioner would try first,
-and the flip rate on a small validated sample tells you when extra samples are worth it. We will
-report the full table in the appendix and state the result in Limitations.
+and their rank average, as predictors of its correctness. Verbalized confidence is at least as
+discriminative as agreement in 44 of 64 cells and 14 of 16 model by task pairs. The exception is
+llama-3.1-8b on ideology (agreement AUROC 0.80 vs 0.59), which is also the least stable model (all
+ten samples agree in 48 percent of its cells, against 95 percent for gemma). Combining the two
+helps where the model is unstable and does no harm elsewhere. The full table will go in the
+appendix and the result in Limitations.
 
 **R2.3, two coders.** Agreed that this is a thin reference. For the camera-ready the third coder
 will rate text-only confidence on the same 283 posts and Table 2 will be recomputed against three
