@@ -22,7 +22,7 @@ Thanks so much for the thoughtful suggestions and careful reading!
 
 **R1.1, a less polarized platform.** Agreed, and it is more than we can add this cycle. What we will
 do is make the Bluesky result a headline finding in Section 5.1 (stance stays at the
-majority-class level under every condition there; numbers under R2.1) and say in Limitations that
+majority-class level under every condition there; numbers in our reply to Reviewer 8FDE) and say in Limitations that
 mixed platforms should be expected to look like the Bluesky column.
 
 **R1.2, class-flip probability and human disagreement.** We tested this in the ten-sample re-decoding
