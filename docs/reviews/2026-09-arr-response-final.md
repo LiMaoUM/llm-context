@@ -1,35 +1,18 @@
 # ARR Submission 2351: author response (paste-ready)
 
-How ARR responses work: reviews sit on OpenReview; authors post an "Official Comment" in the
-discussion forum, one under each review thread plus an optional general comment on the
-submission. Text only, no links, no PDF. The AC reads at most two author comments per thread, and
+How ARR responses work: reviews sit on OpenReview; authors post one author response under each
+review, and nowhere else (there is no general comment on the submission; a draft of one was
+removed 2026-09-20 after Mao posted). Text only, no links, no PDF, 2,000 characters per reply. The AC reads at most two author comments per thread, and
 reviewers may update their review after reading. Reviewers are labeled by OpenReview id, so we
 name them R1 to R3 in the order the reviews appear and give the id once.
 
 Labels: R1 = Reviewer 24ts, R2 = Reviewer 8FDE, R3 = Reviewer h3ni. Points are numbered by
-reviewer (R2.1 is R2's first weakness). Table numbers are the submitted paper's. OpenReview limit: 2,000 characters per comment.
+reviewer (R2.1 is R2's first weakness). Since there is no general comment, a cross-reference
+should name the reviewer ("our reply to Reviewer 8FDE") instead of a bare R-number. Table numbers are the submitted paper's. OpenReview limit: 2,000 characters per comment.
 
 Decisions applied (Mao, 2026-09-19, DECISIONS.md): text-only response; the camera-ready adds the
 third coder's confidence ratings; the Datasets/Software scores are not discussed; the release plan
 is restated once.
-
----
-
-## General comment (post on the submission)
-
-Thanks so much to all three reviewers for reading the paper this closely. The factual points you
-raised are all correct, and we are glad to have them caught now. Because the paper cannot be
-edited within this cycle, we give the corrected numbers here and say what the revised version will
-do. Below, R1 is Reviewer 24ts, R2 is Reviewer 8FDE, and R3 is Reviewer h3ni.
-
-All three of you asked, in different ways, about decoding at temperature 0.7 (R1.2, R1.3, R2.2).
-We answered with one small experiment: every validated cell (295 posts, four conditions, the
-original prompts) was re-decoded ten times for each of the eight models, so we could compare
-verbalized confidence with agreement across samples. Details are under R2.2.
-
-The revised version will keep the body at eight pages and put the new material in the appendix.
-The camera-ready will also add the third coder's confidence ratings (R2.3) and release the code,
-the configuration, and the validation annotations keyed to hashed post ids.
 
 ---
 
@@ -43,7 +26,7 @@ majority-class level under every condition there; numbers under R2.1) and say in
 mixed platforms should be expected to look like the Bluesky column.
 
 **R1.2, class-flip probability and human disagreement.** We tested this in the ten-sample re-decoding
-described under R2.2. Labels flip across samples more often on posts where the coders split 2 to 1
+described in our reply to Reviewer 8FDE. Labels flip across samples more often on posts where the coders split 2 to 1
 than on unanimous posts, for 15 of 16 model by task pairs, typically two to six times as often
 (llama-3.1-8b on ideology: 44 vs 13 percent). So flip probability does pick out the posts humans
 find hard. Verbalized confidence picks them out somewhat better (higher AUROC in 15 of 16 pairs).
