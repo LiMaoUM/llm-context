@@ -14,6 +14,10 @@ transformers>=4.30.0
 torch>=2.0.0
 replicate>=0.15.0
 
+# Pydantic for Validation
+pydantic>=2.0.0
+pydantic-ai>=0.0.1
+
 # Configuration
 pyyaml>=6.0
 
