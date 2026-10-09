@@ -1,0 +1,213 @@
+{
+ "n_posts": 281,
+ "coders": [
+  "c1",
+  "c2"
+ ],
+ "coder_means": {
+  "c1": [
+   39.2,
+   40.1
+  ],
+  "c2": [
+   16.3,
+   15.4
+  ]
+ },
+ "ceiling": {
+  "ideo": {
+   "pairwise_rho": [
+    0.68
+   ],
+   "pairwise_kw": [
+    0.54
+   ],
+   "coder_vs_rest_rho": [
+    0.68,
+    0.68
+   ],
+   "coder_vs_rest_kw": [
+    0.54,
+    0.54
+   ]
+  },
+  "stance": {
+   "pairwise_rho": [
+    0.66
+   ],
+   "pairwise_kw": [
+    0.55
+   ],
+   "coder_vs_rest_rho": [
+    0.66,
+    0.66
+   ],
+   "coder_vs_rest_kw": [
+    0.55,
+    0.55
+   ]
+  }
+ },
+ "per_model": [
+  {
+   "model": "gpt-oss-120b",
+   "n": 277,
+   "mean_ideo": 46.9,
+   "rho_ideo": 0.82,
+   "kw_ideo": 0.57,
+   "rho_rank_ideo": 0.82,
+   "rho_ideo_c1": 0.82,
+   "kw_ideo_c1": 0.71,
+   "rho_ideo_c2": 0.66,
+   "kw_ideo_c2": 0.43,
+   "mean_stance": 45.6,
+   "rho_stance": 0.77,
+   "kw_stance": 0.56,
+   "rho_rank_stance": 0.76,
+   "rho_stance_c1": 0.76,
+   "kw_stance_c1": 0.67,
+   "rho_stance_c2": 0.6,
+   "kw_stance_c2": 0.44
+  },
+  {
+   "model": "ministral-3-14b",
+   "n": 158,
+   "mean_ideo": 63.4,
+   "rho_ideo": 0.6,
+   "kw_ideo": 0.25,
+   "rho_rank_ideo": 0.61,
+   "rho_ideo_c1": 0.59,
+   "kw_ideo_c1": 0.37,
+   "rho_ideo_c2": 0.49,
+   "kw_ideo_c2": 0.16,
+   "mean_stance": 56.3,
+   "rho_stance": 0.5,
+   "kw_stance": 0.29,
+   "rho_rank_stance": 0.5,
+   "rho_stance_c1": 0.48,
+   "kw_stance_c1": 0.41,
+   "rho_stance_c2": 0.44,
+   "kw_stance_c2": 0.22
+  },
+  {
+   "model": "gemma-3-27b-it",
+   "n": 277,
+   "mean_ideo": 64.4,
+   "rho_ideo": 0.61,
+   "kw_ideo": 0.24,
+   "rho_rank_ideo": 0.61,
+   "rho_ideo_c1": 0.62,
+   "kw_ideo_c1": 0.36,
+   "rho_ideo_c2": 0.51,
+   "kw_ideo_c2": 0.17,
+   "mean_stance": 80.5,
+   "rho_stance": 0.04,
+   "kw_stance": 0.04,
+   "rho_rank_stance": 0.04,
+   "rho_stance_c1": 0.03,
+   "kw_stance_c1": 0.04,
+   "rho_stance_c2": 0.19,
+   "kw_stance_c2": 0.03
+  },
+  {
+   "model": "ministral-3-8b",
+   "n": 223,
+   "mean_ideo": 73.8,
+   "rho_ideo": 0.6,
+   "kw_ideo": 0.16,
+   "rho_rank_ideo": 0.6,
+   "rho_ideo_c1": 0.61,
+   "kw_ideo_c1": 0.29,
+   "rho_ideo_c2": 0.48,
+   "kw_ideo_c2": 0.11,
+   "mean_stance": 73.0,
+   "rho_stance": 0.56,
+   "kw_stance": 0.17,
+   "rho_rank_stance": 0.56,
+   "rho_stance_c1": 0.56,
+   "kw_stance_c1": 0.27,
+   "rho_stance_c2": 0.48,
+   "kw_stance_c2": 0.1
+  },
+  {
+   "model": "qwen3-80b-a3b",
+   "n": 279,
+   "mean_ideo": 77.2,
+   "rho_ideo": 0.6,
+   "kw_ideo": 0.11,
+   "rho_rank_ideo": 0.6,
+   "rho_ideo_c1": 0.61,
+   "kw_ideo_c1": 0.21,
+   "rho_ideo_c2": 0.47,
+   "kw_ideo_c2": 0.07,
+   "mean_stance": 74.0,
+   "rho_stance": 0.41,
+   "kw_stance": 0.13,
+   "rho_rank_stance": 0.4,
+   "rho_stance_c1": 0.42,
+   "kw_stance_c1": 0.25,
+   "rho_stance_c2": 0.32,
+   "kw_stance_c2": 0.09
+  },
+  {
+   "model": "qwen3-4b",
+   "n": 281,
+   "mean_ideo": 74.3,
+   "rho_ideo": 0.52,
+   "kw_ideo": 0.09,
+   "rho_rank_ideo": 0.53,
+   "rho_ideo_c1": 0.52,
+   "kw_ideo_c1": 0.15,
+   "rho_ideo_c2": 0.44,
+   "kw_ideo_c2": 0.06,
+   "mean_stance": 71.8,
+   "rho_stance": 0.51,
+   "kw_stance": 0.12,
+   "rho_rank_stance": 0.51,
+   "rho_stance_c1": 0.5,
+   "kw_stance_c1": 0.21,
+   "rho_stance_c2": 0.46,
+   "kw_stance_c2": 0.09
+  },
+  {
+   "model": "llama-3.1-8b",
+   "n": 266,
+   "mean_ideo": 76.4,
+   "rho_ideo": 0.36,
+   "kw_ideo": 0.06,
+   "rho_rank_ideo": 0.36,
+   "rho_ideo_c1": 0.34,
+   "kw_ideo_c1": 0.09,
+   "rho_ideo_c2": 0.33,
+   "kw_ideo_c2": 0.04,
+   "mean_stance": 77.2,
+   "rho_stance": 0.26,
+   "kw_stance": 0.07,
+   "rho_rank_stance": 0.26,
+   "rho_stance_c1": 0.25,
+   "kw_stance_c1": 0.07,
+   "rho_stance_c2": 0.27,
+   "kw_stance_c2": 0.05
+  },
+  {
+   "model": "qwen3-30b-a3b",
+   "n": 273,
+   "mean_ideo": 83.6,
+   "rho_ideo": 0.48,
+   "kw_ideo": 0.05,
+   "rho_rank_ideo": 0.48,
+   "rho_ideo_c1": 0.48,
+   "kw_ideo_c1": 0.08,
+   "rho_ideo_c2": 0.42,
+   "kw_ideo_c2": 0.03,
+   "mean_stance": 80.5,
+   "rho_stance": 0.37,
+   "kw_stance": 0.05,
+   "rho_rank_stance": 0.37,
+   "rho_stance_c1": 0.36,
+   "kw_stance_c1": 0.07,
+   "rho_stance_c2": 0.37,
+   "kw_stance_c2": 0.03
+  }
+ ]
+}

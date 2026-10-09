@@ -10,6 +10,10 @@ Labels: R1 = Reviewer 24ts, R2 = Reviewer 8FDE, R3 = Reviewer h3ni. Points are n
 reviewer (R2.1 is R2's first weakness). Since there is no general comment, a cross-reference
 should name the reviewer ("our reply to Reviewer 8FDE") instead of a bare R-number. Table numbers are the submitted paper's. OpenReview limit: 2,000 characters per comment.
 
+Correction 2026-10-09: the posted R1.3 says "for seven of eight models"; the exact statement is
+"14 of 16 model by task pairs" (agreement leads for llama-3.1-8b and, by 0.01, ministral-3-8b on
+ideology). The archive below carries the exact wording; the posted text cannot be edited.
+
 Decisions applied (Mao, 2026-09-19, DECISIONS.md): text-only response; the camera-ready adds the
 third coder's confidence ratings; the Datasets/Software scores are not discussed; the release plan
 is restated once.
@@ -35,8 +39,8 @@ Both will go in the appendix.
 **R1.3, temperature 0.**7. It is the setting these models are usually run with for annotation, and we
 wanted the confidence a practitioner would actually see. The three-seed check bounds the noise it
 adds (label flips in 2.5 to 15 percent of cells, confidence SD of 2 to 3 points), and the
-ten-sample experiment shows that for seven of eight models a single verbalized score carries at
-least as much information as agreement across ten samples. The revised Limitations will say this.
+ten-sample experiment shows that in 14 of 16 model by task pairs a single verbalized score carries
+at least as much information as agreement across ten samples. The revised Limitations will say this.
 
 **R1.4, acronyms in Section 3.**3. We will remove them and refer forward to Section 4.1.
 
