@@ -35,6 +35,8 @@ DECIDE (the repo is public):
    files key model outputs to raw post ids (Bluesky at:// URIs and Truth Social numeric ids). The
    paper promises annotations keyed to hashed ids; either hash the ids before merging or drop the
    two files from the branch. Everything else on the branch is code, figures, or aggregate JSON.
+   The branch lives in `.git` and survives if the scratchpad worktree is cleaned (`git worktree
+   prune` then `git checkout curated-evidence`, or `git merge curated-evidence` from main).
 2. What stays out for good: `results/` (8.4 GB of prompts and responses, with post text),
    `data/` (coder sheets with post text, already ignored), `intercoder_reliability.ipynb` (13 MB),
    `experiment*.log`, `nohup.out`, the eleven scratch markdown notes at the root (QUICK_*,
