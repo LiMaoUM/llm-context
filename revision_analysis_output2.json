@@ -1,0 +1,799 @@
+{
+  "per_model_performance": [
+    {
+      "model": "gemma-3-27b-it",
+      "variant": "T",
+      "ideology_acc": 59.3,
+      "ideology_f1": 51.2,
+      "ideology_n": 270,
+      "stance_acc": 51.6,
+      "stance_f1": 50.9,
+      "stance_n": 275
+    },
+    {
+      "model": "gemma-3-27b-it",
+      "variant": "T+B",
+      "ideology_acc": 54.7,
+      "ideology_f1": 48.0,
+      "ideology_n": 287,
+      "stance_acc": 49.0,
+      "stance_f1": 45.8,
+      "stance_n": 290
+    },
+    {
+      "model": "gemma-3-27b-it",
+      "variant": "T+B+C",
+      "ideology_acc": 77.2,
+      "ideology_f1": 61.1,
+      "ideology_n": 289,
+      "stance_acc": 65.6,
+      "stance_f1": 55.9,
+      "stance_n": 291
+    },
+    {
+      "model": "gemma-3-27b-it",
+      "variant": "T+B+C+M",
+      "ideology_acc": 87.5,
+      "ideology_f1": 68.3,
+      "ideology_n": 288,
+      "stance_acc": 78.0,
+      "stance_f1": 64.7,
+      "stance_n": 291
+    },
+    {
+      "model": "gpt-oss-120b",
+      "variant": "T",
+      "ideology_acc": 38.1,
+      "ideology_f1": 35.2,
+      "ideology_n": 273,
+      "stance_acc": 44.2,
+      "stance_f1": 44.0,
+      "stance_n": 276
+    },
+    {
+      "model": "gpt-oss-120b",
+      "variant": "T+B",
+      "ideology_acc": 45.1,
+      "ideology_f1": 41.1,
+      "ideology_n": 277,
+      "stance_acc": 45.9,
+      "stance_f1": 44.6,
+      "stance_n": 281
+    },
+    {
+      "model": "gpt-oss-120b",
+      "variant": "T+B+C",
+      "ideology_acc": 72.8,
+      "ideology_f1": 58.3,
+      "ideology_n": 279,
+      "stance_acc": 64.9,
+      "stance_f1": 57.0,
+      "stance_n": 279
+    },
+    {
+      "model": "gpt-oss-120b",
+      "variant": "T+B+C+M",
+      "ideology_acc": 86.8,
+      "ideology_f1": 68.4,
+      "ideology_n": 281,
+      "stance_acc": 76.3,
+      "stance_f1": 62.3,
+      "stance_n": 283
+    },
+    {
+      "model": "llama-3.1-8b",
+      "variant": "T",
+      "ideology_acc": 54.7,
+      "ideology_f1": 47.1,
+      "ideology_n": 256,
+      "stance_acc": 34.2,
+      "stance_f1": 34.2,
+      "stance_n": 260
+    },
+    {
+      "model": "llama-3.1-8b",
+      "variant": "T+B",
+      "ideology_acc": 58.5,
+      "ideology_f1": 43.6,
+      "ideology_n": 253,
+      "stance_acc": 22.1,
+      "stance_f1": 15.0,
+      "stance_n": 253
+    },
+    {
+      "model": "llama-3.1-8b",
+      "variant": "T+B+C",
+      "ideology_acc": 70.2,
+      "ideology_f1": 56.3,
+      "ideology_n": 238,
+      "stance_acc": 29.0,
+      "stance_f1": 21.4,
+      "stance_n": 241
+    },
+    {
+      "model": "llama-3.1-8b",
+      "variant": "T+B+C+M",
+      "ideology_acc": 82.6,
+      "ideology_f1": 63.1,
+      "ideology_n": 264,
+      "stance_acc": 42.0,
+      "stance_f1": 32.1,
+      "stance_n": 264
+    },
+    {
+      "model": "ministral-3-14b",
+      "variant": "T",
+      "ideology_acc": 59.0,
+      "ideology_f1": 48.4,
+      "ideology_n": 183,
+      "stance_acc": 46.7,
+      "stance_f1": 45.8,
+      "stance_n": 199
+    },
+    {
+      "model": "ministral-3-14b",
+      "variant": "T+B",
+      "ideology_acc": 58.7,
+      "ideology_f1": 45.9,
+      "ideology_n": 201,
+      "stance_acc": 54.9,
+      "stance_f1": 49.4,
+      "stance_n": 204
+    },
+    {
+      "model": "ministral-3-14b",
+      "variant": "T+B+C",
+      "ideology_acc": 75.1,
+      "ideology_f1": 53.0,
+      "ideology_n": 245,
+      "stance_acc": 61.2,
+      "stance_f1": 48.1,
+      "stance_n": 245
+    },
+    {
+      "model": "ministral-3-14b",
+      "variant": "T+B+C+M",
+      "ideology_acc": 84.4,
+      "ideology_f1": 64.0,
+      "ideology_n": 257,
+      "stance_acc": 74.1,
+      "stance_f1": 59.4,
+      "stance_n": 259
+    },
+    {
+      "model": "ministral-3-8b",
+      "variant": "T",
+      "ideology_acc": 64.1,
+      "ideology_f1": 44.7,
+      "ideology_n": 231,
+      "stance_acc": 45.7,
+      "stance_f1": 40.5,
+      "stance_n": 234
+    },
+    {
+      "model": "ministral-3-8b",
+      "variant": "T+B",
+      "ideology_acc": 62.6,
+      "ideology_f1": 40.2,
+      "ideology_n": 270,
+      "stance_acc": 49.6,
+      "stance_f1": 34.3,
+      "stance_n": 274
+    },
+    {
+      "model": "ministral-3-8b",
+      "variant": "T+B+C",
+      "ideology_acc": 75.5,
+      "ideology_f1": 51.1,
+      "ideology_n": 261,
+      "stance_acc": 61.6,
+      "stance_f1": 43.0,
+      "stance_n": 263
+    },
+    {
+      "model": "ministral-3-8b",
+      "variant": "T+B+C+M",
+      "ideology_acc": 83.7,
+      "ideology_f1": 61.4,
+      "ideology_n": 263,
+      "stance_acc": 65.4,
+      "stance_f1": 49.1,
+      "stance_n": 266
+    },
+    {
+      "model": "qwen3-30b-a3b",
+      "variant": "T",
+      "ideology_acc": 54.0,
+      "ideology_f1": 45.0,
+      "ideology_n": 261,
+      "stance_acc": 48.1,
+      "stance_f1": 46.2,
+      "stance_n": 266
+    },
+    {
+      "model": "qwen3-30b-a3b",
+      "variant": "T+B",
+      "ideology_acc": 60.8,
+      "ideology_f1": 39.9,
+      "ideology_n": 283,
+      "stance_acc": 55.3,
+      "stance_f1": 40.3,
+      "stance_n": 284
+    },
+    {
+      "model": "qwen3-30b-a3b",
+      "variant": "T+B+C",
+      "ideology_acc": 74.6,
+      "ideology_f1": 50.3,
+      "ideology_n": 284,
+      "stance_acc": 69.6,
+      "stance_f1": 52.1,
+      "stance_n": 286
+    },
+    {
+      "model": "qwen3-30b-a3b",
+      "variant": "T+B+C+M",
+      "ideology_acc": 84.3,
+      "ideology_f1": 63.2,
+      "ideology_n": 286,
+      "stance_acc": 72.3,
+      "stance_f1": 53.8,
+      "stance_n": 289
+    },
+    {
+      "model": "qwen3-4b",
+      "variant": "T",
+      "ideology_acc": 47.1,
+      "ideology_f1": 41.1,
+      "ideology_n": 255,
+      "stance_acc": 38.6,
+      "stance_f1": 38.0,
+      "stance_n": 264
+    },
+    {
+      "model": "qwen3-4b",
+      "variant": "T+B",
+      "ideology_acc": 47.4,
+      "ideology_f1": 33.1,
+      "ideology_n": 287,
+      "stance_acc": 35.5,
+      "stance_f1": 26.9,
+      "stance_n": 290
+    },
+    {
+      "model": "qwen3-4b",
+      "variant": "T+B+C",
+      "ideology_acc": 66.0,
+      "ideology_f1": 47.2,
+      "ideology_n": 288,
+      "stance_acc": 51.7,
+      "stance_f1": 37.0,
+      "stance_n": 290
+    },
+    {
+      "model": "qwen3-4b",
+      "variant": "T+B+C+M",
+      "ideology_acc": 80.3,
+      "ideology_f1": 62.8,
+      "ideology_n": 289,
+      "stance_acc": 66.7,
+      "stance_f1": 45.8,
+      "stance_n": 291
+    },
+    {
+      "model": "qwen3-80b-a3b",
+      "variant": "T",
+      "ideology_acc": 56.2,
+      "ideology_f1": 47.2,
+      "ideology_n": 260,
+      "stance_acc": 47.5,
+      "stance_f1": 46.6,
+      "stance_n": 276
+    },
+    {
+      "model": "qwen3-80b-a3b",
+      "variant": "T+B",
+      "ideology_acc": 66.3,
+      "ideology_f1": 50.5,
+      "ideology_n": 288,
+      "stance_acc": 60.0,
+      "stance_f1": 46.6,
+      "stance_n": 290
+    },
+    {
+      "model": "qwen3-80b-a3b",
+      "variant": "T+B+C",
+      "ideology_acc": 76.5,
+      "ideology_f1": 52.8,
+      "ideology_n": 289,
+      "stance_acc": 69.4,
+      "stance_f1": 51.7,
+      "stance_n": 291
+    },
+    {
+      "model": "qwen3-80b-a3b",
+      "variant": "T+B+C+M",
+      "ideology_acc": 86.3,
+      "ideology_f1": 66.6,
+      "ideology_n": 285,
+      "stance_acc": 74.2,
+      "stance_f1": 56.2,
+      "stance_n": 287
+    }
+  ],
+  "human_confidence_substudy": {
+    "n": 281,
+    "qing_means": [
+      39.2,
+      40.1
+    ],
+    "xinyu_means": [
+      16.3,
+      15.4
+    ],
+    "coder_spearman": [
+      0.68,
+      0.66
+    ],
+    "coder_kw_quadratic": [
+      0.54,
+      0.55
+    ],
+    "coder_kappa_unweighted": [
+      0.28,
+      0.34
+    ]
+  },
+  "table_conf_agree": [
+    {
+      "model": "gemma-3-27b-it",
+      "n_ideo": 279,
+      "n_stance": 279,
+      "mean_conf_ideo": 64.5,
+      "rho_ideo": 0.59,
+      "kw_ideo": 0.24,
+      "mean_conf_stance": 80.5,
+      "rho_stance": 0.03,
+      "kw_stance": 0.04
+    },
+    {
+      "model": "gpt-oss-120b",
+      "n_ideo": 279,
+      "n_stance": 279,
+      "mean_conf_ideo": 46.7,
+      "rho_ideo": 0.82,
+      "kw_ideo": 0.57,
+      "mean_conf_stance": 45.4,
+      "rho_stance": 0.77,
+      "kw_stance": 0.56
+    },
+    {
+      "model": "llama-3.1-8b",
+      "n_ideo": 267,
+      "n_stance": 267,
+      "mean_conf_ideo": 76.4,
+      "rho_ideo": 0.36,
+      "kw_ideo": 0.06,
+      "mean_conf_stance": 77.2,
+      "rho_stance": 0.26,
+      "kw_stance": 0.07
+    },
+    {
+      "model": "ministral-3-14b",
+      "n_ideo": 160,
+      "n_stance": 159,
+      "mean_conf_ideo": 63.6,
+      "rho_ideo": 0.6,
+      "kw_ideo": 0.24,
+      "mean_conf_stance": 56.5,
+      "rho_stance": 0.5,
+      "kw_stance": 0.3
+    },
+    {
+      "model": "ministral-3-8b",
+      "n_ideo": 224,
+      "n_stance": 225,
+      "mean_conf_ideo": 73.8,
+      "rho_ideo": 0.6,
+      "kw_ideo": 0.15,
+      "mean_conf_stance": 73.1,
+      "rho_stance": 0.56,
+      "kw_stance": 0.17
+    },
+    {
+      "model": "qwen3-30b-a3b",
+      "n_ideo": 275,
+      "n_stance": 275,
+      "mean_conf_ideo": 83.5,
+      "rho_ideo": 0.48,
+      "kw_ideo": 0.05,
+      "mean_conf_stance": 80.4,
+      "rho_stance": 0.38,
+      "kw_stance": 0.05
+    },
+    {
+      "model": "qwen3-4b",
+      "n_ideo": 283,
+      "n_stance": 283,
+      "mean_conf_ideo": 74.1,
+      "rho_ideo": 0.53,
+      "kw_ideo": 0.09,
+      "mean_conf_stance": 71.6,
+      "rho_stance": 0.52,
+      "kw_stance": 0.12
+    },
+    {
+      "model": "qwen3-80b-a3b",
+      "n_ideo": 283,
+      "n_stance": 281,
+      "mean_conf_ideo": 77.2,
+      "rho_ideo": 0.6,
+      "kw_ideo": 0.11,
+      "mean_conf_stance": 74.1,
+      "rho_stance": 0.39,
+      "kw_stance": 0.13
+    }
+  ],
+  "coverage_accuracy": [
+    {
+      "task": "ideology",
+      "variant": "T",
+      "model": "gemma-3-27b-it",
+      "acc@100": 59.3,
+      "acc@80": 67.6,
+      "acc@60": 69.8,
+      "acc@40": 77.8,
+      "acc@20": 88.9
+    },
+    {
+      "task": "ideology",
+      "variant": "T",
+      "model": "gpt-oss-120b",
+      "acc@100": 38.1,
+      "acc@80": 46.8,
+      "acc@60": 57.1,
+      "acc@40": 70.6,
+      "acc@20": 85.2
+    },
+    {
+      "task": "ideology",
+      "variant": "T",
+      "model": "llama-3.1-8b",
+      "acc@100": 54.7,
+      "acc@80": 59.3,
+      "acc@60": 59.5,
+      "acc@40": 55.9,
+      "acc@20": 56.9
+    },
+    {
+      "task": "ideology",
+      "variant": "T",
+      "model": "ministral-3-14b",
+      "acc@100": 61.2,
+      "acc@80": 68.0,
+      "acc@60": 72.7,
+      "acc@40": 80.4,
+      "acc@20": 80.0
+    },
+    {
+      "task": "ideology",
+      "variant": "T",
+      "model": "ministral-3-8b",
+      "acc@100": 65.1,
+      "acc@80": 69.2,
+      "acc@60": 69.3,
+      "acc@40": 79.8,
+      "acc@20": 83.3
+    },
+    {
+      "task": "ideology",
+      "variant": "T",
+      "model": "qwen3-30b-a3b",
+      "acc@100": 54.0,
+      "acc@80": 62.5,
+      "acc@60": 71.2,
+      "acc@40": 77.9,
+      "acc@20": 73.1
+    },
+    {
+      "task": "ideology",
+      "variant": "T",
+      "model": "qwen3-4b",
+      "acc@100": 47.1,
+      "acc@80": 57.4,
+      "acc@60": 64.7,
+      "acc@40": 64.7,
+      "acc@20": 68.6
+    },
+    {
+      "task": "ideology",
+      "variant": "T",
+      "model": "qwen3-80b-a3b",
+      "acc@100": 56.2,
+      "acc@80": 66.3,
+      "acc@60": 69.9,
+      "acc@40": 76.0,
+      "acc@20": 71.2
+    },
+    {
+      "task": "ideology",
+      "variant": "T",
+      "model": "POOLED",
+      "acc@100": 53.7,
+      "acc@80": 61.7,
+      "acc@60": 66.8,
+      "acc@40": 70.8,
+      "acc@20": 77.3
+    },
+    {
+      "task": "ideology",
+      "variant": "T+B+C+M",
+      "model": "gemma-3-27b-it",
+      "acc@100": 87.5,
+      "acc@80": 93.5,
+      "acc@60": 97.7,
+      "acc@40": 99.1,
+      "acc@20": 98.2
+    },
+    {
+      "task": "ideology",
+      "variant": "T+B+C+M",
+      "model": "gpt-oss-120b",
+      "acc@100": 87.0,
+      "acc@80": 93.7,
+      "acc@60": 96.4,
+      "acc@40": 97.3,
+      "acc@20": 96.4
+    },
+    {
+      "task": "ideology",
+      "variant": "T+B+C+M",
+      "model": "llama-3.1-8b",
+      "acc@100": 82.6,
+      "acc@80": 84.8,
+      "acc@60": 84.8,
+      "acc@40": 91.4,
+      "acc@20": 92.3
+    },
+    {
+      "task": "ideology",
+      "variant": "T+B+C+M",
+      "model": "ministral-3-14b",
+      "acc@100": 81.6,
+      "acc@80": 87.7,
+      "acc@60": 90.7,
+      "acc@40": 90.8,
+      "acc@20": 96.9
+    },
+    {
+      "task": "ideology",
+      "variant": "T+B+C+M",
+      "model": "ministral-3-8b",
+      "acc@100": 85.0,
+      "acc@80": 91.5,
+      "acc@60": 91.1,
+      "acc@40": 95.1,
+      "acc@20": 100.0
+    },
+    {
+      "task": "ideology",
+      "variant": "T+B+C+M",
+      "model": "qwen3-30b-a3b",
+      "acc@100": 84.3,
+      "acc@80": 90.4,
+      "acc@60": 89.5,
+      "acc@40": 90.4,
+      "acc@20": 89.5
+    },
+    {
+      "task": "ideology",
+      "variant": "T+B+C+M",
+      "model": "qwen3-4b",
+      "acc@100": 80.3,
+      "acc@80": 86.6,
+      "acc@60": 90.2,
+      "acc@40": 93.0,
+      "acc@20": 91.2
+    },
+    {
+      "task": "ideology",
+      "variant": "T+B+C+M",
+      "model": "qwen3-80b-a3b",
+      "acc@100": 86.3,
+      "acc@80": 88.2,
+      "acc@60": 88.9,
+      "acc@40": 88.6,
+      "acc@20": 93.0
+    },
+    {
+      "task": "ideology",
+      "variant": "T+B+C+M",
+      "model": "POOLED",
+      "acc@100": 84.5,
+      "acc@80": 88.3,
+      "acc@60": 91.3,
+      "acc@40": 91.4,
+      "acc@20": 93.9
+    },
+    {
+      "task": "stance",
+      "variant": "T",
+      "model": "gemma-3-27b-it",
+      "acc@100": 51.6,
+      "acc@80": 55.5,
+      "acc@60": 55.2,
+      "acc@40": 60.0,
+      "acc@20": 63.6
+    },
+    {
+      "task": "stance",
+      "variant": "T",
+      "model": "gpt-oss-120b",
+      "acc@100": 44.2,
+      "acc@80": 50.0,
+      "acc@60": 57.0,
+      "acc@40": 64.5,
+      "acc@20": 78.2
+    },
+    {
+      "task": "stance",
+      "variant": "T",
+      "model": "llama-3.1-8b",
+      "acc@100": 34.2,
+      "acc@80": 35.1,
+      "acc@60": 35.3,
+      "acc@40": 43.3,
+      "acc@20": 42.3
+    },
+    {
+      "task": "stance",
+      "variant": "T",
+      "model": "ministral-3-14b",
+      "acc@100": 46.4,
+      "acc@80": 51.8,
+      "acc@60": 58.3,
+      "acc@40": 66.1,
+      "acc@20": 67.9
+    },
+    {
+      "task": "stance",
+      "variant": "T",
+      "model": "ministral-3-8b",
+      "acc@100": 46.0,
+      "acc@80": 50.0,
+      "acc@60": 54.3,
+      "acc@40": 58.1,
+      "acc@20": 62.8
+    },
+    {
+      "task": "stance",
+      "variant": "T",
+      "model": "qwen3-30b-a3b",
+      "acc@100": 48.1,
+      "acc@80": 51.4,
+      "acc@60": 54.7,
+      "acc@40": 60.4,
+      "acc@20": 67.9
+    },
+    {
+      "task": "stance",
+      "variant": "T",
+      "model": "qwen3-4b",
+      "acc@100": 38.6,
+      "acc@80": 44.1,
+      "acc@60": 49.4,
+      "acc@40": 54.3,
+      "acc@20": 57.7
+    },
+    {
+      "task": "stance",
+      "variant": "T",
+      "model": "qwen3-80b-a3b",
+      "acc@100": 47.4,
+      "acc@80": 55.7,
+      "acc@60": 59.1,
+      "acc@40": 57.8,
+      "acc@20": 66.7
+    },
+    {
+      "task": "stance",
+      "variant": "T",
+      "model": "POOLED",
+      "acc@100": 44.5,
+      "acc@80": 49.4,
+      "acc@60": 52.6,
+      "acc@40": 54.9,
+      "acc@20": 64.0
+    },
+    {
+      "task": "stance",
+      "variant": "T+B+C+M",
+      "model": "gemma-3-27b-it",
+      "acc@100": 78.0,
+      "acc@80": 87.1,
+      "acc@60": 92.5,
+      "acc@40": 92.2,
+      "acc@20": 96.6
+    },
+    {
+      "task": "stance",
+      "variant": "T+B+C+M",
+      "model": "gpt-oss-120b",
+      "acc@100": 76.3,
+      "acc@80": 86.0,
+      "acc@60": 92.8,
+      "acc@40": 96.4,
+      "acc@20": 98.2
+    },
+    {
+      "task": "stance",
+      "variant": "T+B+C+M",
+      "model": "llama-3.1-8b",
+      "acc@100": 42.0,
+      "acc@80": 44.1,
+      "acc@60": 46.2,
+      "acc@40": 51.4,
+      "acc@20": 53.8
+    },
+    {
+      "task": "stance",
+      "variant": "T+B+C+M",
+      "model": "ministral-3-14b",
+      "acc@100": 73.5,
+      "acc@80": 79.5,
+      "acc@60": 80.8,
+      "acc@40": 86.4,
+      "acc@20": 97.0
+    },
+    {
+      "task": "stance",
+      "variant": "T+B+C+M",
+      "model": "ministral-3-8b",
+      "acc@100": 64.1,
+      "acc@80": 71.3,
+      "acc@60": 76.8,
+      "acc@40": 79.5,
+      "acc@20": 85.4
+    },
+    {
+      "task": "stance",
+      "variant": "T+B+C+M",
+      "model": "qwen3-30b-a3b",
+      "acc@100": 72.3,
+      "acc@80": 78.8,
+      "acc@60": 78.6,
+      "acc@40": 87.8,
+      "acc@20": 93.0
+    },
+    {
+      "task": "stance",
+      "variant": "T+B+C+M",
+      "model": "qwen3-4b",
+      "acc@100": 66.7,
+      "acc@80": 69.8,
+      "acc@60": 77.6,
+      "acc@40": 86.2,
+      "acc@20": 86.2
+    },
+    {
+      "task": "stance",
+      "variant": "T+B+C+M",
+      "model": "qwen3-80b-a3b",
+      "acc@100": 74.2,
+      "acc@80": 81.7,
+      "acc@60": 82.6,
+      "acc@40": 95.6,
+      "acc@20": 98.2
+    },
+    {
+      "task": "stance",
+      "variant": "T+B+C+M",
+      "model": "POOLED",
+      "acc@100": 68.5,
+      "acc@80": 73.0,
+      "acc@60": 77.8,
+      "acc@40": 84.5,
+      "acc@20": 89.4
+    }
+  ]
+}
