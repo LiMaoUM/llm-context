@@ -13,3 +13,23 @@ data/
 sample_agreement/*.jsonl
 sample_agreement/*.log
 sample_agreement/vllm0.11/
+
+# logs and run artifacts
+*.log
+nohup.out
+results/
+# LaTeX build output (keep the sources and figures)
+latex/*.aux
+latex/*.bbl
+latex/*.blg
+latex/*.fdb_latexmk
+latex/*.fls
+latex/*.out
+latex/compile_out.txt
+latex/acl_latex.pdf
+# multi-MB exploratory figures at the repo root; the paper figures live in latex/
+/*.png
+latex/confidence_models.png
+latex/f1_models.png
+# notebooks and scratch
+*.ipynb
