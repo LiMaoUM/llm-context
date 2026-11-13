@@ -2,6 +2,16 @@
 
 A comprehensive framework for testing how different contextual dimensions affect Large Language Model (LLM) confidence calibration and interpretation accuracy in social media stance detection.
 
+## Paper
+
+This repository accompanies "When to Trust an LLM Annotator: Self-Reported Confidence Ranks (but
+Overstates) Reliability in Political Stance and Ideology Labeling" (EACL 2027). The pipeline and
+`experiment_config.yaml` are the code and configuration as run; `uv.lock` pins the package versions
+(inference ran under vLLM 0.13.0); `revision_analysis*.py` and `rebuttal_analysis.py` compute the
+reported numbers; `release/validation_annotations.csv` holds the human validation annotations keyed
+to hashed post identifiers (see `release/README.md`). Raw posts and model responses are not
+redistributed.
+
 ## Overview
 
 This experiment systematically evaluates how LLMs interpret social meaning under different context conditions:

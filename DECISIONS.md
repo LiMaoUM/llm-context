@@ -9,3 +9,15 @@ Rationale: Mao's decisions on 2026-09-19 after three reviews at Findings 3; the 
 ## 2026-11-13: accepted at EACL 2027
 
 The EACL 2027 ARR commitment decision is Accept (OpenReview, seen by Mao 2026-11-13; no email yet). The decision line does not say main conference or Findings; confirm before the camera-ready. Map, CV and website updated the same day. (Mao)
+
+## 2026-11-13: EACL 2027 camera-ready (Main Conference, Submission 354): scope, authors, release, citations
+
+Decision email 2026-11-13 confirms Main Conference; the decision note carries no SAC comment. Camera-ready due 2026-11-26 AoE; Mao submits. Mao's decisions, each through AskUserQuestion on 2026-11-13:
+
+1. Scope: change only what was promised during ARR, plus de-anonymization and acknowledgments. From the meta-review's item 4 and Reviewer h3ni's follow-up, two small edits only: Section 5.5 is retitled "Absolute Calibration: All Models Overconfident", and protocol step 1 says none of the eight models passes the overconfidence check in every condition. No rewrite of abstract or conclusion and no mechanism for the AUROC dip (no analysis supports one).
+2. Third coder (promise to Reviewer 8FDE): Mao gets the rating sheet `data/third_coder/rating_sheet_T.xlsx` filled before 2026-11-26; then `third_coder/recompute_table2.py` recomputes Table 2. Open until the sheet returns.
+3. Authors: Mao Li, Xinyu Lin, Shengteng Yang (University of Michigan). The third label coder, Qing Ren, is thanked in Acknowledgments; the ethics statement says two of the authors and one research collaborator annotated.
+4. Release: the paper links https://github.com/LiMaoUM/llm-context. `curated-evidence` is merged into main without the two `seed_stability_*.jsonl` files (raw post ids); `release/validation_annotations.csv` carries labels and confidence keyed to salted hashes. The simulated-review response letter, the checklist draft and the downloaded OpenReview notes (`review/arr`, `review/eacl`) stay local.
+5. Citations: the Allaway and McKeown sentence is rewritten to what the paper reports (Krippendorff's alpha 0.43); Niu et al. is dropped from the Introduction sentence about annotator judgments shifting (kept in Related Work); El-Yaniv and Wiener is cited for the risk-coverage curve, with the area described in our words.
+
+Rationale: Mao wants small changes; EACL desk-rejects papers with unverifiable or inaccurate references, so every cited entry went through two independent passes (`review/reference-check.csv`, agent room thread 2026-11-13-camera-ready-references), with Mao's own pass still to come.

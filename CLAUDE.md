@@ -120,3 +120,25 @@ CUDA_VISIBLE_DEVICES=2,7 uv run --with vllm==0.13.0 sample_agreement_run.py --mo
 
 Do not `uv add vllm==0.11.0`: it would force torch 2.8 into the lockfile and the analysis
 scripts were validated on the current venv.
+
+## EACL 2027 camera-ready (recorded 2026-11-13)
+
+Accepted as a Main Conference paper (Submission 354); camera-ready due 2026-11-26 AoE, Mao submits.
+Decisions are in `DECISIONS.md` (2026-11-13). Build: `cd latex && latexmk -pdf acl_latex.tex`
+(`\usepackage[final]{acl}`; body ends on page 8, limit 9).
+
+- Reference checks live in `review/reference-check.csv` (one row per cited key, external source,
+  claim rating, resolution of the Codex pass). Any new or changed citation gets a row and a fetched
+  record. The ACL bibliography style prints "and others" as "and 1 others"; use the report's
+  title-page group author for large-team model reports.
+- OpenReview notes (reviews, reviewer responses, meta-review, decision) are pulled with
+  `uv run --no-project --with openreview-py ~/.claude/scripts/openreview_pull.py 71ZWtK0GmI review/arr PCWyquXTlT review/eacl`;
+  both folders are gitignored because the repository is public.
+- The repository is public and the paper links it. Nothing with post text or raw post ids goes in:
+  `release/validation_annotations.csv` is built by `release/make_release_annotations.py` with a
+  salt in `release/.salt` (gitignored; losing it changes every hash).
+- Open promise: the third coder's text-only confidence ratings. When
+  `data/third_coder/rating_sheet_T.xlsx` is filled, run `third_coder/recompute_table2.py` and update
+  Table 2, the human-ceiling sentence in Section 5.5, the sub-study paragraph in Section 3.3 and the
+  Limitations sentence about two coders.
+- Agent room: `docs/agent-room/README.md`, threads under `docs/agent-room/threads/`.
