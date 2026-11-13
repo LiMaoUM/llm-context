@@ -13,3 +13,32 @@ data/
 sample_agreement/*.jsonl
 sample_agreement/*.log
 sample_agreement/vllm0.11/
+
+# logs and run artifacts
+*.log
+nohup.out
+results/
+# LaTeX build output (keep the sources and figures)
+latex/*.aux
+latex/*.bbl
+latex/*.blg
+latex/*.fdb_latexmk
+latex/*.fls
+latex/*.out
+latex/compile_out.txt
+latex/acl_latex.pdf
+# multi-MB exploratory figures at the repo root; the paper figures live in latex/
+/*.png
+latex/confidence_models.png
+latex/f1_models.png
+# notebooks and scratch
+*.ipynb
+
+# release: the salt keeps post hashes unlinkable to public ids; per-post re-decoding files carry raw post ids
+release/.salt
+seed_stability_*.jsonl
+# internal review material (kept local)
+latex/RESPONSE_TO_REVIEWERS.md
+latex/responsible_nlp_checklist.md
+review/arr/
+review/eacl/

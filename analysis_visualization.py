@@ -164,7 +164,11 @@ class ResultsVisualizer:
         data = []
         
         for model, variants in metrics_by_model.items():
+            if not isinstance(variants, dict):
+                continue
             for variant, metrics in variants.items():
+                if not isinstance(metrics, dict):
+                    continue
                 data.append({
                     'Model': model,
                     'Context': variant,
@@ -173,18 +177,23 @@ class ResultsVisualizer:
         
         df = pd.DataFrame(data)
         
+        if df.empty:
+            print(f"Warning: No data to plot for {save_name}")
+            return
+        
         fig, ax = plt.subplots(figsize=figsize)
         
         # Plot by model
-        for model in df['Model'].unique():
-            model_data = df[df['Model'] == model]
-            ax.plot(
-                model_data['Context'],
-                model_data['Accuracy'],
-                marker='o',
-                label=model,
-                linewidth=2
-            )
+        if 'Model' in df.columns:
+            for model in df['Model'].unique():
+                model_data = df[df['Model'] == model]
+                ax.plot(
+                    model_data['Context'],
+                    model_data['Accuracy'],
+                    marker='o',
+                    label=model,
+                    linewidth=2
+                )
         
         ax.set_xlabel('Context Variant', fontsize=12)
         ax.set_ylabel('Accuracy (%)', fontsize=12)
@@ -254,7 +263,11 @@ class ResultsVisualizer:
         data = []
         
         for model, variants in metrics_by_model.items():
+            if not isinstance(variants, dict):
+                continue
             for variant, metrics in variants.items():
+                if not isinstance(metrics, dict):
+                    continue
                 data.append({
                     'Model': model,
                     'Context': variant,
@@ -263,17 +276,22 @@ class ResultsVisualizer:
         
         df = pd.DataFrame(data)
         
+        if df.empty:
+            print(f"Warning: No data to plot for {save_name}")
+            return
+        
         fig, ax = plt.subplots(figsize=figsize)
         
-        for model in df['Model'].unique():
-            model_data = df[df['Model'] == model]
-            ax.plot(
-                model_data['Context'],
-                model_data['ECE'],
-                marker='o',
-                label=model,
-                linewidth=2
-            )
+        if 'Model' in df.columns:
+            for model in df['Model'].unique():
+                model_data = df[df['Model'] == model]
+                ax.plot(
+                    model_data['Context'],
+                    model_data['ECE'],
+                    marker='o',
+                    label=model,
+                    linewidth=2
+                )
         
         ax.set_xlabel('Context Variant', fontsize=12)
         ax.set_ylabel('Expected Calibration Error', fontsize=12)
@@ -295,7 +313,11 @@ class ResultsVisualizer:
         data = []
         
         for model, variants in metrics_by_model.items():
+            if not isinstance(variants, dict):
+                continue
             for variant, metrics in variants.items():
+                if not isinstance(metrics, dict):
+                    continue
                 data.append({
                     'Model': model,
                     'Context': variant,
@@ -304,17 +326,22 @@ class ResultsVisualizer:
         
         df = pd.DataFrame(data)
         
+        if df.empty:
+            print(f"Warning: No data to plot for {save_name}")
+            return
+        
         fig, ax = plt.subplots(figsize=figsize)
         
-        for model in df['Model'].unique():
-            model_data = df[df['Model'] == model]
-            ax.plot(
-                model_data['Context'],
-                model_data['Overconfidence Rate'],
-                marker='o',
-                label=model,
-                linewidth=2
-            )
+        if 'Model' in df.columns:
+            for model in df['Model'].unique():
+                model_data = df[df['Model'] == model]
+                ax.plot(
+                    model_data['Context'],
+                    model_data['Overconfidence Rate'],
+                    marker='o',
+                    label=model,
+                    linewidth=2
+                )
         
         ax.set_xlabel('Context Variant', fontsize=12)
         ax.set_ylabel('Overconfidence Rate (%)', fontsize=12)

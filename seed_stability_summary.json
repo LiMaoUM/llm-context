@@ -1,0 +1,22 @@
+{
+ "qwen3-4b": {
+  "ideology_flip_rate": 0.1511,
+  "ideology_n_cells": 1132,
+  "stance_flip_rate": 0.1406,
+  "stance_n_cells": 1138,
+  "ideo_conf_median_sd": 0.0,
+  "ideo_conf_mean_sd": 2.9,
+  "stance_conf_median_sd": 0.0,
+  "stance_conf_mean_sd": 2.9
+ },
+ "gemma-3-27b-it": {
+  "ideology_flip_rate": 0.0254,
+  "ideology_n_cells": 1143,
+  "stance_flip_rate": 0.1086,
+  "stance_n_cells": 1151,
+  "ideo_conf_median_sd": 0.0,
+  "ideo_conf_mean_sd": 2.0,
+  "stance_conf_median_sd": 2.6,
+  "stance_conf_mean_sd": 3.2
+ }
+}

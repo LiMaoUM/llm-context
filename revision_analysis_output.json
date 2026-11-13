@@ -1,0 +1,1275 @@
+{
+  "run_dir": "results/20260115_215043",
+  "n_models": 8,
+  "n_unique_posts_inference": 7408,
+  "variants": [
+    "T",
+    "T+B",
+    "T+B+C",
+    "T+B+C+M"
+  ],
+  "validity_by_model_variant": [
+    {
+      "model": "gemma-3-27b-it",
+      "variant": "T",
+      "n": 7044.0,
+      "ideology_parsed": 0.9776,
+      "stance_parsed": 0.9823,
+      "conf_present": 0.9825,
+      "noncommittal_stance": 0.3366,
+      "api_success": 0.9997
+    },
+    {
+      "model": "gemma-3-27b-it",
+      "variant": "T+B",
+      "n": 7408.0,
+      "ideology_parsed": 0.9964,
+      "stance_parsed": 0.9988,
+      "conf_present": 0.9988,
+      "noncommittal_stance": 0.1911,
+      "api_success": 1.0
+    },
+    {
+      "model": "gemma-3-27b-it",
+      "variant": "T+B+C",
+      "n": 7408.0,
+      "ideology_parsed": 0.9965,
+      "stance_parsed": 0.9974,
+      "conf_present": 0.9974,
+      "noncommittal_stance": 0.1231,
+      "api_success": 0.9974
+    },
+    {
+      "model": "gemma-3-27b-it",
+      "variant": "T+B+C+M",
+      "n": 7408.0,
+      "ideology_parsed": 0.9968,
+      "stance_parsed": 0.9973,
+      "conf_present": 0.9973,
+      "noncommittal_stance": 0.0585,
+      "api_success": 0.9982
+    },
+    {
+      "model": "gpt-oss-120b",
+      "variant": "T",
+      "n": 7044.0,
+      "ideology_parsed": 0.9861,
+      "stance_parsed": 0.9835,
+      "conf_present": 0.9791,
+      "noncommittal_stance": 0.4691,
+      "api_success": 1.0
+    },
+    {
+      "model": "gpt-oss-120b",
+      "variant": "T+B",
+      "n": 7408.0,
+      "ideology_parsed": 0.9726,
+      "stance_parsed": 0.9706,
+      "conf_present": 0.9607,
+      "noncommittal_stance": 0.306,
+      "api_success": 1.0
+    },
+    {
+      "model": "gpt-oss-120b",
+      "variant": "T+B+C",
+      "n": 7408.0,
+      "ideology_parsed": 0.9677,
+      "stance_parsed": 0.9609,
+      "conf_present": 0.9468,
+      "noncommittal_stance": 0.1484,
+      "api_success": 1.0
+    },
+    {
+      "model": "gpt-oss-120b",
+      "variant": "T+B+C+M",
+      "n": 7408.0,
+      "ideology_parsed": 0.9667,
+      "stance_parsed": 0.9571,
+      "conf_present": 0.943,
+      "noncommittal_stance": 0.0359,
+      "api_success": 1.0
+    },
+    {
+      "model": "llama-3.1-8b",
+      "variant": "T",
+      "n": 7044.0,
+      "ideology_parsed": 0.9294,
+      "stance_parsed": 0.9231,
+      "conf_present": 0.9289,
+      "noncommittal_stance": 0.2151,
+      "api_success": 0.9527
+    },
+    {
+      "model": "llama-3.1-8b",
+      "variant": "T+B",
+      "n": 7408.0,
+      "ideology_parsed": 0.8661,
+      "stance_parsed": 0.8649,
+      "conf_present": 0.8641,
+      "noncommittal_stance": 0.0104,
+      "api_success": 0.91
+    },
+    {
+      "model": "llama-3.1-8b",
+      "variant": "T+B+C",
+      "n": 7408.0,
+      "ideology_parsed": 0.8261,
+      "stance_parsed": 0.8256,
+      "conf_present": 0.8233,
+      "noncommittal_stance": 0.0066,
+      "api_success": 0.8892
+    },
+    {
+      "model": "llama-3.1-8b",
+      "variant": "T+B+C+M",
+      "n": 7408.0,
+      "ideology_parsed": 0.906,
+      "stance_parsed": 0.9047,
+      "conf_present": 0.9046,
+      "noncommittal_stance": 0.0023,
+      "api_success": 0.9341
+    },
+    {
+      "model": "ministral-3-14b",
+      "variant": "T",
+      "n": 7044.0,
+      "ideology_parsed": 0.6969,
+      "stance_parsed": 0.7225,
+      "conf_present": 0.5251,
+      "noncommittal_stance": 0.1661,
+      "api_success": 0.8113
+    },
+    {
+      "model": "ministral-3-14b",
+      "variant": "T+B",
+      "n": 7408.0,
+      "ideology_parsed": 0.6951,
+      "stance_parsed": 0.6975,
+      "conf_present": 0.4318,
+      "noncommittal_stance": 0.0649,
+      "api_success": 0.7869
+    },
+    {
+      "model": "ministral-3-14b",
+      "variant": "T+B+C",
+      "n": 7408.0,
+      "ideology_parsed": 0.8543,
+      "stance_parsed": 0.8538,
+      "conf_present": 0.4362,
+      "noncommittal_stance": 0.0483,
+      "api_success": 0.904
+    },
+    {
+      "model": "ministral-3-14b",
+      "variant": "T+B+C+M",
+      "n": 7408.0,
+      "ideology_parsed": 0.8994,
+      "stance_parsed": 0.8989,
+      "conf_present": 0.5644,
+      "noncommittal_stance": 0.0271,
+      "api_success": 0.9503
+    },
+    {
+      "model": "ministral-3-8b",
+      "variant": "T",
+      "n": 7044.0,
+      "ideology_parsed": 0.847,
+      "stance_parsed": 0.8485,
+      "conf_present": 0.8025,
+      "noncommittal_stance": 0.0984,
+      "api_success": 0.9676
+    },
+    {
+      "model": "ministral-3-8b",
+      "variant": "T+B",
+      "n": 7408.0,
+      "ideology_parsed": 0.9344,
+      "stance_parsed": 0.9351,
+      "conf_present": 0.8306,
+      "noncommittal_stance": 0.0127,
+      "api_success": 0.9707
+    },
+    {
+      "model": "ministral-3-8b",
+      "variant": "T+B+C",
+      "n": 7408.0,
+      "ideology_parsed": 0.9112,
+      "stance_parsed": 0.9109,
+      "conf_present": 0.7944,
+      "noncommittal_stance": 0.0074,
+      "api_success": 0.9464
+    },
+    {
+      "model": "ministral-3-8b",
+      "variant": "T+B+C+M",
+      "n": 7408.0,
+      "ideology_parsed": 0.9283,
+      "stance_parsed": 0.9276,
+      "conf_present": 0.7851,
+      "noncommittal_stance": 0.0081,
+      "api_success": 0.959
+    },
+    {
+      "model": "qwen3-30b-a3b",
+      "variant": "T",
+      "n": 7044.0,
+      "ideology_parsed": 0.9625,
+      "stance_parsed": 0.9629,
+      "conf_present": 0.9803,
+      "noncommittal_stance": 0.2526,
+      "api_success": 0.9997
+    },
+    {
+      "model": "qwen3-30b-a3b",
+      "variant": "T+B",
+      "n": 7408.0,
+      "ideology_parsed": 0.9783,
+      "stance_parsed": 0.9771,
+      "conf_present": 0.976,
+      "noncommittal_stance": 0.0672,
+      "api_success": 1.0
+    },
+    {
+      "model": "qwen3-30b-a3b",
+      "variant": "T+B+C",
+      "n": 7408.0,
+      "ideology_parsed": 0.9883,
+      "stance_parsed": 0.9869,
+      "conf_present": 0.9854,
+      "noncommittal_stance": 0.0277,
+      "api_success": 1.0
+    },
+    {
+      "model": "qwen3-30b-a3b",
+      "variant": "T+B+C+M",
+      "n": 7408.0,
+      "ideology_parsed": 0.982,
+      "stance_parsed": 0.9804,
+      "conf_present": 0.9785,
+      "noncommittal_stance": 0.0142,
+      "api_success": 1.0
+    },
+    {
+      "model": "qwen3-4b",
+      "variant": "T",
+      "n": 7044.0,
+      "ideology_parsed": 0.9533,
+      "stance_parsed": 0.9709,
+      "conf_present": 0.9997,
+      "noncommittal_stance": 0.2419,
+      "api_success": 1.0
+    },
+    {
+      "model": "qwen3-4b",
+      "variant": "T+B",
+      "n": 7408.0,
+      "ideology_parsed": 0.9907,
+      "stance_parsed": 0.996,
+      "conf_present": 1.0,
+      "noncommittal_stance": 0.0094,
+      "api_success": 1.0
+    },
+    {
+      "model": "qwen3-4b",
+      "variant": "T+B+C",
+      "n": 7408.0,
+      "ideology_parsed": 0.9988,
+      "stance_parsed": 0.9989,
+      "conf_present": 1.0,
+      "noncommittal_stance": 0.0035,
+      "api_success": 1.0
+    },
+    {
+      "model": "qwen3-4b",
+      "variant": "T+B+C+M",
+      "n": 7408.0,
+      "ideology_parsed": 0.9999,
+      "stance_parsed": 1.0,
+      "conf_present": 1.0,
+      "noncommittal_stance": 0.0008,
+      "api_success": 1.0
+    },
+    {
+      "model": "qwen3-80b-a3b",
+      "variant": "T",
+      "n": 7044.0,
+      "ideology_parsed": 0.9683,
+      "stance_parsed": 0.9947,
+      "conf_present": 0.9991,
+      "noncommittal_stance": 0.3551,
+      "api_success": 1.0
+    },
+    {
+      "model": "qwen3-80b-a3b",
+      "variant": "T+B",
+      "n": 7408.0,
+      "ideology_parsed": 0.9968,
+      "stance_parsed": 0.9974,
+      "conf_present": 0.9989,
+      "noncommittal_stance": 0.0664,
+      "api_success": 1.0
+    },
+    {
+      "model": "qwen3-80b-a3b",
+      "variant": "T+B+C",
+      "n": 7408.0,
+      "ideology_parsed": 0.9991,
+      "stance_parsed": 0.9991,
+      "conf_present": 0.9991,
+      "noncommittal_stance": 0.0252,
+      "api_success": 1.0
+    },
+    {
+      "model": "qwen3-80b-a3b",
+      "variant": "T+B+C+M",
+      "n": 7408.0,
+      "ideology_parsed": 0.996,
+      "stance_parsed": 0.9958,
+      "conf_present": 0.996,
+      "noncommittal_stance": 0.0131,
+      "api_success": 1.0
+    }
+  ],
+  "gold": {
+    "n_validated_posts": 295,
+    "ideology": {
+      "n_with_majority": 289,
+      "n_unanimous": 196,
+      "n_2of3": 93,
+      "n_no_majority": 6,
+      "class_dist": {
+        "right": 189,
+        "left": 66,
+        "center": 34
+      }
+    },
+    "stance": {
+      "n_with_majority": 291,
+      "n_unanimous": 203,
+      "n_2of3": 88,
+      "n_no_majority": 4,
+      "class_dist": {
+        "favor": 171,
+        "center": 67,
+        "against": 53
+      }
+    },
+    "platform_dist": {
+      "truthsocial": 218,
+      "bluesky": 77
+    },
+    "class_dist_by_platform": {
+      "ideology": {
+        "center": {
+          "bluesky": 17,
+          "truthsocial": 17
+        },
+        "left": {
+          "bluesky": 55,
+          "truthsocial": 11
+        },
+        "right": {
+          "bluesky": 2,
+          "truthsocial": 187
+        }
+      },
+      "stance": {
+        "against": {
+          "bluesky": 39,
+          "truthsocial": 14
+        },
+        "center": {
+          "bluesky": 38,
+          "truthsocial": 29
+        },
+        "favor": {
+          "bluesky": 0,
+          "truthsocial": 171
+        }
+      }
+    }
+  },
+  "intercoder_kappa_folded": {
+    "ideology": {
+      "qing-xinyu": 0.486,
+      "qing-shengteng": 0.689,
+      "xinyu-shengteng": 0.561
+    },
+    "stance": {
+      "qing-xinyu": 0.616,
+      "qing-shengteng": 0.674,
+      "xinyu-shengteng": 0.635
+    }
+  },
+  "T_subset": {
+    "n_missing_T_in_export": 12,
+    "n_of_those_with_T_in_run": 0
+  },
+  "table1": [
+    {
+      "variant": "T",
+      "ideology_acc": 53.6,
+      "ideology_acc_ci": [
+        49.5,
+        57.9
+      ],
+      "ideology_f1": 45.2,
+      "ideology_f1_ci": [
+        40.7,
+        49.1
+      ],
+      "ideology_acc_unparsed_as_center": 49.4,
+      "stance_acc": 44.6,
+      "stance_acc_ci": [
+        40.2,
+        48.7
+      ],
+      "stance_f1": 43.6,
+      "stance_f1_ci": [
+        39.4,
+        47.9
+      ],
+      "stance_acc_unparsed_as_center": 42.6
+    },
+    {
+      "variant": "T+B",
+      "ideology_acc": 56.7,
+      "ideology_acc_ci": [
+        52.9,
+        60.0
+      ],
+      "ideology_f1": 44.4,
+      "ideology_f1_ci": [
+        40.9,
+        47.9
+      ],
+      "ideology_acc_unparsed_as_center": 53.5,
+      "stance_acc": 46.6,
+      "stance_acc_ci": [
+        42.8,
+        50.2
+      ],
+      "stance_f1": 40.1,
+      "stance_f1_ci": [
+        36.6,
+        43.2
+      ],
+      "stance_acc_unparsed_as_center": 45.2
+    },
+    {
+      "variant": "T+B+C",
+      "ideology_acc": 73.5,
+      "ideology_acc_ci": [
+        69.6,
+        77.2
+      ],
+      "ideology_f1": 54.3,
+      "ideology_f1_ci": [
+        49.8,
+        58.5
+      ],
+      "ideology_acc_unparsed_as_center": 70.0,
+      "stance_acc": 59.7,
+      "stance_acc_ci": [
+        55.6,
+        63.4
+      ],
+      "stance_f1": 47.0,
+      "stance_f1_ci": [
+        43.4,
+        49.9
+      ],
+      "stance_acc_unparsed_as_center": 57.6
+    },
+    {
+      "variant": "T+B+C+M",
+      "ideology_acc": 84.5,
+      "ideology_acc_ci": [
+        80.9,
+        88.0
+      ],
+      "ideology_f1": 65.0,
+      "ideology_f1_ci": [
+        60.5,
+        69.5
+      ],
+      "ideology_acc_unparsed_as_center": 81.5,
+      "stance_acc": 68.9,
+      "stance_acc_ci": [
+        64.9,
+        73.0
+      ],
+      "stance_f1": 52.8,
+      "stance_f1_ci": [
+        49.2,
+        55.5
+      ],
+      "stance_acc_unparsed_as_center": 66.9
+    }
+  ],
+  "majority_baseline": {
+    "ideology": {
+      "majority_class": "right",
+      "acc": 65.4,
+      "macro_f1": 26.4
+    },
+    "stance": {
+      "majority_class": "favor",
+      "acc": 58.8,
+      "macro_f1": 24.7
+    }
+  },
+  "platform_prior_baseline": {
+    "ideology": {
+      "acc": 83.7,
+      "macro_f1": 57.0
+    },
+    "stance": {
+      "acc": 72.2,
+      "macro_f1": 49.6
+    }
+  },
+  "platform_accuracy": [
+    {
+      "variant": "T",
+      "platform": "bluesky",
+      "ideology_acc": 42.9,
+      "stance_acc": 56.2
+    },
+    {
+      "variant": "T",
+      "platform": "truthsocial",
+      "ideology_acc": 57.8,
+      "stance_acc": 40.0
+    },
+    {
+      "variant": "T+B",
+      "platform": "bluesky",
+      "ideology_acc": 48.5,
+      "stance_acc": 46.1
+    },
+    {
+      "variant": "T+B",
+      "platform": "truthsocial",
+      "ideology_acc": 59.5,
+      "stance_acc": 46.8
+    },
+    {
+      "variant": "T+B+C",
+      "platform": "bluesky",
+      "ideology_acc": 57.5,
+      "stance_acc": 49.2
+    },
+    {
+      "variant": "T+B+C",
+      "platform": "truthsocial",
+      "ideology_acc": 79.0,
+      "stance_acc": 63.5
+    },
+    {
+      "variant": "T+B+C+M",
+      "platform": "bluesky",
+      "ideology_acc": 69.6,
+      "stance_acc": 50.8
+    },
+    {
+      "variant": "T+B+C+M",
+      "platform": "truthsocial",
+      "ideology_acc": 89.6,
+      "stance_acc": 75.4
+    }
+  ],
+  "within_condition_auroc": [
+    {
+      "task": "ideology",
+      "variant": "T",
+      "auroc_by_model": {
+        "gemma-3-27b-it": 0.722,
+        "gpt-oss-120b": 0.845,
+        "llama-3.1-8b": 0.582,
+        "ministral-3-14b": 0.715,
+        "ministral-3-8b": 0.639,
+        "qwen3-30b-a3b": 0.77,
+        "qwen3-4b": 0.748,
+        "qwen3-80b-a3b": 0.74
+      },
+      "mean_auroc": 0.72,
+      "n_models_above_0.5": 8
+    },
+    {
+      "task": "ideology",
+      "variant": "T+B",
+      "auroc_by_model": {
+        "gemma-3-27b-it": 0.757,
+        "gpt-oss-120b": 0.794,
+        "llama-3.1-8b": 0.547,
+        "ministral-3-14b": 0.592,
+        "ministral-3-8b": 0.554,
+        "qwen3-30b-a3b": 0.635,
+        "qwen3-4b": 0.605,
+        "qwen3-80b-a3b": 0.579
+      },
+      "mean_auroc": 0.633,
+      "n_models_above_0.5": 8
+    },
+    {
+      "task": "ideology",
+      "variant": "T+B+C",
+      "auroc_by_model": {
+        "gemma-3-27b-it": 0.691,
+        "gpt-oss-120b": 0.734,
+        "llama-3.1-8b": 0.575,
+        "ministral-3-14b": 0.553,
+        "ministral-3-8b": 0.572,
+        "qwen3-30b-a3b": 0.674,
+        "qwen3-4b": 0.595,
+        "qwen3-80b-a3b": 0.575
+      },
+      "mean_auroc": 0.621,
+      "n_models_above_0.5": 8
+    },
+    {
+      "task": "ideology",
+      "variant": "T+B+C+M",
+      "auroc_by_model": {
+        "gemma-3-27b-it": 0.85,
+        "gpt-oss-120b": 0.817,
+        "llama-3.1-8b": 0.627,
+        "ministral-3-14b": 0.748,
+        "ministral-3-8b": 0.768,
+        "qwen3-30b-a3b": 0.695,
+        "qwen3-4b": 0.726,
+        "qwen3-80b-a3b": 0.604
+      },
+      "mean_auroc": 0.729,
+      "n_models_above_0.5": 8
+    },
+    {
+      "task": "stance",
+      "variant": "T",
+      "auroc_by_model": {
+        "gemma-3-27b-it": 0.582,
+        "gpt-oss-120b": 0.739,
+        "llama-3.1-8b": 0.56,
+        "ministral-3-14b": 0.709,
+        "ministral-3-8b": 0.639,
+        "qwen3-30b-a3b": 0.625,
+        "qwen3-4b": 0.666,
+        "qwen3-80b-a3b": 0.697
+      },
+      "mean_auroc": 0.652,
+      "n_models_above_0.5": 8
+    },
+    {
+      "task": "stance",
+      "variant": "T+B",
+      "auroc_by_model": {
+        "gemma-3-27b-it": 0.602,
+        "gpt-oss-120b": 0.651,
+        "llama-3.1-8b": 0.486,
+        "ministral-3-14b": 0.579,
+        "ministral-3-8b": 0.592,
+        "qwen3-30b-a3b": 0.567,
+        "qwen3-4b": 0.444,
+        "qwen3-80b-a3b": 0.577
+      },
+      "mean_auroc": 0.562,
+      "n_models_above_0.5": 6
+    },
+    {
+      "task": "stance",
+      "variant": "T+B+C",
+      "auroc_by_model": {
+        "gemma-3-27b-it": 0.731,
+        "gpt-oss-120b": 0.736,
+        "llama-3.1-8b": 0.516,
+        "ministral-3-14b": 0.637,
+        "ministral-3-8b": 0.625,
+        "qwen3-30b-a3b": 0.602,
+        "qwen3-4b": 0.535,
+        "qwen3-80b-a3b": 0.596
+      },
+      "mean_auroc": 0.622,
+      "n_models_above_0.5": 8
+    },
+    {
+      "task": "stance",
+      "variant": "T+B+C+M",
+      "auroc_by_model": {
+        "gemma-3-27b-it": 0.813,
+        "gpt-oss-120b": 0.839,
+        "llama-3.1-8b": 0.607,
+        "ministral-3-14b": 0.729,
+        "ministral-3-8b": 0.726,
+        "qwen3-30b-a3b": 0.73,
+        "qwen3-4b": 0.706,
+        "qwen3-80b-a3b": 0.757
+      },
+      "mean_auroc": 0.738,
+      "n_models_above_0.5": 8
+    }
+  ],
+  "pooled_auroc": [
+    {
+      "task": "ideology",
+      "auroc_by_model": {
+        "gemma-3-27b-it": 0.787,
+        "gpt-oss-120b": 0.85,
+        "llama-3.1-8b": 0.599,
+        "ministral-3-14b": 0.692,
+        "ministral-3-8b": 0.653,
+        "qwen3-30b-a3b": 0.726,
+        "qwen3-4b": 0.666,
+        "qwen3-80b-a3b": 0.66
+      },
+      "mean_auroc": 0.704
+    },
+    {
+      "task": "stance",
+      "auroc_by_model": {
+        "gemma-3-27b-it": 0.686,
+        "gpt-oss-120b": 0.771,
+        "llama-3.1-8b": 0.549,
+        "ministral-3-14b": 0.701,
+        "ministral-3-8b": 0.666,
+        "qwen3-30b-a3b": 0.657,
+        "qwen3-4b": 0.6,
+        "qwen3-80b-a3b": 0.678
+      },
+      "mean_auroc": 0.663
+    }
+  ],
+  "within_condition_reliability": [
+    {
+      "task": "ideology",
+      "variant": "T",
+      "bins": [
+        {
+          "n": 516,
+          "conf": 41.8,
+          "acc": 28.3
+        },
+        {
+          "n": 264,
+          "conf": 70.4,
+          "acc": 47.3
+        },
+        {
+          "n": 506,
+          "conf": 82.4,
+          "acc": 58.1
+        },
+        {
+          "n": 282,
+          "conf": 90.0,
+          "acc": 65.6
+        },
+        {
+          "n": 348,
+          "conf": 95.2,
+          "acc": 79.9
+        }
+      ]
+    },
+    {
+      "task": "ideology",
+      "variant": "T+B+C+M",
+      "bins": [
+        {
+          "n": 503,
+          "conf": 76.8,
+          "acc": 68.6
+        },
+        {
+          "n": 1397,
+          "conf": 93.9,
+          "acc": 88.7
+        },
+        {
+          "n": 159,
+          "conf": 98.8,
+          "acc": 97.5
+        }
+      ]
+    },
+    {
+      "task": "stance",
+      "variant": "T",
+      "bins": [
+        {
+          "n": 402,
+          "conf": 29.9,
+          "acc": 25.1
+        },
+        {
+          "n": 400,
+          "conf": 66.3,
+          "acc": 40.0
+        },
+        {
+          "n": 785,
+          "conf": 86.5,
+          "acc": 47.4
+        },
+        {
+          "n": 383,
+          "conf": 96.4,
+          "acc": 63.7
+        }
+      ]
+    },
+    {
+      "task": "stance",
+      "variant": "T+B+C+M",
+      "bins": [
+        {
+          "n": 868,
+          "conf": 84.1,
+          "acc": 54.4
+        },
+        {
+          "n": 600,
+          "conf": 95.0,
+          "acc": 68.0
+        },
+        {
+          "n": 323,
+          "conf": 97.9,
+          "acc": 86.4
+        },
+        {
+          "n": 284,
+          "conf": 99.7,
+          "acc": 92.6
+        }
+      ]
+    }
+  ],
+  "logit": {
+    "ideology": {
+      "n": 7990,
+      "conf_coef_per10pts": 0.5471,
+      "odds_ratio_per10pts": 1.728,
+      "z": 12.0,
+      "p": 3.434276728426001e-33
+    },
+    "ideology_per_model": {
+      "gemma-3-27b-it": {
+        "or_per10": 1.99,
+        "p": 2.4638535203734182e-17
+      },
+      "gpt-oss-120b": {
+        "or_per10": 1.83,
+        "p": 5.797618909643291e-19
+      },
+      "llama-3.1-8b": {
+        "or_per10": 1.377,
+        "p": 0.0024894946450297246
+      },
+      "ministral-3-14b": {
+        "or_per10": 1.465,
+        "p": 1.516710486260218e-07
+      },
+      "ministral-3-8b": {
+        "or_per10": 1.235,
+        "p": 0.0002847722507302317
+      },
+      "qwen3-30b-a3b": {
+        "or_per10": 4.913,
+        "p": 2.1960884132966793e-09
+      },
+      "qwen3-4b": {
+        "or_per10": 2.464,
+        "p": 2.236030182563288e-09
+      },
+      "qwen3-80b-a3b": {
+        "or_per10": 2.293,
+        "p": 1.3889176215716935e-10
+      }
+    },
+    "stance": {
+      "n": 8090,
+      "conf_coef_per10pts": 0.3336,
+      "odds_ratio_per10pts": 1.396,
+      "z": 9.4,
+      "p": 5.5590019205131676e-21
+    },
+    "stance_per_model": {
+      "gemma-3-27b-it": {
+        "or_per10": 1.619,
+        "p": 2.3529758520087294e-17
+      },
+      "gpt-oss-120b": {
+        "or_per10": 1.486,
+        "p": 8.32530165013158e-20
+      },
+      "llama-3.1-8b": {
+        "or_per10": 1.137,
+        "p": 0.0688300986822882
+      },
+      "ministral-3-14b": {
+        "or_per10": 1.236,
+        "p": 4.7630897353102276e-05
+      },
+      "ministral-3-8b": {
+        "or_per10": 1.24,
+        "p": 0.001953409929794037
+      },
+      "qwen3-30b-a3b": {
+        "or_per10": 1.835,
+        "p": 9.523087668942281e-07
+      },
+      "qwen3-4b": {
+        "or_per10": 1.519,
+        "p": 2.0984476021031366e-07
+      },
+      "qwen3-80b-a3b": {
+        "or_per10": 1.511,
+        "p": 4.816376900893341e-06
+      }
+    }
+  },
+  "old_pooled_equalwidth_bins": {
+    "ideology": {
+      "gemma-3-27b-it": {
+        "lowest_bin_n": 11,
+        "lowest_bin_acc": 18.2,
+        "highest_bin_n": 252,
+        "highest_bin_acc": 95.6
+      },
+      "gpt-oss-120b": {
+        "lowest_bin_n": 32,
+        "lowest_bin_acc": 3.1,
+        "highest_bin_n": 204,
+        "highest_bin_acc": 95.6
+      },
+      "llama-3.1-8b": {
+        "lowest_bin_n": 2,
+        "lowest_bin_acc": 50.0,
+        "highest_bin_n": 32,
+        "highest_bin_acc": 84.4
+      },
+      "ministral-3-14b": {
+        "lowest_bin_n": 4,
+        "lowest_bin_acc": 0.0,
+        "highest_bin_n": 272,
+        "highest_bin_acc": 81.6
+      },
+      "ministral-3-8b": {
+        "lowest_bin_n": 6,
+        "lowest_bin_acc": 50.0,
+        "highest_bin_n": 571,
+        "highest_bin_acc": 80.4
+      },
+      "qwen3-30b-a3b": {
+        "lowest_bin_n": 2,
+        "lowest_bin_acc": 0.0,
+        "highest_bin_n": 719,
+        "highest_bin_acc": 82.1
+      },
+      "qwen3-4b": {
+        "lowest_bin_n": 1,
+        "lowest_bin_acc": 100.0,
+        "highest_bin_n": 521,
+        "highest_bin_acc": 73.9
+      },
+      "qwen3-80b-a3b": {
+        "lowest_bin_n": 2,
+        "lowest_bin_acc": 0.0,
+        "highest_bin_n": 883,
+        "highest_bin_acc": 79.0
+      }
+    },
+    "stance": {
+      "gemma-3-27b-it": {
+        "lowest_bin_n": 4,
+        "lowest_bin_acc": 0.0,
+        "highest_bin_n": 399,
+        "highest_bin_acc": 79.4
+      },
+      "gpt-oss-120b": {
+        "lowest_bin_n": 36,
+        "lowest_bin_acc": 16.7,
+        "highest_bin_n": 186,
+        "highest_bin_acc": 95.7
+      },
+      "llama-3.1-8b": {
+        "lowest_bin_n": 7,
+        "lowest_bin_acc": 28.6,
+        "highest_bin_n": 280,
+        "highest_bin_acc": 38.6
+      },
+      "ministral-3-14b": {
+        "lowest_bin_n": 31,
+        "lowest_bin_acc": 29.0,
+        "highest_bin_n": 270,
+        "highest_bin_acc": 74.4
+      },
+      "ministral-3-8b": {
+        "lowest_bin_n": 8,
+        "lowest_bin_acc": 62.5,
+        "highest_bin_n": 577,
+        "highest_bin_acc": 64.3
+      },
+      "qwen3-30b-a3b": {
+        "lowest_bin_n": 3,
+        "lowest_bin_acc": 0.0,
+        "highest_bin_n": 250,
+        "highest_bin_acc": 80.8
+      },
+      "qwen3-4b": {
+        "lowest_bin_n": 1,
+        "lowest_bin_acc": 0.0,
+        "highest_bin_n": 644,
+        "highest_bin_acc": 51.1
+      },
+      "qwen3-80b-a3b": {
+        "lowest_bin_n": 21,
+        "lowest_bin_acc": 19.0,
+        "highest_bin_n": 871,
+        "highest_bin_acc": 69.7
+      }
+    }
+  },
+  "calibration_by_model": [
+    {
+      "task": "ideology",
+      "model": "gemma-3-27b-it",
+      "mean_conf": 74.7,
+      "acc": 69.8,
+      "gap": 4.9,
+      "ece": 0.064,
+      "brier": 0.17,
+      "confidently_wrong_pct": 17.8
+    },
+    {
+      "task": "ideology",
+      "model": "gpt-oss-120b",
+      "mean_conf": 68.1,
+      "acc": 61.1,
+      "gap": 7.1,
+      "ece": 0.082,
+      "brier": 0.161,
+      "confidently_wrong_pct": 20.3
+    },
+    {
+      "task": "ideology",
+      "model": "llama-3.1-8b",
+      "mean_conf": 81.6,
+      "acc": 66.5,
+      "gap": 15.1,
+      "ece": 0.151,
+      "brier": 0.239,
+      "confidently_wrong_pct": 32.3
+    },
+    {
+      "task": "ideology",
+      "model": "ministral-3-14b",
+      "mean_conf": 86.8,
+      "acc": 71.4,
+      "gap": 15.3,
+      "ece": 0.153,
+      "brier": 0.208,
+      "confidently_wrong_pct": 25.4
+    },
+    {
+      "task": "ideology",
+      "model": "ministral-3-8b",
+      "mean_conf": 88.1,
+      "acc": 72.2,
+      "gap": 15.8,
+      "ece": 0.184,
+      "brier": 0.224,
+      "confidently_wrong_pct": 25.9
+    },
+    {
+      "task": "ideology",
+      "model": "qwen3-30b-a3b",
+      "mean_conf": 91.3,
+      "acc": 68.7,
+      "gap": 22.5,
+      "ece": 0.225,
+      "brier": 0.243,
+      "confidently_wrong_pct": 29.8
+    },
+    {
+      "task": "ideology",
+      "model": "qwen3-4b",
+      "mean_conf": 89.1,
+      "acc": 60.6,
+      "gap": 28.5,
+      "ece": 0.285,
+      "brier": 0.299,
+      "confidently_wrong_pct": 37.0
+    },
+    {
+      "task": "ideology",
+      "model": "qwen3-80b-a3b",
+      "mean_conf": 91.2,
+      "acc": 71.7,
+      "gap": 19.6,
+      "ece": 0.196,
+      "brier": 0.219,
+      "confidently_wrong_pct": 25.4
+    },
+    {
+      "task": "stance",
+      "model": "gemma-3-27b-it",
+      "mean_conf": 84.1,
+      "acc": 61.2,
+      "gap": 22.9,
+      "ece": 0.229,
+      "brier": 0.267,
+      "confidently_wrong_pct": 35.4
+    },
+    {
+      "task": "stance",
+      "model": "gpt-oss-120b",
+      "mean_conf": 67.2,
+      "acc": 58.0,
+      "gap": 9.2,
+      "ece": 0.113,
+      "brier": 0.208,
+      "confidently_wrong_pct": 29.3
+    },
+    {
+      "task": "stance",
+      "model": "llama-3.1-8b",
+      "mean_conf": 87.8,
+      "acc": 32.1,
+      "gap": 55.7,
+      "ece": 0.557,
+      "brier": 0.538,
+      "confidently_wrong_pct": 67.8
+    },
+    {
+      "task": "stance",
+      "model": "ministral-3-14b",
+      "mean_conf": 81.7,
+      "acc": 61.2,
+      "gap": 20.5,
+      "ece": 0.237,
+      "brier": 0.272,
+      "confidently_wrong_pct": 33.2
+    },
+    {
+      "task": "stance",
+      "model": "ministral-3-8b",
+      "mean_conf": 89.7,
+      "acc": 55.7,
+      "gap": 34.0,
+      "ece": 0.34,
+      "brier": 0.36,
+      "confidently_wrong_pct": 42.7
+    },
+    {
+      "task": "stance",
+      "model": "qwen3-30b-a3b",
+      "mean_conf": 88.7,
+      "acc": 61.5,
+      "gap": 27.2,
+      "ece": 0.272,
+      "brier": 0.297,
+      "confidently_wrong_pct": 37.4
+    },
+    {
+      "task": "stance",
+      "model": "qwen3-4b",
+      "mean_conf": 89.8,
+      "acc": 48.4,
+      "gap": 41.4,
+      "ece": 0.414,
+      "brier": 0.412,
+      "confidently_wrong_pct": 49.8
+    },
+    {
+      "task": "stance",
+      "model": "qwen3-80b-a3b",
+      "mean_conf": 90.5,
+      "acc": 63.0,
+      "gap": 27.6,
+      "ece": 0.276,
+      "brier": 0.291,
+      "confidently_wrong_pct": 33.9
+    }
+  ],
+  "unanimity_vs_confidence": {
+    "ideology": {
+      "mean_conf_unanimous": 92.1,
+      "mean_conf_2of3": 85.9,
+      "n_unanimous_rows": 1398,
+      "n_2of3_rows": 666,
+      "mannwhitney_p_greater": 1.0973036492352651e-41,
+      "acc_by_agreement": {
+        "1": NaN,
+        "2": 62.5,
+        "3": 94.9
+      },
+      "conf_delta_unan_minus_2of3_by_variant": {
+        "T": 3.7,
+        "T+B": 2.1,
+        "T+B+C": 2.3,
+        "T+B+C+M": 6.2
+      }
+    },
+    "stance": {
+      "mean_conf_unanimous": 92.3,
+      "mean_conf_2of3": 89.5,
+      "n_unanimous_rows": 1442,
+      "n_2of3_rows": 638,
+      "mannwhitney_p_greater": 6.87514400838665e-21,
+      "acc_by_agreement": {
+        "1": NaN,
+        "2": 47.9,
+        "3": 77.7
+      },
+      "conf_delta_unan_minus_2of3_by_variant": {
+        "T": 1.7,
+        "T+B": 1.1,
+        "T+B+C": 1.0,
+        "T+B+C+M": 2.8
+      }
+    }
+  },
+  "human_confidence": {
+    "n": 76,
+    "qing_means": [
+      43.4,
+      40.4
+    ],
+    "xinyu_means": [
+      14.1,
+      15.4
+    ],
+    "coder_spearman": [
+      0.55,
+      0.6
+    ],
+    "coder_kw": [
+      0.32,
+      null
+    ],
+    "model_vs_human_spotcheck": {
+      "gpt-oss-120b": {
+        "n": 75,
+        "mean_conf": [
+          50.0,
+          49.9
+        ],
+        "spearman_ideo": 0.8,
+        "kw_ideo": 0.39,
+        "spearman_stance": 0.73
+      },
+      "qwen3-30b-a3b": {
+        "n": 75,
+        "mean_conf": [
+          88.3,
+          84.0
+        ],
+        "spearman_ideo": 0.09,
+        "kw_ideo": 0.01,
+        "spearman_stance": 0.15
+      }
+    }
+  }
+}

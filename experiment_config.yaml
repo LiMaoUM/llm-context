@@ -4,47 +4,91 @@
 # 1. MODELS TO EVALUATE
 # ==============================================================================
 models:
-  - name: "gpt-4-turbo"
-    provider: "openai"
-    config:
-      model_id: "gpt-4-turbo-preview"
-      temperature: 0.7
-      max_tokens: 256
-    
-  - name: "gpt-3.5-turbo"
-    provider: "openai"
-    config:
-      model_id: "gpt-3.5-turbo"
-      temperature: 0.7
-      max_tokens: 256
-
-  - name: "claude-3-opus"
-    provider: "anthropic"
-    config:
-      model_id: "claude-3-opus-20240229"
-      temperature: 0.7
-      max_tokens: 256
-
-  - name: "claude-3-sonnet"
-    provider: "anthropic"
-    config:
-      model_id: "claude-3-sonnet-20240229"
-      temperature: 0.7
-      max_tokens: 256
-
-  - name: "llama-2-70b"
-    provider: "huggingface"  # via Replicate or local deployment
-    config:
-      model_id: "meta-llama/Llama-2-70b-chat-hf"
-      temperature: 0.7
-      max_tokens: 256
-
-  - name: "gemma-2-27b"
+  # Large Models - Use GPU 1 and GPU 2 with tensor parallelism
+  - name: "qwen3-80b-a3b"
     provider: "huggingface"
     config:
-      model_id: "google/gemma-2-27b-it"
+      model_id: "Qwen/Qwen3-Next-80B-A3B-Instruct-FP8"
+      gpu_device: 1
+      tensor_parallel_size: 2 # Use GPU 1 and GPU 2
       temperature: 0.7
-      max_tokens: 256
+      max_tokens: 1024
+
+  - name: "llama-3.3-70b"
+    provider: "huggingface"
+    config:
+      model_id: "meta-llama/Llama-3.3-70B-Instruct"
+      gpu_device: 1
+      tensor_parallel_size: 2  # Use GPU 1 and GPU 2
+      temperature: 0.7
+      max_tokens: 1024
+
+  - name: "gpt-oss-120b"
+    provider: "huggingface"
+    config:
+      model_id: "openai/gpt-oss-120b"
+      gpu_device: 1
+      tensor_parallel_size: 2  # Use GPU 1 and GPU 2
+      temperature: 0.7
+      max_tokens: 1024
+
+  # Medium Models - Use GPU 1 only
+  - name: "qwen3-30b-a3b"
+    provider: "huggingface"
+    config:
+      model_id: "Qwen/Qwen3-30B-A3B-Instruct-2507-FP8"
+      gpu_device: 1
+      tensor_parallel_size: 1
+      temperature: 0.7
+      max_tokens: 1024
+
+  - name: "gemma-3-27b-it"
+    provider: "huggingface"
+    config:
+      model_id: "google/gemma-3-27b-it"
+      gpu_device: 1
+      tensor_parallel_size: 1
+      temperature: 0.7
+      max_tokens: 1024
+
+  # Medium Models - Use GPU 2 only
+  - name: "ministral-3-14b"
+    provider: "huggingface"
+    config:
+      model_id: "mistralai/Ministral-3-14B-Instruct-2512"
+      gpu_device: 2
+      tensor_parallel_size: 1
+      temperature: 0.7
+      max_tokens: 1024
+
+  # Small Models - Use GPU 1 only
+  - name: "qwen3-4b"
+    provider: "huggingface"
+    config:
+      model_id: "Qwen/Qwen3-4B-Instruct-2507"
+      gpu_device: 1
+      tensor_parallel_size: 1
+      temperature: 0.7
+      max_tokens: 1024
+
+  - name: "llama-3.1-8b"
+    provider: "huggingface"
+    config:
+      model_id: "meta-llama/Llama-3.1-8B-Instruct"
+      gpu_device: 1
+      tensor_parallel_size: 1
+      temperature: 0.7
+      max_tokens: 1024
+
+  # Small Models - Use GPU 2 only
+  - name: "ministral-3-8b"
+    provider: "huggingface"
+    config:
+      model_id: "mistralai/Ministral-3-8B-Instruct-2512"
+      gpu_device: 2
+      tensor_parallel_size: 1
+      temperature: 0.7
+      max_tokens: 1024
 
 # ==============================================================================
 # 2. CONTEXT ABLATION SCHEME
@@ -58,14 +102,6 @@ context_variants:
       - background: false
       - metadata: false
   
-  - variant_name: "T+C"
-    description: "Text + Conversation - add direct parent/child replies"
-    include:
-      - post_text: true
-      - conversation: true
-      - background: false
-      - metadata: false
-  
   - variant_name: "T+B"
     description: "Text + Background - add event summaries or entity descriptions"
     include:
@@ -74,15 +110,8 @@ context_variants:
       - background: true
       - metadata: false
   
-  - variant_name: "T+M"
-    description: "Text + Metadata - add user bio, media URLs, hashtags"
-    include:
-      - post_text: true
-      - conversation: false
-      - background: false
-      - metadata: true
   
-  - variant_name: "T+C+B"
+  - variant_name: "T+B+C"
     description: "Text + Conversation + Background"
     include:
       - post_text: true
@@ -90,89 +119,177 @@ context_variants:
       - background: true
       - metadata: false
   
-  - variant_name: "T+C+M"
-    description: "Text + Conversation + Metadata"
-    include:
-      - post_text: true
-      - conversation: true
-      - background: false
-      - metadata: true
-  
-  - variant_name: "T+B+M"
-    description: "Text + Background + Metadata"
-    include:
-      - post_text: true
-      - conversation: false
-      - background: true
-      - metadata: true
-  
-  - variant_name: "FULL"
-    description: "Full context - all layers (T+C+B+M)"
+  - variant_name: "T+B+C+M"
+    description: "Text + Background + Conversation + Metadata"
     include:
       - post_text: true
       - conversation: true
       - background: true
       - metadata: true
+  
 
 # ==============================================================================
 # 3. PROMPT CONFIGURATION
 # ==============================================================================
 prompt_template: |
-  You are analyzing a social media post to understand the author's stance or position.
+  You are a political discourse analyst specializing in social media content.
   
-  {background_section}{conversation_section}{metadata_section}
+  TASK:
+  Analyze the provided context and determine:
+  1. The author's political ideology (Left, Center, or Right)
+  2. The author's stance toward Donald Trump (if mentioned or implied)
+  3. The robustness of these judgments, expressed as confidence scores (0-100)
   
-  [TARGET POST]
-  {post_text}
+  CONTEXT BLOCKS AVAILABLE:
   
-  Question: What is the author's stance toward {target_entity}?
+  [Background Event Information]
+  {background_section}
   
-  Please respond with:
-  1. Your answer (one of: {stance_options})
-  2. Your confidence level (0-100%)
-  3. Brief reasoning
+  [Conversation History]
+  {conversation_section}
+  
+  [User Metadata]
+  {metadata_section}
+  
+  [Target Post]
+  {focal_post_text}
+  
+  ANALYSIS INSTRUCTIONS:
+  - Use ONLY information from the non-empty context blocks above
+  - Do NOT rely on external knowledge, world facts, or personal assumptions
+  - If a context field is empty, treat it as unavailable information
+  - Prefer explicit textual evidence; use inference only when necessary
+  - If inference is used, it must be grounded in the provided text
+  
+  IMPORTANT: CONFIDENCE DEFINITION (CRITICAL)
+  
+  Confidence is NOT a measure of how strongly the author feels.
+  Confidence IS a measure of how sufficient and stable the available context is for making the classification.
+  
+  Interpret confidence as follows:
+  
+  - 90–100: The conclusion is contextually decisive.
+    The stance or ideology is explicit or logically fixed.
+    Additional reasonable context would NOT change the result.
+    (e.g., "I am a MAGA and will vote for Trump.")
+  
+  - 60–80: The conclusion is supported by evidence but not fully locked in.
+    Additional context could plausibly refine or reverse the judgment.
+    (e.g., repeated partisan cues without explicit self-identification)
+  
+  - 30–50: The conclusion is weakly supported and highly context-sensitive.
+    Platform norms, tone, or missing background could easily change the interpretation.
+    (e.g., "Trump is going to win" without affective or evaluative language)
+  
+  - 0–20: The available context is insufficient or contradictory.
+    The classification is largely speculative.
+    (e.g., vague mentions, irony, or unclear references)
+  
+  DO NOT inflate confidence.
+  If the interpretation depends heavily on missing context, platform norms, or assumed intent, confidence MUST be low.
+  
+  QUESTIONS TO ANSWER:
+  
+  1. POLITICAL IDEOLOGY
+     Based on the context, what is the author's political ideology?
+     - Left: Progressive / liberal / socialist values
+     - Center: Moderate / centrist values
+     - Right: Conservative
+  
+  2. STANCE TOWARD POLITICAL FIGURES
+     What is the author's stance toward Donald Trump?
+     Classify as:
+     - favor: Supports or approves
+     - against: Opposes or disapproves
+     - neutral: Mentions without evaluative direction
+  
+  RESPONSE CONSTRAINTS:
+  - You MUST respond with ONLY valid JSON
+  - Do NOT include explanations, notes, or reasoning outside the JSON
+  - Confidence values must reflect the definition above, not subjective certainty
+  
+  RESPONSE FORMAT (VALID JSON ONLY):
+  
+  {{
+    "ideology": "Left" | "Center" | "Right",
+    "ideology_confidence": <integer 0–100>,
+    "stance": "favor" | "against" | "neutral",
+    "stance_confidence": <integer 0–100>
+  }}
+  
+  Respond with ONLY the JSON object. Do not include any additional text.
 
 prompt_sections:
   background: |
     [BACKGROUND CONTEXT]
     Event: {event_name}
     Date: {event_date}
-    Summary: {event_summary}
-    Key entities: {key_entities}
+    Key Information: {event_summary}
     
   conversation: |
     [CONVERSATION HISTORY]
-    {parent_posts}
-    {sibling_posts}
-    {child_posts}
+    {parent_posts_formatted}
+    {child_posts_formatted}
     
   metadata: |
     [USER METADATA]
+    Author: {user_name}
     Bio: {user_bio}
-    Follower count: {follower_count}
-    Account age: {account_age}
-    Hashtags: {hashtags}
-    Media URLs: {media_urls}
-    Historical posts: {recent_historical_posts}
+    Followers: {follower_count}
+    Verified: {verified_status}
+    
+    [POST METADATA]
+    Posted: {post_timestamp}
+    
+    [RECENT USER POSTS]
+    Recent posts by this user (last 5, excluding current post):
+    {recent_user_posts_formatted}
 
 # ==============================================================================
 # 4. TASKS & TARGETS
 # ==============================================================================
 tasks:
-  - task_id: "stance_detection"
-    task_name: "Stance Detection"
-    description: "Identify stance toward political candidates or issues"
-    target_entities:
-      - "Biden administration"
-      - "Trump policies"
-      - "Abortion rights"
-      - "Gun control"
-    stance_options: ["strongly support", "support", "neutral", "oppose", "strongly oppose"]
+  - task_id: "political_ideology_stance"
+    task_name: "Political Ideology and Stance Detection"
+    description: "Infer political ideology and stance toward Biden and Trump"
     
-  - task_id: "sentiment_analysis"
-    task_name: "Sentiment Analysis"
-    description: "Classify overall sentiment of post"
-    stance_options: ["very positive", "positive", "neutral", "negative", "very negative"]
+    ideology_options:
+      - "Left"
+      - "Center"
+      - "Right"
+    
+    stance_options:
+      - "favor"
+      - "against"
+      - "neutral"
+      - "undecided"
+    
+    figures:
+      - "Trump"
+      - "Biden"
+    
+    instructions: |
+      You are a political discourse analyst.
+      Your task is to infer a social media user's political ideology and their stance toward specific political figures using ONLY the information provided.
+      
+      Some contextual fields may be empty.
+      If a field is empty, treat it as unavailable and do not speculate beyond the provided information.
+      
+      Context Provided:
+      - [Background]: Event context and timeline
+      - [Conversation History]: Parent/child posts
+      - [User Metadata]: Author information
+      - [Target Post]: The focal post to analyze
+      
+      Use information from all non-empty fields, but do not rely on any external knowledge beyond this context.
+    
+    output_format: |
+      {
+        "ideology": "Left|Center|Right",
+        "ideology_confidence": 0-100,
+        "stance": "favor|against|neutral",
+        "stance_confidence": 0-100
+      }
 
 # ==============================================================================
 # 5. EVALUATION METRICS
@@ -282,7 +399,13 @@ execution:
 # 8. METADATA FOR REPRODUCIBILITY
 # ==============================================================================
 reproducibility:
-  version: "1.0"
-  created_date: "2025-11-05"
+  version: "2.0"
+  created_date: "2026-01-15"
   author: "Mao Li"
-  notes: "Initial experiment design targeting 10k annotated posts"
+  notes: "Updated experiment with improved prompt (contextual confidence), Trump-only stance detection, and 1024 max_tokens to prevent truncation"
+  changes: |
+    - Replaced multi-figure stance detection with single Trump-only stance
+    - Added explicit confidence definition focusing on contextual sufficiency
+    - Increased max_tokens from 512 to 1024 for all models
+    - Simplified JSON output format
+    - Removed reasoning field to enforce JSON-only output

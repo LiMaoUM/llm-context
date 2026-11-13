@@ -4,4 +4,20 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "accelerate>=1.11.0",
+    "fastparquet>=2024.11.0",
+    "ipykernel>=7.1.0",
+    "matplotlib>=3.10.7",
+    "openpyxl>=3.1.5",
+    "pandas>=2.3.3",
+    "pyarrow>=22.0.0",
+    "pydantic>=2.12.4",
+    "pydantic-ai>=1.19.0",
+    "replicate>=1.0.7",
+    "scikit-learn>=1.7.2",
+    "seaborn>=0.13.2",
+    "torch>=2.9.1",
+    "transformers>=4.57.1",
+    "vllm>=0.1.2",
+]
