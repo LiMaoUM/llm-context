@@ -1,6 +1,6 @@
 # Citing sentences (camera-ready, extracted from latex/acl_latex.tex and latex/tab_rebuttal.tex)
 
-Regenerated after the 2026-11-13 citation decisions; Codex read the earlier extraction (git history).
+Regenerated after the third pass on 2026-11-13; Codex read the first extraction (git history).
 
 1. keys: bransford_contextual_1972, clark_using_2005, grosz_centering_1995, stalnaker_common_2002
 
@@ -12,19 +12,19 @@ Regenerated after the 2026-11-13 citation decisions; Codex read the earlier extr
 
 3. keys: allaway_zero-shot_2020, joseph_constance_2017, li_p-stance_2021, mohammad_semeval-2016_2016
 
-   Stance detection, ideology inference, and sentiment analysis are nonetheless defined and evaluated on individual posts \cite{mohammad_semeval-2016_2016, li_p-stance_2021, allaway_zero-shot_2020}, and the problem is sharpest in political discourse, where annotators' judgments demonstrably shift when conversational or situational context is added or removed \cite{joseph_constance_2017}.
+   Stance detection, ideology inference, and sentiment analysis are nonetheless defined and evaluated on individual posts \cite[e.g., for stance,][]{mohammad_semeval-2016_2016, li_p-stance_2021, allaway_zero-shot_2020}, and the problem is sharpest in political discourse, where annotators' judgments demonstrably shift when conversational or situational context is added or removed \cite{joseph_constance_2017}.
 
 4. keys: gilardi_chatgpt_2023, pangakis_automated_2023, tornberg_large_2025, ziems_can_2024
 
    LLM-based annotation pipelines increasingly replace or supplement human annotators in this setting \cite{gilardi_chatgpt_2023, tornberg_large_2025}, their reliability requires validation \cite{pangakis_automated_2023, ziems_can_2024}, and they typically operate on isolated posts, delegating the isolationist assumption to the model.
 
-5. keys: gligoric_can_2025, kadavath_language_2022, tian_just_2023, xiong_can_2024
+5. keys: gligoric_can_2025, tian_just_2023, xiong_can_2024
 
-   Calibration research shows verbalized confidence carries information about correctness while being systematically inflated \cite{kadavath_language_2022, tian_just_2023, xiong_can_2024}, and confidence-driven routing between LLMs and humans has been proposed as a workflow \cite{gligoric_can_2025}.
+   Calibration research shows verbalized confidence carries information about correctness while being systematically inflated \cite{tian_just_2023, xiong_can_2024}, and confidence-driven routing between LLMs and humans has been proposed as a workflow \cite{gligoric_can_2025}.
 
 6. keys: allaway_zero-shot_2020, joseph_constance_2017, li_p-stance_2021, mohammad_semeval-2016_2016
 
-   Benchmarks for stance, ideology, and sentiment annotate each post independently with a single label \cite{mohammad_semeval-2016_2016, li_p-stance_2021, allaway_zero-shot_2020}, although annotator agreement on isolated posts can be modest (Krippendorff's $\alpha{=}0.43$ in \citealp{allaway_zero-shot_2020}), and the context shown to them changes the labels they produce \cite{joseph_constance_2017}.
+   Benchmarks for stance, ideology, and sentiment annotate each post independently with a single label \cite[e.g., for stance,][]{mohammad_semeval-2016_2016, li_p-stance_2021, allaway_zero-shot_2020}, although annotators struggle on isolated posts, with low agreement \cite{allaway_zero-shot_2020}, and the context shown to them changes the labels they produce \cite{joseph_constance_2017}.
 
 7. keys: aroyo_truth_2015, pavlick_inherent_2019, plank_problem_2022
 
@@ -40,7 +40,7 @@ Regenerated after the 2026-11-13 citation decisions; Codex read the earlier extr
 
 10. keys: kadavath_language_2022, tian_just_2023, xiong_can_2024
 
-   LLMs can express uncertainty in words, sometimes more informatively than token probabilities \cite{kadavath_language_2022, tian_just_2023}, but verbalized confidence is systematically overconfident and clusters in the 80--100 range \cite{xiong_can_2024}, and self-evaluation improves when relevant source material is present in context \cite{kadavath_language_2022}.
+   LLMs can express uncertainty in words, sometimes more informatively than token probabilities \cite{tian_just_2023}, but verbalized confidence is systematically overconfident and clusters in the 80--100 range \cite{xiong_can_2024}, and self-evaluation improves when relevant source material is present in context \cite{kadavath_language_2022}.
 
 11. keys: geifman_selective_2017, gligoric_can_2025, kamath_selective_2020
 

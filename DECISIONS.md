@@ -21,3 +21,13 @@ Decision email 2026-11-13 confirms Main Conference; the decision note carries no
 5. Citations: the Allaway and McKeown sentence is rewritten to what the paper reports (Krippendorff's alpha 0.43); Niu et al. is dropped from the Introduction sentence about annotator judgments shifting (kept in Related Work); El-Yaniv and Wiener is cited for the risk-coverage curve, with the area described in our words.
 
 Rationale: Mao wants small changes; EACL desk-rejects papers with unverifiable or inaccurate references, so every cited entry went through two independent passes (`review/reference-check.csv`, agent room thread 2026-11-13-camera-ready-references), with Mao's own pass still to come.
+
+## 2026-11-13: third reference pass and the minimal-change rule for citations
+
+Mao changed the third pass (2026-11-13): Claude re-checks every high and medium entry against re-fetched records and settles what a source can settle; Mao answers only what no source settles. His minimal-change rule: a citing sentence keeps its claim; fixes are narrowing, dropping one citation, or deleting. Result, recorded per key in `review/reference-check.csv` (column `third_pass`):
+
+- All bib fields match the re-fetched records. Bib-only fixes in this pass: Kadavath et al. now prints its arXiv number; El-Yaniv and Wiener's title keeps its capitals.
+- Citing sentences, final state against the submitted version: (a) Allaway and McKeown: "and frequent fallback to neutral categories" removed, rest of the clause as submitted (this supersedes item 5 of the earlier entry, which rewrote the clause); (b) Niu et al. dropped from the Introduction sentence on annotator judgments; (c) "risk--coverage curve of" El-Yaniv and Wiener, in text and table caption; (d) "e.g., for stance," added inside the two citations of the three stance benchmarks; (e) Kadavath et al. dropped from the two citation groups about verbalized confidence, kept for self-evaluation with source material.
+- Mao's answers (AskUserQuestion, 2026-11-13): keep Stalnaker (2002), confirmed by him as author since the text is paywalled; cite the Llama 3 and Qwen3 reports by their title-page group authors.
+- Author names where the paper PDF and the ACL Anthology record differ by a middle initial (Manning, Candes) follow the Anthology .bib.
+- Mao's read of the final reference list (`review/reference-list-rendered.txt`): pending; he asked to see the list in the conversation.
