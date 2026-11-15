@@ -16,12 +16,14 @@ or numerical correction, (c) de-anonymization, acknowledgments, format, (d) none
 |---|---|---|---|
 | Camera-ready of 2026-11-13 (commit 17d9ae4) | 5,393 | 1,284 | 23.8% |
 | After this pass, as measured | 5,290 | 472 | 8.9% |
+| With the third coder's ratings (2026-11-15), as measured | 5,290 | 556 | 10.5% |
+| With the third coder's ratings, hand count | 5,290 | about 380 | about 7% |
 | After this pass, hand count of the changes listed below | 5,290 | about 300 | about 5.6% |
 
 The measured figure counts every camera-ready sentence against its closest reviewed sentence. It
 includes extraction noise from section headings, figure labels and table cells that pdftotext places
 differently in the two PDFs (the review PDF has margin line numbers and different float positions);
-the hand count sums the words of the changes in the table below. Whole paper: the appendix grew by
+the hand count sums the words of the changes in the table below. The third coder's ratings replace the numbers in one paragraph of 3.3, one of 5.5 and the 48 cells of Table 2, which is where the last step's increase comes from. Whole paper: the appendix grew by
 four tables and one section (all class a), so a whole-paper share is dominated by the appendix and
 is not the headline.
 
@@ -61,7 +63,7 @@ left in appendix tables), and the sentence listing the full-context gaps in 6.1.
 | 14 | 5.4, Discrimination | "Confidence is most discriminative at the extremes of the context spectrum (T and full context) and weakest just after the background brief is added---the condition where confidence inflates without accuracy gains." | "Confidence is most discriminative at full context and weakest in the middle conditions: at T+B for stance (0.56) and at T+B+C for ideology (0.62)." | (a) and (b) h3ni W2: "For ideology it does not: T+B+C is ... below T+B"; meta-review 4 |
 | 15 | 5.5, heading | "Absolute Calibration: All Models Overconfident, One Exception Usable" | "Absolute Calibration: All Models Overconfident" | (a) meta-review 4; h3ni follow-up ("a uniform negative"); Mao's decision of 2026-11-13 |
 | 16 | 5.5, first paragraph | "Pooled over conditions, mean confidence exceeds accuracy for every model on both tasks: the gap ranges from 4.9 points (gemma-3-27b-it, ideology) to 55.7 (llama-3.1-8b, stance), with ECE between 0.06 and 0.56 (Appendix Table 7)." | "Per condition (Appendix Table 10), mean confidence exceeds accuracy in 62 of 64 model x condition x task cells, with the largest gaps at T+B (25 points for ideology and 39 for stance, pooled over models) and the smallest at full context (6 and 23); pooling over conditions hides this (gemma-3-27b-it's pooled ideology gap of 4.9 spans 13.6 at T+B to -1.9 at full context; Appendix Table 7)." The two following sentences are as reviewed. | (a) h3ni W1: "The absolute-calibration analysis pools over conditions, which is the exact move the paper argues against"; meta-review 2 |
-| 17 | 5.5, human comparison | none | "The model ordering is unchanged against each coder separately (Appendix Table 12)." | (a) 8FDE W3: the comparison "rests on a two-person reference"; arguable, see below |
+| 17 | Contribution (2); 3.3 sub-study; 5.5 human comparison; Table 2; 6.2; Limitations | two coders: means 39 and 16 (ideology), 40 and 15 (stance); Spearman 0.68 / 0.66; kappa_w 0.54 / 0.55; unweighted kappa 0.28 / 0.34. Table 2 against the mean of two; gpt-oss-120b kappa_w 0.57 / 0.56, rho 0.82 / 0.77; other models kappa_w at most 0.30; human mean near 28; "coder confidence means of 16-40"; "covers two coders and the text-only condition" | three coders: means 39, 16 and 20; 40, 15 and 13; pairwise Spearman 0.68-0.80 / 0.66-0.78; kappa_w 0.54-0.72 / 0.40-0.70; unweighted kappa 0.28-0.49 / 0.23-0.45. Table 2 against the mean of three (n=158-281); gpt-oss-120b kappa_w 0.60 / 0.47, rho 0.85 / 0.77; other models at most 0.26; human mean near 25; "13-40"; "covers the text-only condition"; one added sentence: "It also leads against each coder separately (Appendix Table 12)." | (a) 8FDE W3: "A third coder was already recruited for the label task"; meta-review 3: "Expand the human confidence comparison to include the third coder"; promised in our reply and final response. Ratings received 2026-11-15 (`data/manual/conf_manual_qing.csv`), recomputed with `third_coder/recompute_table2.py` |
 | 18 | 5.7 | "Confidence-based selection also compares favorably with the crude rival policy of keeping only Truth Social labels (89.6% ideology agreement at 74% coverage, vs. 91.3% at 60%)---and unlike that policy it works within each platform." | "Against the crude rival policy of keeping only Truth Social labels, confidence-based selection ties at matched coverage (89.8% vs. 89.5% ideology agreement at 75%) and has the lower area under the risk-coverage curve of El-Yaniv and Wiener (2010) (9.0 vs. 11.5; Appendix Table 11)---and unlike that policy it works within each platform." | (a) and (b) h3ni W3: "Those are different coverage levels ... A risk-coverage curve with area under it (El-Yaniv and Wiener, 2010) would let both policies be compared on one frontier" |
 | 19 | 6.1 | "overstates accuracy for every model, often grossly (§5.5)" | "overstates accuracy for every model (§5.5)" | (a) h3ni follow-up: "A 6-point ideology gap at full context is not 'often grossly'" |
 | 20 | 6.3, step 1 | "check global overconfidence first---compare mean confidence to accuracy on a small validated sample (and, where possible, distributional alignment as in Table 2); in our pool only gpt-oss-120b passes" | "check overconfidence first, under the context condition to be deployed---compare ... (and, where possible, distributional alignment as in Table 2); none of our eight models passes the first check in every condition, and only gpt-oss-120b passes the second" | (a) h3ni W1: "the paper has not shown that a pooled check detects condition-level overconfidence"; h3ni W2; meta-review 4 |
@@ -84,8 +86,10 @@ cross-sample agreement table (8FDE W2, 24ts W2), corrected captions of Tables 7 
 
 ## Arguable links, for Mao
 
-- #17: the per-coder sentence stands in for the third coder's ratings, which were promised to 8FDE
-  and are still outstanding.
+- #17: resolved on 2026-11-15, the third coder's ratings are in. The earlier Table 2 numbers came
+  from `revision_analysis.py`, which matched coders on identifiers that lose precision in the CSV
+  exports; `third_coder/recompute_table2.py` aligns the exports by row, so a few two-coder values
+  would also have moved by 0.01 to 0.02.
 - #24: Section 5.2, restored to its reviewed form, already says mixed platforms should expect
   numbers "closer to our Bluesky column"; the Limitations clause repeats it because our reply to
   24ts promised it there.

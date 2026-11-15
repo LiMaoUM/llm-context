@@ -41,3 +41,11 @@ Done: the main text is rebuilt from the reviewed PDF (`review/arr-submitted/llm-
 Mao's answers (AskUserQuestion, 2026-11-15): accept this version; keep the per-coder sentence in 5.5, the mixed-platform clause in Limitations, and the full wording of protocol step 1.
 
 This supersedes two earlier items: the 2026-11-13 wording of the per-condition calibration paragraph, Bluesky paragraph and coverage comparison (now trimmed, detail in appendix tables), and the sentence in 6.1 listing full-context gaps (now only "often grossly" is removed). Citing sentences follow the reviewed wording again, with the approved citation fixes; Allaway and McKeown is additionally dropped from the Introduction group on annotator judgments, for the same reason as Niu et al.
+
+## 2026-11-15: third coder's text-only confidence ratings are in; Table 2 recomputed on three coders
+
+The third coder's export arrived (`data/manual/conf_manual_qing.csv`, 283 text-only ratings, row-aligned with the label export). This closes the promise to Reviewer 8FDE and meta-review item 3. `third_coder/recompute_table2.py` now reads the export; results in `third_coder/table2_three_coders.json`.
+
+Result: the finding holds. gpt-oss-120b stays first against the three-coder mean (kappa_w 0.60 ideology, 0.47 stance; rho 0.85, 0.77) and against each coder separately; its kappa_w sits inside the range of pairwise coder agreement (0.54 to 0.72 ideology, 0.40 to 0.70 stance); every other model is at 0.26 or below. Coder means: 39, 16, 20 (ideology) and 40, 15, 13 (stance).
+
+Paper: numbers updated in 3.3, 5.5, Table 2 and the appendix per-coder table; "two coders" wording updated in contribution (2) and Limitations; "coder confidence means of 16-40" becomes 13-40. Main-text change share is now 10.5% as measured and about 7% by hand count, the increase being replaced numbers. The released annotation file carries all three raters' confidence as rater1 to rater3, not linked to label coders A to C, because the repository does not record which label coder produced `conf_manual.xlsx`.

@@ -12,7 +12,7 @@ Ideology Labeling" (EACL 2027). One row per validated post (295 rows: 218 Truth 
 | `stance_A`, `stance_B`, `stance_C` | each coder's stance toward Donald Trump: favor, against, none (neutral and undecided folded) |
 | `gold_ideology`, `gold_stance` | majority vote of the three coders; empty for three-way splits (6 ideology, 4 stance) |
 | `n_agree_ideology`, `n_agree_stance` | number of coders who chose the gold label (3 means unanimous) |
-| `text_only_conf_ideology_A`, `text_only_conf_stance_A`, `text_only_conf_ideology_B`, `text_only_conf_stance_B` | coders A and B's own confidence (0 to 100) in judging from the post text alone; 283 posts have a text-only rendering |
+| `text_only_conf_ideology_rater1` to `rater3`, `text_only_conf_stance_rater1` to `rater3` | three raters' own confidence (0 to 100) in judging from the post text alone; 283 posts have a text-only rendering. Rater numbers follow the per-coder table in the paper's appendix and are not linked to label coders A, B, C |
 
 The file carries no post text, author handle or platform identifier. `make_release_annotations.py`
 builds it from the coder exports, which stay outside the repository.

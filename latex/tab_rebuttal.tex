@@ -52,23 +52,23 @@ Bluesky & 69.7 / 77.1 / 81.9 & 50.7 / 57.6 / 70.0 \\
 \begin{table}[h]
 \centering
 \small
-\setlength{\tabcolsep}{3pt}
-\begin{tabular}{lcccc|cccc}
+\setlength{\tabcolsep}{2.2pt}
+\begin{tabular}{lccccc|ccccc}
 \toprule
- & \multicolumn{4}{c|}{Ideology $\rho$} & \multicolumn{4}{c}{Stance $\rho$} \\
-Model & C1 & C2 & Mean & Rank & C1 & C2 & Mean & Rank \\
+ & \multicolumn{5}{c|}{Ideology $\rho$} & \multicolumn{5}{c}{Stance $\rho$} \\
+Model & C1 & C2 & C3 & Mean & Rank & C1 & C2 & C3 & Mean & Rank \\
 \midrule
-gpt-oss-120b & 0.82 & 0.66 & 0.82 & 0.82 & 0.76 & 0.60 & 0.77 & 0.76 \\
-gemma-3-27b-it & 0.62 & 0.51 & 0.61 & 0.61 & 0.03 & 0.19 & 0.04 & 0.04 \\
-ministral-3-14b & 0.59 & 0.49 & 0.60 & 0.61 & 0.48 & 0.44 & 0.50 & 0.50 \\
-ministral-3-8b & 0.61 & 0.48 & 0.60 & 0.60 & 0.56 & 0.48 & 0.56 & 0.56 \\
-qwen3-80b-a3b & 0.61 & 0.47 & 0.60 & 0.60 & 0.42 & 0.32 & 0.41 & 0.40 \\
-qwen3-4b & 0.52 & 0.44 & 0.52 & 0.53 & 0.50 & 0.46 & 0.51 & 0.51 \\
-qwen3-30b-a3b & 0.48 & 0.42 & 0.48 & 0.48 & 0.36 & 0.37 & 0.37 & 0.37 \\
-llama-3.1-8b & 0.34 & 0.33 & 0.36 & 0.36 & 0.25 & 0.27 & 0.26 & 0.26 \\
+gpt-oss-120b & 0.82 & 0.66 & 0.78 & 0.85 & 0.85 & 0.76 & 0.60 & 0.63 & 0.77 & 0.77 \\
+gemma-3-27b-it & 0.62 & 0.51 & 0.66 & 0.64 & 0.63 & 0.03 & 0.19 & 0.23 & 0.05 & 0.05 \\
+ministral-3-14b & 0.59 & 0.49 & 0.60 & 0.62 & 0.63 & 0.48 & 0.44 & 0.50 & 0.51 & 0.51 \\
+ministral-3-8b & 0.61 & 0.48 & 0.57 & 0.62 & 0.62 & 0.56 & 0.48 & 0.56 & 0.57 & 0.57 \\
+qwen3-80b-a3b & 0.61 & 0.47 & 0.62 & 0.62 & 0.62 & 0.42 & 0.32 & 0.43 & 0.42 & 0.42 \\
+qwen3-4b & 0.52 & 0.44 & 0.53 & 0.54 & 0.54 & 0.50 & 0.46 & 0.56 & 0.53 & 0.53 \\
+qwen3-30b-a3b & 0.48 & 0.42 & 0.53 & 0.51 & 0.50 & 0.36 & 0.37 & 0.45 & 0.39 & 0.39 \\
+llama-3.1-8b & 0.34 & 0.33 & 0.40 & 0.37 & 0.38 & 0.25 & 0.27 & 0.34 & 0.27 & 0.28 \\
 \bottomrule
 \end{tabular}
-\caption{Spearman correlation between each model's text-only confidence and human confidence under four references: coder 1 alone (mean 39/40), coder 2 alone (mean 16/15), their raw mean (as in Table~\ref{tab:conf_agree}), and the mean of within-coder percentile ranks, which removes the scale difference. Quadratic-weighted $\kappa_w$ against coder 1 / coder 2 for gpt-oss-120b: 0.71 / 0.43 (ideology). $n{=}281$ posts.}
+\caption{Spearman correlation between each model's text-only confidence and human confidence under five references: each coder alone (means 39/40, 16/15 and 20/13 for ideology/stance), their raw mean (as in Table~\ref{tab:conf_agree}), and the mean of within-coder percentile ranks, which removes the scale difference. Quadratic-weighted $\kappa_w$ against coders 1 / 2 / 3 for gpt-oss-120b: 0.71 / 0.43 / 0.59 (ideology), 0.67 / 0.44 / 0.34 (stance). $n{=}281$ posts.}
 \label{tab:conf_agree_coder}
 \end{table}
 

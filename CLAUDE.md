@@ -137,10 +137,10 @@ Decisions are in `DECISIONS.md` (2026-11-13). Build: `cd latex && latexmk -pdf a
 - The repository is public and the paper links it. Nothing with post text or raw post ids goes in:
   `release/validation_annotations.csv` is built by `release/make_release_annotations.py` with a
   salt in `release/.salt` (gitignored; losing it changes every hash).
-- Open promise: the third coder's text-only confidence ratings. When
-  `data/third_coder/rating_sheet_T.xlsx` is filled, run `third_coder/recompute_table2.py` and update
-  Table 2, the human-ceiling sentence in Section 5.5, the sub-study paragraph in Section 3.3 and the
-  Limitations sentence about two coders.
+- Third coder (done 2026-11-15): text-only confidence from three coders. Exports are row-aligned
+  with `data/manual/manual_Shengteng.xlsx`; their own `sample_id` columns lose precision for Truth
+  Social ids in CSV, so always take identifiers from the label export by row.
+  `third_coder/recompute_table2.py` produces Table 2 and the appendix per-coder table.
 - Main-text rule (Mao, 2026-11-15): the body through Limitations follows the wording of the
   reviewed ARR PDF (`review/arr-submitted/llm-context-arr.pdf`, gitignored). A change stays only if
   it answers a reviewer or meta-review comment or corrects a fact, in the fewest words, with detail

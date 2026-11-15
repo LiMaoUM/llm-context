@@ -29,6 +29,7 @@ RESULTS_DIR = "results/20260115_215043"
 MODELS = ["gemma-3-27b-it", "gpt-oss-120b", "llama-3.1-8b", "ministral-3-14b",
           "ministral-3-8b", "qwen3-30b-a3b", "qwen3-4b", "qwen3-80b-a3b"]
 THIRD = "data/third_coder/rating_sheet_T.xlsx"
+THIRD_EXPORT = "data/manual/conf_manual_qing.csv"
 
 
 def bucket(c):
@@ -56,7 +57,19 @@ def load_coders():
 
     h = c1.merge(c2, on="sample_id")
     coders = ["c1", "c2"]
-    if os.path.exists(THIRD):
+    if os.path.exists(THIRD_EXPORT):
+        # third coder's export, row-aligned with the label export like the other two (received 2026-11-15)
+        c3 = pd.read_csv(THIRD_EXPORT)
+        c3.columns = [c.strip().lower() for c in c3.columns]
+        assert len(c3) == len(base), "third-coder export is not row-aligned with the label export"
+        c3["sample_id"] = base["sample_id"].values
+        c3 = c3[c3["variant"] == "T"][["sample_id", "confidence", "confidence.1"]]
+        c3.columns = ["sample_id", "c3_ideo", "c3_stance"]
+        c3["c3_ideo"] = pd.to_numeric(c3["c3_ideo"], errors="coerce")
+        c3["c3_stance"] = pd.to_numeric(c3["c3_stance"], errors="coerce")
+        h = h.merge(c3, on="sample_id")
+        coders.append("c3")
+    elif os.path.exists(THIRD):
         c3 = pd.read_excel(THIRD, sheet_name="ratings")
         c3 = c3[["sample_id", "ideology_confidence", "stance_confidence"]]
         c3.columns = ["sample_id", "c3_ideo", "c3_stance"]
