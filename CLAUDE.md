@@ -141,4 +141,10 @@ Decisions are in `DECISIONS.md` (2026-11-13). Build: `cd latex && latexmk -pdf a
   `data/third_coder/rating_sheet_T.xlsx` is filled, run `third_coder/recompute_table2.py` and update
   Table 2, the human-ceiling sentence in Section 5.5, the sub-study paragraph in Section 3.3 and the
   Limitations sentence about two coders.
+- Main-text rule (Mao, 2026-11-15): the body through Limitations follows the wording of the
+  reviewed ARR PDF (`review/arr-submitted/llm-context-arr.pdf`, gitignored). A change stays only if
+  it answers a reviewer or meta-review comment or corrects a fact, in the fewest words, with detail
+  in the appendix. Every kept change has a row in `review/change-map.md`; re-measure with
+  `pdftotext` on both PDFs and `uv run python review/measure_change.py <reviewed.txt> <new.txt>`.
+  Do not tighten or polish reviewed prose.
 - Agent room: `docs/agent-room/README.md`, threads under `docs/agent-room/threads/`.

@@ -31,3 +31,13 @@ Mao changed the third pass (2026-11-13): Claude re-checks every high and medium 
 - Mao's answers (AskUserQuestion, 2026-11-13): keep Stalnaker (2002), confirmed by him as author since the text is paywalled; cite the Llama 3 and Qwen3 reports by their title-page group authors.
 - Author names where the paper PDF and the ACL Anthology record differ by a middle initial (Manning, Candes) follow the Anthology .bib.
 - Mao's read of the final reference list (`review/reference-list-rendered.txt`): pending; he asked to see the list in the conversation.
+
+## 2026-11-15: main text restored to the reviewed wording; a change stays only if it answers a comment or corrects a fact
+
+Mao (2026-11-15): measured against the PDF the reviewers read, the main text had changed by roughly a quarter, against the 5 percent he considers reasonable. Rule: in the main text (abstract through Limitations) keep a change only if it answers a specific reviewer or meta-review comment or corrects a factual error; revert the rest; appendix changes stand. Most of the change dated from the rebuttal-period revision of 2026-09-16, which tightened prose throughout.
+
+Done: the main text is rebuilt from the reviewed PDF (`review/arr-submitted/llm-context-arr.pdf`, local only) with 28 kept changes, each mapped to its comment or correction in `review/change-map.md`. Main-text change share: 23.8% before, 8.9% as measured by `review/measure_change.py` (includes PDF extraction noise), about 5.6% by hand count of the listed changes. Body ends on page 8.
+
+Mao's answers (AskUserQuestion, 2026-11-15): accept this version; keep the per-coder sentence in 5.5, the mixed-platform clause in Limitations, and the full wording of protocol step 1.
+
+This supersedes two earlier items: the 2026-11-13 wording of the per-condition calibration paragraph, Bluesky paragraph and coverage comparison (now trimmed, detail in appendix tables), and the sentence in 6.1 listing full-context gaps (now only "often grossly" is removed). Citing sentences follow the reviewed wording again, with the approved citation fixes; Allaway and McKeown is additionally dropped from the Introduction group on annotator judgments, for the same reason as Niu et al.
