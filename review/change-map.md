@@ -47,7 +47,7 @@ left in appendix tables), and the sentence listing the full-context gaps in 6.1.
 
 | # | Location | Reviewed text | Camera-ready text | Class and justification |
 |---|---|---|---|---|
-| 1 | Title block | Anonymous ACL submission | Mao Li, Xinyu Lin, Shengteng Yang, University of Michigan, emails | (c) de-anonymization |
+| 1 | Title block | Anonymous ACL submission | Mao Li and Xinyu Lin (University of Michigan), Shengteng Yang (The University of Texas Health Science Center at Houston), emails | (c) de-anonymization; Yang's affiliation follows her OpenReview profile and the EACL submission record (Mao, 2026-11-15) |
 | 2 | Abstract | "overconfident in absolute terms---high-confidence predictions" | "overconfident in absolute terms in nearly every context condition---high-confidence predictions" | (a) h3ni W1: "Per-condition ECE and gap tables are needed"; meta-review 4: "rewrite the abstract ... to reflect that no model passes a per-condition overconfidence check" |
 | 3 | 1, first paragraph | (Clark, 2005; ...) | (Clark, 1996; ...) | (b) Crossref gives 1996 for the book; bib only |
 | 4 | 1, second paragraph; 2.1 | "(Mohammad et al., 2016; Li et al., 2021; Allaway and McKeown, 2020)" | "(e.g., for stance, Mohammad et al., 2016; ...)" | (b) the three works are stance benchmarks; the sentence also names ideology and sentiment |
