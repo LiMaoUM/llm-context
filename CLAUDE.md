@@ -147,4 +147,9 @@ Decisions are in `DECISIONS.md` (2026-11-13). Build: `cd latex && latexmk -pdf a
   in the appendix. Every kept change has a row in `review/change-map.md`; re-measure with
   `pdftotext` on both PDFs and `uv run python review/measure_change.py <reviewed.txt> <new.txt>`.
   Do not tighten or polish reviewed prose.
+- Format check before any hand-off of the PDF:
+  `uv run --no-project --with "git+https://github.com/acl-org/aclpubcheck" aclpubcheck -p long latex/acl_latex.pdf`
+  must print "All Clear!". Wide appendix tables sit inside `\resizebox{\columnwidth}{!}{...}` (or
+  `\textwidth` for `table*`); the prompt listing uses `\fontsize{7.5}{9}` so its 46-character
+  lines fit the column.
 - Agent room: `docs/agent-room/README.md`, threads under `docs/agent-room/threads/`.

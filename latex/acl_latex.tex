@@ -363,7 +363,7 @@ T+B adds \texttt{[BACKGROUND]}; T+B+C adds \texttt{[PARENT REPLY]}/\texttt{[CHIL
 T+B+C+M adds \texttt{[USER METADATA]}). Note that confidence is requested without any
 definition or rubric.
 
-{\small
+{\fontsize{7.5}{9}\selectfont
 \begin{verbatim}
 You are a political discourse analyst. Your
 task is to analyze the author's political
@@ -434,6 +434,7 @@ your assessment]
 \begin{table}[h]
 \centering
 \small
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lccc}
 \toprule
 Model & Family & Params & Architecture \\
@@ -447,7 +448,7 @@ qwen3-30b-a3b & Qwen & 30B & MoE (IT) \\
 qwen3-80b-a3b & Qwen & 80B & MoE (IT) \\
 gpt-oss-120b & GPT-OSS & 120B & MoE (Reasoning) \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \caption{Large language models evaluated in this study: Gemma-3 \cite{gemma3_2025}, Llama-3.1 \cite{llama3_2024}, Qwen3 \cite{qwen3_2025}, gpt-oss \cite{gptoss_2025}, and Ministral-3 \cite{mistral3_2025}.}
 \label{tab:models}
 \end{table}
@@ -508,6 +509,7 @@ Stance   & Truth Social & 40.0 & 46.8 & 63.5 & 75.4 \\
 \small
 \setlength{\tabcolsep}{3.2pt}
 \setlength{\tabcolsep}{2.6pt}
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lcccccccc}
 \toprule
  & \multicolumn{4}{c}{Ideology} & \multicolumn{4}{c}{Stance} \\
@@ -523,7 +525,7 @@ qwen3-30b-a3b   & 22.5 & .23 & .24 & 29.8 & 27.2 & .27 & .30 & 37.4 \\
 qwen3-4b        & 28.5 & .29 & .30 & 37.0 & 41.4 & .41 & .41 & 49.8 \\
 qwen3-80b-a3b   & 19.6 & .20 & .22 & 25.4 & 27.6 & .28 & .29 & 33.9 \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \caption{Absolute calibration, pooled over conditions: confidence--accuracy gap (points), expected calibration error (10 equal-mass bins), Brier score, and confidently-wrong rate (\% of predictions with confidence $\ge$70 that are incorrect). Every model is overconfident on both tasks; gemma-3-27b-it least so on ideology and gpt-oss-120b on stance. Pooling averages over conditions with very different gaps; Table~\ref{tab:calibration_cond} gives the per-condition values.}
 \label{tab:calibration}
 \end{table}

@@ -2,6 +2,7 @@
 \centering
 \small
 \setlength{\tabcolsep}{4pt}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{l|cccc|cccc}
 \toprule
  & \multicolumn{4}{c|}{Ideology: gap / ECE} & \multicolumn{4}{c}{Stance: gap / ECE} \\
@@ -18,7 +19,7 @@ qwen3-80b-a3b & 25.6 / 0.27 & 26.7 / 0.27 & 18.1 / 0.18 & 8.3 / 0.10 & 28.4 / 0.
 \midrule
 Pooled over models & 19.6 / 0.20 & 25.4 / 0.25 & 14.5 / 0.14 & 5.7 / 0.06 & 28.3 / 0.30 & 39.4 / 0.39 & 29.6 / 0.30 & 23.0 / 0.23 \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \caption{Absolute calibration \emph{per context condition}: confidence--accuracy gap (points; negative means under-confident) and expected calibration error (10 equal-mass bins), per model and task. Mean confidence exceeds accuracy in 62 of 64 cells; the exceptions are gemma-3-27b-it and gpt-oss-120b on ideology at full context. The gap is largest at T+B for almost every model and smallest at full context, so a check pooled over conditions (Table~\ref{tab:calibration}) averages a model's worst and best cases.}
 \label{tab:calibration_cond}
 \end{table*}
@@ -27,6 +28,7 @@ Pooled over models & 19.6 / 0.20 & 25.4 / 0.25 & 14.5 / 0.14 & 5.7 / 0.06 & 28.3
 \centering
 \small
 \setlength{\tabcolsep}{4pt}
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lcc}
 \toprule
 Selection policy (full context) & Ideology & Stance \\
@@ -44,7 +46,7 @@ Verbalized confidence & 89.8 & 74.8 \\
 Truth Social & 89.5 / 93.2 / 96.4 & 74.9 / 82.9 / 91.8 \\
 Bluesky & 69.7 / 77.1 / 81.9 & 50.7 / 57.6 / 70.0 \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \caption{Selective-prediction comparison at full context, pooled over models. Top: area under the risk--coverage curve of \citet{elyaniv_foundations_2010} (mean error rate over all coverage levels, lower is better); the platform rule keeps Truth Social posts first and orders posts at random within platform. Post-level bootstrap 95\% CI on the confidence-minus-platform difference: $[-4.7, -0.6]$ ideology, $[-10.9, -4.7]$ stance. Middle: accuracy at the platform rule's coverage (75\%). Bottom: confidence triage inside each platform.}
 \label{tab:aurc}
 \end{table}
@@ -53,6 +55,7 @@ Bluesky & 69.7 / 77.1 / 81.9 & 50.7 / 57.6 / 70.0 \\
 \centering
 \small
 \setlength{\tabcolsep}{2.2pt}
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lccccc|ccccc}
 \toprule
  & \multicolumn{5}{c|}{Ideology $\rho$} & \multicolumn{5}{c}{Stance $\rho$} \\
@@ -67,7 +70,7 @@ qwen3-4b & 0.52 & 0.44 & 0.53 & 0.54 & 0.54 & 0.50 & 0.46 & 0.56 & 0.53 & 0.53 \
 qwen3-30b-a3b & 0.48 & 0.42 & 0.53 & 0.51 & 0.50 & 0.36 & 0.37 & 0.45 & 0.39 & 0.39 \\
 llama-3.1-8b & 0.34 & 0.33 & 0.40 & 0.37 & 0.38 & 0.25 & 0.27 & 0.34 & 0.27 & 0.28 \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \caption{Spearman correlation between each model's text-only confidence and human confidence under five references: each coder alone (means 39/40, 16/15 and 20/13 for ideology/stance), their raw mean (as in Table~\ref{tab:conf_agree}), and the mean of within-coder percentile ranks, which removes the scale difference. Quadratic-weighted $\kappa_w$ against coders 1 / 2 / 3 for gpt-oss-120b: 0.71 / 0.43 / 0.59 (ideology), 0.67 / 0.44 / 0.34 (stance). $n{=}281$ posts.}
 \label{tab:conf_agree_coder}
 \end{table}
@@ -76,6 +79,7 @@ llama-3.1-8b & 0.34 & 0.33 & 0.40 & 0.37 & 0.38 & 0.25 & 0.27 & 0.34 & 0.27 & 0.
 \centering
 \small
 \setlength{\tabcolsep}{3.5pt}
+\resizebox{\textwidth}{!}{%
 \begin{tabular}{llc|cccc|cccc|cc}
 \toprule
  & & & \multicolumn{4}{c|}{AUROC, verbalized / agreement} & \multicolumn{4}{c|}{AUROC, combined} & \multicolumn{2}{c}{Acc.\ at 60\% cov., full} \\
@@ -98,7 +102,7 @@ qwen3-4b & ideology & 10 & 0.76 / 0.54 & 0.57 / 0.54 & 0.64 / 0.70 & 0.77 / 0.63
 qwen3-80b-a3b & ideology & 10 & 0.76 / 0.56 & 0.58 / 0.63 & 0.54 / 0.54 & 0.57 / 0.52 & 0.72 & 0.66 & 0.56 & 0.59 & 87.4 & 85.1 \\
  & stance & 10 & 0.71 / 0.56 & 0.53 / 0.62 & 0.59 / 0.56 & 0.75 / 0.53 & 0.70 & 0.61 & 0.62 & 0.75 & 85.7 & 77.7 \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \caption{Verbalized confidence vs.\ cross-sample agreement as reliability signals, on the gold subset re-decoded $k$ times (temperature 0.7). Signals: the first sample's verbalized confidence; the share of the other $k{-}1$ samples whose label agrees with the first sample's; and their rank average. AUROC is for the first sample's correctness, within condition. Right: accuracy among the 60\% of full-context cells ranked highest by each signal.}
 \label{tab:agreement}
 \end{table*}
