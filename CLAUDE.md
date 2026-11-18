@@ -123,7 +123,9 @@ scripts were validated on the current venv.
 
 ## EACL 2027 camera-ready (recorded 2026-11-13)
 
-Accepted as a Main Conference paper (Submission 354); camera-ready due 2026-11-26 AoE, Mao submits.
+Accepted as a Main Conference paper (Submission 354). Camera-ready SUBMITTED by Mao on 2026-11-17;
+the submitted PDF equals `latex/acl_latex.pdf` at commit "camera-ready submitted". Any later change to
+the paper needs a new upload by Mao before 2026-11-26 AoE, so do not edit `latex/` without his say.
 Decisions are in `DECISIONS.md` (2026-11-13). Build: `cd latex && latexmk -pdf acl_latex.tex`
 (`\usepackage[final]{acl}`; body ends on page 9 of 9 since Figures 1 and 2 were enlarged on
 2026-11-17, so any added main-text line needs a page check).
