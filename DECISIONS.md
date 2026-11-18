@@ -61,3 +61,9 @@ The two main-text figures had been 0.46 of the page width since the reviewed sub
 ## 2026-11-17: Limitations as a numbered list, four supporting clauses cut
 
 Mao: the Limitations section was long and its run-in bold labels read badly. It now opens "We acknowledge several limitations." and lists five numbered items (nesting and the authored brief; verbalized confidence and prompt length; stochastic decoding and the cross-sample comparison; the gold standard and the text-only sub-study; platforms, period and the single aligned model). Mao chose (AskUserQuestion) to cut four supporting clauses, listed in `review/change-map.md` row 30; the three additions promised to reviewers and the three-seed numbers stay. Limitations and Ethical Considerations together now take under one page; aclpubcheck prints All Clear.
+
+## 2026-11-17: author's final confirmation of the reference list
+
+Mao checked every reference of the camera-ready by hand against Google Scholar and found no problems (at most minor formatting). He confirmed this as author in this session through AskUserQuestion on 2026-11-17, after the maospace session relayed it. This closes the third pass of the reference protocol: 33 cited entries, each matched to an external record in two independent passes (`review/reference-check.csv`, agent room thread 2026-11-13-camera-ready-references), re-fetched in the third pass, and read by the author. The list as printed is in `review/reference-list-rendered.txt`; the entry "Mao's read of the final reference list: pending" under 2026-11-13 is resolved by this one.
+
+Camera-ready state: all ARR promises met, de-anonymized, aclpubcheck All Clear, 17 pages with the body ending on page 9. Remaining step: Mao submits through the EACL form.
