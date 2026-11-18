@@ -83,3 +83,19 @@ Layout unchanged: 17 pages, body ends on page 9, Limitations and Ethical Conside
 ## 2026-11-18: revised camera-ready re-uploaded and verified
 
 Mao replaced the PDF on OpenReview (record modified 2026-11-18 04:54 UTC). Checked through the API: the uploaded file is byte-identical to `latex/acl_latex.pdf` at commit eb1eb70 (352,424 bytes, sha256 c31244c188eb1bd6...); only the `pdf` field changed, every other form field is as submitted on 2026-11-17. The paper on OpenReview and the repository now match. Nothing is open on the camera-ready.
+
+## 2026-11-18: answers for the updated Responsible NLP checklist (EACL form change)
+
+EACL updated the camera-ready form's checklist on 2026-11-18; eleven required fields were added or renumbered and must be filled by 2026-11-26 AoE. Answers drafted here against the camera-ready PDF (eb1eb70); Mao's decisions on the two flagged fields were taken by the maospace session through AskUserQuestion and relayed to this session. Mao fills the form himself.
+
+- A1 potential risks: Yes. "Discussed in the Ethical Considerations section"
+- B1 cite creators: Yes. "Models are cited in the Table 4 caption (Appendix C); vLLM is cited in Section 4.3"
+- B2 license: Yes. "Ethical Considerations: code and annotations are released for research use, consistent with each platform's terms of service and the research-use licenses of the open-weight models evaluated."
+- B3 personally identifying information: Yes. "Ethical Considerations: validation annotations are keyed to hashed post identifiers; no individual-level inferred labels tied to identities are released."
+- B4 offensive content: Yes. "Ethical Considerations: we release labels keyed to hashed identifiers rather than a redistributed corpus of raw posts, so we do not amplify any offensive content the original posts may contain."
+- B5 documentation: Yes. "Section 3 and Appendix A"
+- C1 model size and budget: Yes (Mao's decision). "Parameter counts are in Table 4 (Appendix C) and the computing infrastructure (NVIDIA H100 GPUs, vLLM) in Section 4.3; total GPU hours are not reported."
+- C4 parameters for packages: Yes. "Section 4.3"
+- D5 annotator population: N/A, as at ARR (Mao's decision; this session had recommended No with a justification, because one coder is not an author).
+- E substantive AI assistance: Yes.
+- E1 information about AI assistance: Yes. "The author(s) used an AI model to improve writing and coding."
