@@ -79,3 +79,7 @@ Follow-ups outside the paper: the visa invitation letter is requested through th
 Mao decided (relayed by the maospace session, confirmed by him in this session through AskUserQuestion): (1) Section 4.3 now points to "the Limitations and Appendix D" for run-to-run stability, since Section 4.4 has no stability analysis; (2) Limitations item 3 reports the ten-sample, eight-model figure from Appendix D (all ten labels agree in 48% to 95% of cells) in place of the three-seed, two-model flip rates. I had recommended keeping the three-seed figures, which two reviewers praised and which are accurate; Mao chose the replacement. The three-seed results remain in `seed_stability_summary.json`.
 
 Layout unchanged: 17 pages, body ends on page 9, Limitations and Ethical Considerations within one page, aclpubcheck All Clear. The PDF on OpenReview (uploaded 2026-11-17) is now one revision behind `latex/acl_latex.pdf`; Mao re-uploads it himself.
+
+## 2026-11-18: revised camera-ready re-uploaded and verified
+
+Mao replaced the PDF on OpenReview (record modified 2026-11-18 04:54 UTC). Checked through the API: the uploaded file is byte-identical to `latex/acl_latex.pdf` at commit eb1eb70 (352,424 bytes, sha256 c31244c188eb1bd6...); only the `pdf` field changed, every other form field is as submitted on 2026-11-17. The paper on OpenReview and the repository now match. Nothing is open on the camera-ready.
