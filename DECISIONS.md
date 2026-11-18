@@ -57,3 +57,7 @@ All three authors' OpenReview profiles carry an ORCID (checked through the OpenR
 ## 2026-11-17: Figures 1 and 2 enlarged to 0.9 of the page width
 
 The two main-text figures had been 0.46 of the page width since the reviewed submission (not a camera-ready change), and their legends were hard to read. Mao decided (AskUserQuestion) to enlarge both to 0.9 of the page width. Images, captions and text are unchanged. The body now ends on page 9 (limit 9), Limitations and Ethical Considerations run to page 10; aclpubcheck prints All Clear.
+
+## 2026-11-17: Limitations as a numbered list, four supporting clauses cut
+
+Mao: the Limitations section was long and its run-in bold labels read badly. It now opens "We acknowledge several limitations." and lists five numbered items (nesting and the authored brief; verbalized confidence and prompt length; stochastic decoding and the cross-sample comparison; the gold standard and the text-only sub-study; platforms, period and the single aligned model). Mao chose (AskUserQuestion) to cut four supporting clauses, listed in `review/change-map.md` row 30; the three additions promised to reviewers and the three-seed numbers stay. Limitations and Ethical Considerations together now take under one page; aclpubcheck prints All Clear.

@@ -5,7 +5,7 @@ def load(p):
     t=re.sub(r'-\n(?=[a-z])','',t); t=re.sub(r'\s+',' ',t)
     return t
 def parts(t):
-    a=t.find('Abstract'); l=t.rfind(' Limitations Several'); e=t.find(' Ethical Considerations This study',l); r=t.find(' References Emily Allaway',e)
+    a=t.find('Abstract'); l=max(t.rfind(' Limitations Several'),t.rfind(' Limitations We acknowledge')); e=t.find(' Ethical Considerations This study',l); r=t.find(' References Emily Allaway',e)
     ack=t.find(' Acknowledgments ',e)
     ap=t.find('A Data Collection',r)
     return {'body (abstract to conclusion)':t[a:l],'limitations':t[l:e],'ethics':t[e:(ack if 0<ack<r else r)],'appendix':t[ap:]}

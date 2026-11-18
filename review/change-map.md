@@ -76,6 +76,7 @@ left in appendix tables), and the sentence listing the full-context gaps in 6.1.
 | 27 | Acknowledgments | none | "We thank Qing Ren for annotating the validation set." | (c) |
 | 28 | References | see `review/reference-check.csv` | bib corrections only | (b) |
 | 29 | Figures 1 and 2 | width 0.46 of the page width (as in the reviewed PDF) | width 0.9 of the page width; images and captions unchanged | (c) format; Mao's decision of 2026-11-17, the legends were too small to read. Body now ends on page 9 of 9 |
+| 30 | Limitations, form and length | one paragraph with bold run-in labels (Design, Measurement, Evaluation target, Scope) | "We acknowledge several limitations." followed by five numbered items; four supporting clauses removed: "it standardizes situational information but may not reflect what readers encounter and could prime topical cues"; "though under either reading the rise is the failure mode our within-condition analyses are designed to guard against"; "meaningful but bounded noise, an order of magnitude smaller than the condition and confidence effects we report"; "Finally, the internal mechanisms by which models generate verbalized confidence remain opaque." Item 5 opens "The study covers two platforms" | (c) format and length; Mao's instruction and choice of 2026-11-17. The three additions promised to reviewers stay |
 
 Counts: class (a) 17, class (b) 8 (two shared with a), class (c) 4, class (d) 0 remaining.
 
