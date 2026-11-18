@@ -75,6 +75,7 @@ left in appendix tables), and the sentence listing the full-context gaps in 6.1.
 | 26 | Ethical Considerations | "performed by three of the authors, who have experience in political content analysis, as part of their regular research duties" | "performed by two of the authors and one research collaborator, all with experience in political content analysis" | (b) and (c) the third label coder is not an author |
 | 27 | Acknowledgments | none | "We thank Qing Ren for annotating the validation set." | (c) |
 | 28 | References | see `review/reference-check.csv` | bib corrections only | (b) |
+| 29 | Figures 1 and 2 | width 0.46 of the page width (as in the reviewed PDF) | width 0.9 of the page width; images and captions unchanged | (c) format; Mao's decision of 2026-11-17, the legends were too small to read. Body now ends on page 9 of 9 |
 
 Counts: class (a) 17, class (b) 8 (two shared with a), class (c) 4, class (d) 0 remaining.
 

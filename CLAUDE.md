@@ -125,7 +125,8 @@ scripts were validated on the current venv.
 
 Accepted as a Main Conference paper (Submission 354); camera-ready due 2026-11-26 AoE, Mao submits.
 Decisions are in `DECISIONS.md` (2026-11-13). Build: `cd latex && latexmk -pdf acl_latex.tex`
-(`\usepackage[final]{acl}`; body ends on page 8, limit 9).
+(`\usepackage[final]{acl}`; body ends on page 9 of 9 since Figures 1 and 2 were enlarged on
+2026-11-17, so any added main-text line needs a page check).
 
 - Reference checks live in `review/reference-check.csv` (one row per cited key, external source,
   claim rating, resolution of the Codex pass). Any new or changed citation gets a row and a fetched

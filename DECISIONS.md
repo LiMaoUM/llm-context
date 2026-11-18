@@ -53,3 +53,7 @@ Paper: numbers updated in 3.3, 5.5, Table 2 and the appendix per-coder table; "t
 ## 2026-11-15: ORCIDs present; Shengteng Yang listed at UTHealth Houston
 
 All three authors' OpenReview profiles carry an ORCID (checked through the OpenReview API on 2026-11-15), so the camera-ready form can be completed. Shengteng Yang's profile and the EACL submission record give The University of Texas Health Science Center at Houston as her current institution (PhD student since 2025; MS at Michigan 2023 to 2025). Mao decided (AskUserQuestion) to list her there. Her email in the paper stays yshengte@umich.edu, the domain of her preferred address on OpenReview; no UTHealth address was found.
+
+## 2026-11-17: Figures 1 and 2 enlarged to 0.9 of the page width
+
+The two main-text figures had been 0.46 of the page width since the reviewed submission (not a camera-ready change), and their legends were hard to read. Mao decided (AskUserQuestion) to enlarge both to 0.9 of the page width. Images, captions and text are unchanged. The body now ends on page 9 (limit 9), Limitations and Ethical Considerations run to page 10; aclpubcheck prints All Clear.
