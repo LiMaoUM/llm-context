@@ -99,3 +99,7 @@ EACL updated the camera-ready form's checklist on 2026-11-18; eleven required fi
 - D5 annotator population: N/A, as at ARR (Mao's decision; this session had recommended No with a justification, because one coder is not an author).
 - E substantive AI assistance: Yes.
 - E1 information about AI assistance: Yes. "The author(s) used an AI model to improve writing and coding."
+
+## 2026-11-18: updated checklist filled by Mao; verified through the OpenReview API
+
+Record modified 2026-11-18 17:23 UTC. The PDF is unchanged (352,424 bytes, sha256 c31244c188eb1bd6...). No previously filled field was lost. Ten of the eleven new fields carry the agreed answers (A1, B1 to B5, C4, E, E1 Yes with their elaborations; D5 N/A). One discrepancy: C1 is Yes with "Parameter counts are in Table 4 (Appendix C) and the computing infrastructure (NVIDIA H100 GPUs, vLLM) in Section 4.3." and lacks the agreed closing clause "total GPU hours are not reported". Put to Mao the same day.
